@@ -1,0 +1,62 @@
+.index-container {
+    width: 100%;
+    background-color: rgba($white-color, .65);
+    border-radius: 5px;
+    margin-top: 20px;
+    .index-body {
+        padding: 10px;
+        .card {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            &-item {
+                width: 33%;
+                padding: 10px;
+                &-inner {
+                    background-color: $white-color;
+                    border-radius: 5px;
+                    overflow: hidden;
+                    .card-img {
+                        background-color: steelblue;
+                        img {
+                            width: 100%;
+                        }
+                    }
+                    .card-body {
+                        h3 {
+                            padding: 10px;
+                        }
+                        p {
+                            padding: 10px;
+                            font-size: 14px;
+                        }
+                    }
+                    .card-footer {
+                        display: flex;
+                        align-items: center;
+                        .footer-left {
+                            width: 50%;
+                            background-color: tan;
+                            text-align: center;
+                            height: 40px;
+                            line-height: 40px;
+                        }
+                        .footer-right {
+                            width: 50%;
+                            text-align: center;
+                            height: 40px;
+                            line-height: 40px;
+                            background-color: cadetblue;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.index-carousel {
+    width: 100%;
+    background-color: rgba($white-color, .65);
+    border-radius: 5px;
+}

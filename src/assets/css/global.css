@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1199px;
+  margin: auto;
+}
+
+a, a:hover {
+  text-decoration: none;
+}/*# sourceMappingURL=global.css.map */

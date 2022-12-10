@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: linear-gradient(135deg, rgb(238, 114, 174) 0%, rgb(116, 120, 241) 100%);
+    background-repeat: no-repeat;
+    color: $black-color;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    padding-top: 150px;
+}
+
+a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, .45);
+}
+
+a:hover {
+    text-decoration: none;
+    color: rgba(0, 0, 0, .75);
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+.btn {
+    padding: 7px 15px;
+    background: $white-color;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, .15);
+    font-size: 16px;
+    color: rgba(0, 0, 0, .65);
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: lightskyblue;
+}
+
+.btn:disabled, .btn:disabled:hover {
+    background-color: rgba(0, 0, 0, .15);
+    cursor: not-allowed;
+}
+
+.btn-brown {
+    background-color: brown;
+    color: $white-color;
+}
+
+.btn-brown:hover {
+    background-color: brown;
+    opacity: 0.8;
+}
+
+.main-contain {
+    background-color: rgba(255, 255, 255, .25);
+    border-radius: 5px;
+    margin-bottom: 50px;
+}
+
+.contain-header {
+    border-bottom: 1px solid rgba($black-color, 0.05);
+}
+
+.page-header {
+    border-bottom: 1px solid rgba($black-color, 0.05);
+    padding: 10px;
+    color: rgba($black-color, 0.65);
+}
+
+.contain-body {
+    display: flex;
+    padding: 20px 10px 10px 10px;
+    .body-left {
+        width: 20%;
+        .index-menu {
+            li {
+                list-style-type: none;
+                max-width: 80%;
+                border-radius: 10px;
+                cursor: pointer;
+                margin-bottom: 10px;
+                border: 1px solid transparent;
+                i {
+                    margin-right: 5px;
+                }
+                a {
+                    color: rgba($black-color, 0.65);
+                    padding: 12px;
+                    display: block;
+                    height: 100%;
+                }
+                &:has(>.active) {
+                    background-color: rgba($white-color, 0.65);
+                }
+                &:hover {
+                    border: 1px solid rgba($white-color, 0.35);
+                }
+                transition: all ease .8s
+            }
+        }
+    }
+    .body-right {
+        width: 80%;
+    }
+    border-bottom: 1px solid rgba($black-color, 0.05);
+}
+
+.contain-footer {
+    padding: 15px;
+}
+
+h1.main-heading {
+    color: rgba($black-color, 0.65);
+    font-size: 20px;
+}
+
+input, input:focus, input:focus-visible {
+    width: 100%;
+    border: 1px solid rgba($black-color, 0.05);
+    border-radius: 5px;
+    padding: 10px;
+}
