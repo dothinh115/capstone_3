@@ -7,7 +7,6 @@
 body {
     background-image: linear-gradient(135deg, rgb(238, 114, 174) 0%, rgb(116, 120, 241) 100%);
     background-repeat: no-repeat;
-    color: $black-color;
     font-family: "Montserrat", sans-serif;
     font-weight: 400;
     min-height: 100vh;
@@ -37,6 +36,7 @@ a:hover {
     font-size: 16px;
     color: rgba(0, 0, 0, .65);
     cursor: pointer;
+    transition: all ease .3s;
 }
 
 .btn:hover {
@@ -102,7 +102,7 @@ a:hover {
                 &:hover {
                     border: 1px solid rgba($white-color, 0.35);
                 }
-                transition: all ease .8s
+                transition: all ease .3s
             }
         }
     }

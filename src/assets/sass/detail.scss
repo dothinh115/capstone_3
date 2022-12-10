@@ -21,6 +21,7 @@
             top: 0;
             border: 15px solid;
             border-color: transparent $white-color transparent transparent;
+            transition: all ease .3s;
         }
         button.btn:hover::after {
             border-color: transparent lightskyblue transparent transparent;

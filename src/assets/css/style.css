@@ -7,7 +7,6 @@
 body {
   background-image: linear-gradient(135deg, rgb(238, 114, 174) 0%, rgb(116, 120, 241) 100%);
   background-repeat: no-repeat;
-  color: #000;
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
   min-height: 100vh;
@@ -37,6 +36,7 @@ a:hover {
   font-size: 16px;
   color: rgba(0, 0, 0, 0.65);
   cursor: pointer;
+  transition: all ease 0.3s;
 }
 
 .btn:hover {
@@ -89,7 +89,7 @@ a:hover {
   cursor: pointer;
   margin-bottom: 10px;
   border: 1px solid transparent;
-  transition: all ease 0.8s;
+  transition: all ease 0.3s;
 }
 .contain-body .body-left .index-menu li i {
   margin-right: 5px;
@@ -241,6 +241,7 @@ input, input:focus, input:focus-visible {
   top: 0;
   border: 15px solid;
   border-color: transparent #fff transparent transparent;
+  transition: all ease 0.3s;
 }
 .detail-container .page-header button.btn:hover::after {
   border-color: transparent lightskyblue transparent transparent;
