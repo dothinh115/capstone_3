@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink, useNavigate, useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import axios from 'axios'
 
 const Detail = () => {
@@ -9,8 +9,6 @@ const Detail = () => {
   const { productId } = useParams();
 
   const [number, setNumber] = useState(1);
-
-  const navigate = useNavigate();
 
   const fetchData = async () => {
     try {
@@ -32,16 +30,13 @@ const Detail = () => {
 
   return (
     <>
-      <div className="detail-container">
+      <div className="detail-container main-container">
         <div className="page-header">
-          <button className="btn" onClick={e => navigate(-1)}>
-            Quay lại
-          </button>
           <h1>
             {productInfo.name} - <span>${productInfo.price}</span>
           </h1>
         </div>
-        <div className="detail-body">
+        <div className="detail-body main-body">
           <div className="detail-body-left">
             <img src={productInfo.image} alt="" />
           </div>
@@ -50,7 +45,7 @@ const Detail = () => {
               {productInfo.description}
             </p>
             <h1>
-              Available size
+              Size có sẵn
             </h1>
             <div className="detail-body-size">
               <ul>
@@ -77,16 +72,16 @@ const Detail = () => {
               </button>
             </div>
             <button className="btn btn-brown">
-              ADD TO CART
+              Thêm vào giỏ
             </button>
           </div>
         </div>
       </div>
 
-      <div className="related-product">
+      <div className="related-product main-container">
           <div className="page-header">
             <h1>
-              Related products
+              Sản phẩm tương tự
             </h1>
           </div>
           <div className="related-product-body">

@@ -1,0 +1,25 @@
+.register-form {
+    & div:not(div.item, div.form-error) {
+        margin-top: 10px;
+    }
+    &-main {
+        .item {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            &-left {
+                width: 20%;
+                color: rgba(#000, .65);
+            }
+            &-right {
+                width: 60%;
+            }
+        }
+    }
+    .form-button {
+        button {
+            margin-right: 10px;
+        }
+    }
+}

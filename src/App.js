@@ -1,4 +1,5 @@
 import './assets/css/style.css';
+import 'animate.css';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Homtemplate from './templates/Homtemplate';
 import Index from './components/Index';
@@ -19,8 +20,8 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/detail/:productId' element={<Detail />} />
           <Route path='/search' element={<Search />} />
-          <Route path='/profile/:userId/edit' element={<Edit />} />
-          <Route path='/profile/:userId' element={<Profile />} />
+          <Route path='/profile/edit' element={<Edit />} />
+          <Route path='/profile' element={<Profile />} />
           <Route path='*' element={<Navigate to='/' /> } />
         </Route>
       </Routes>

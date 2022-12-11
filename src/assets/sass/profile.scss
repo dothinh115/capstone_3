@@ -1,0 +1,39 @@
+.profile-body {
+    .main-body-inner {
+        display: flex;
+        &-left {
+            width: 30%;
+            padding: 10px;
+            border-right: 1px solid #ccc;
+            text-align: center;
+            img {
+                width: 80%;
+                border-radius: 5px;
+            }
+        }
+        &-right {
+            width: 70%;
+            padding: 10px;
+            .item {
+                margin-bottom: 20px;
+                display: flex;
+                .inner-left {
+                    width: 50%;
+                }
+                .inner-right {
+                    width: 50%;
+                }
+                span {
+                    padding: 5px;
+                    background-color: rgba(brown, 0.65);
+                    border-radius: 5px;
+                    color: #fff;
+                    text-align: center;
+                    i {
+                        margin: unset;
+                    }
+                }
+            }
+        }
+    }
+}

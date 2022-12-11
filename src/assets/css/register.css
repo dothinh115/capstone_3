@@ -1,1 +1,19 @@
-/*# sourceMappingURL=register.css.map */
+.register-form div:not(div.item, div.form-error) {
+  margin-top: 10px;
+}
+.register-form-main .item {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.register-form-main .item-left {
+  width: 20%;
+  color: rgba(0, 0, 0, 0.65);
+}
+.register-form-main .item-right {
+  width: 60%;
+}
+.register-form .form-button button {
+  margin-right: 10px;
+}/*# sourceMappingURL=register.css.map */

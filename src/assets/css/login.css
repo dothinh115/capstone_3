@@ -1,1 +1,14 @@
-/*# sourceMappingURL=login.css.map */
+.login-container .form-main div:not(div.item, div.form-error) {
+  margin-top: 10px;
+}
+.login-container .form-main .item {
+  display: flex;
+  align-items: center;
+}
+.login-container .form-main .item-left {
+  width: 20%;
+  color: rgba(0, 0, 0, 0.65);
+}
+.login-container .form-main .item-right {
+  width: 60%;
+}/*# sourceMappingURL=login.css.map */

@@ -1,10 +1,6 @@
 .index-container {
-    width: 100%;
-    background-color: rgba($white-color, .65);
-    border-radius: 5px;
     margin-top: 20px;
     .index-body {
-        padding: 10px;
         .card {
             display: flex;
             justify-content: space-between;
@@ -53,10 +49,4 @@
             }
         }
     }
-}
-
-.index-carousel {
-    width: 100%;
-    background-color: rgba($white-color, .65);
-    border-radius: 5px;
 }

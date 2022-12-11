@@ -1,1 +1,64 @@
-/*# sourceMappingURL=carousel.css.map */
+.index-carousel .slick-prev {
+  left: 0;
+  z-index: 1;
+  background-image: url("../img/Polygon2.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: left center;
+  width: 60px;
+  height: 60px;
+}
+.index-carousel .slick-prev::before {
+  content: "";
+}
+.index-carousel .slick-next {
+  right: 0;
+  z-index: 1;
+  background-image: url("../img/Polygon1.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right center;
+  width: 60px;
+  height: 60px;
+}
+.index-carousel .slick-next::before {
+  content: "";
+}
+.index-carousel .slick-dots {
+  bottom: 25px;
+}
+.index-carousel .slider-item {
+  display: flex !important;
+  padding: 20px;
+}
+.index-carousel .slider-item-left {
+  width: 70%;
+  padding: 20px;
+}
+.index-carousel .slider-item-left-inner {
+  background-color: rgba(102, 51, 153, 0.5);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.index-carousel .slider-item-left-inner img {
+  width: 55%;
+  margin: auto;
+}
+.index-carousel .slider-item-right {
+  width: 45%;
+  padding: 20px;
+}
+.index-carousel .slider-item-right ul li {
+  list-style-type: none;
+  border: 5px solid rgba(255, 255, 255, 0.25);
+  background-color: rgba(255, 228, 196, 0.8);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  color: rgba(0, 0, 0, 0.55);
+  font-size: 20px;
+  font-weight: 500;
+}
+.index-carousel .slider-item-right ul li i {
+  color: violet;
+}/*# sourceMappingURL=carousel.css.map */
