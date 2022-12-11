@@ -60,7 +60,7 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    !getLocalStorage()?.email && navigate("/login");
+    !getLocalStorage()?.accessToken && navigate("/login");
     currentUser.accessToken && getProductFavorite();
   }, [currentUser, userData]);
   return (

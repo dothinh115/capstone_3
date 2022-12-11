@@ -113,7 +113,7 @@ const Edit = () => {
   }
 
   useEffect(() => {
-    !getLocalStorage().email && navigate("/login");
+    !getLocalStorage().accessToken && navigate("/login");
     // for (let key in dataValue) {
     //   setDataValue({
     //     ...dataValue,
