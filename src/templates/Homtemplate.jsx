@@ -8,7 +8,6 @@ import { loginUpdate, userDataUpdate } from '../redux/actions/userActions'
 
 const Homtemplate = () => {
   const userInfo = useSelector(store => store.user);
-
   const dispatch = useDispatch();
 
   const getUserInfo = async () => {
@@ -66,12 +65,6 @@ const Homtemplate = () => {
     }
   }, [userInfo]);
 
-  useEffect(()=> {
-    if(userInfo.accessToken) {
-      getUserInfo();
-    }
-  }, [userInfo]);
-
   return (
     <div className="container main-contain">
       <div className="contain-header">
@@ -86,13 +79,19 @@ const Homtemplate = () => {
             <li>
               <NavLink to="/">
                 <i className="fa-solid fa-house"></i>
-                Home
+                Trang chủ
               </NavLink>
             </li>
             <li>
               <NavLink to="/search">
                 <i className="fa-solid fa-magnifying-glass"></i>
-                Search
+                Tìm kiếm
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/cart">
+                <i className="fa-solid fa-cart-shopping"></i>
+                Giỏ hàng
               </NavLink>
             </li>
           </ul>

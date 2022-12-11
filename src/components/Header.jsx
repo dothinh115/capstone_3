@@ -5,15 +5,11 @@ import { NavLink } from 'react-router-dom'
 const Header = () => {
   const userData = useSelector(store => store.userData);
   const loggedIn = useSelector(store => store.user);
-  
-  const reloadPage = () => {
-    window.location.reload(false);
-  }
 
   const logoutHandle = e => {
     e.preventDefault();
     setLocalStorage();
-    reloadPage();
+    window.location.href = "/";
   }
 
   const setLocalStorage = () => {

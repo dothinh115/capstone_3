@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios'
+import { useSelector } from 'react-redux';
+import { memo } from 'react';
+import Item from './Item';
 
 const Detail = () => {
 
@@ -10,7 +13,18 @@ const Detail = () => {
 
   const [number, setNumber] = useState(1);
 
+  const navigate = useNavigate();
+
+  const [productFavorite, setProductFavorite] = useState([]);
+
+  const [like, setLike] = useState(false);
+
+  const currentUser = useSelector(store => store.user);
+
+  const [loading, setLoading] = useState(false);
+
   const fetchData = async () => {
+    setLoading(true);
     try {
       const fetch = await axios({
         url: `https://shop.cyberlearn.vn/api/Product/getbyid?id=${productId}`,
@@ -21,24 +35,92 @@ const Detail = () => {
     }
     catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
+  }
+
+  const sendLike = async (bool) => {
+    setLoading(true);
+    try {
+      const fetch = await axios({
+        url: `https://shop.cyberlearn.vn/api/Users/${bool ? "like" : "unlike"}?productId=${productId}`,
+        method: "GET",
+        dataType: "application/json",
+        headers: {
+          "Authorization": `Bearer ${currentUser.accessToken}`
+        }
+      });
+      getProductFavorite();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const getProductFavorite = async () => {
+    setLoading(true);
+    try {
+      const fetch = await axios({
+        url: "https://shop.cyberlearn.vn/api/Users/getproductfavorite",
+        method: "GET",
+        dataType: "application/json",
+        headers: {
+          "Authorization": `Bearer ${currentUser.accessToken}`
+        }
+      });
+      setProductFavorite(fetch.data.content.productsFavorite);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const likeHandle = e => {
+    if(currentUser.accessToken) {
+      if(findIfLiked()) {
+        sendLike(false);
+      }
+      else {
+        sendLike(true);
+      }
+    }
+    else {
+      navigate("/login");
+    }
+    
+  }
+
+  const findIfLiked = () => {
+    const find = productFavorite.find(item => item.id == productId);
+    if(find) return true;
+    return false;
   }
 
   useEffect(() => {
     fetchData();
   }, [productId]);
 
+  useEffect(() => {
+    setLike(findIfLiked());
+  }, [productFavorite]);
+
   return (
     <>
       <div className="detail-container main-container">
         <div className="page-header">
           <h1>
-            {productInfo.name} - <span>${productInfo.price}</span>
+            {productInfo.name} - <span>${productInfo.price}</span> {loading && <div className="loader"></div>}
           </h1>
         </div>
         <div className="detail-body main-body">
           <div className="detail-body-left">
             <img src={productInfo.image} alt="" />
+            <div className="detail-like">
+              <i className="fa-regular fa-heart" onClick={e => likeHandle(e)} style={{fontWeight: like && "bold"}}></i>
+            </div>
           </div>
           <div className="detail-body-right">
             <p>
@@ -87,35 +169,7 @@ const Detail = () => {
           <div className="related-product-body">
             <div className="card">
               {productInfo.relatedProducts?.map((item, index) => {
-                return (
-                  <div key={index} className="card-item">
-                    <div className="card-item-inner">
-                      <div className="card-img">
-                        <NavLink to={`/detail/${item.id}`}>
-                          <img src={item.image} alt="" />
-                        </NavLink>
-                      </div>
-                      <div className="card-body">
-                        <h3 className="">
-                          <NavLink to={`/detail/${item.id}`}>
-                            {item.name.length > 20 ? item.name.substr(0, 20) + "..." : item.name}
-                          </NavLink>
-                        </h3>
-                        <p>
-                          {item.description.length > 90 ? item.description.substr(0, 89) + "..." : item.description}
-                        </p>
-                      </div>
-                      <div className="card-footer">
-                        <div className="footer-left">
-                          Buy Now
-                        </div>
-                        <div className="footer-right">
-                          ${item.price}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )
+                return <Item item={item} key={index} />
               })}
             </div>
           </div>
@@ -124,4 +178,4 @@ const Detail = () => {
   )
 }
 
-export default Detail
+export default memo(Detail)

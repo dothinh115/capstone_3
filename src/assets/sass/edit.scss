@@ -1,0 +1,16 @@
+.edit-container {
+    .item {
+        margin-bottom: 10px;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        &-left {
+            width: 20%;
+            color: rgba(#000, .65);
+        }
+        &-right {
+            width: 60%;
+        }
+    }
+}

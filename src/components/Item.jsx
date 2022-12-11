@@ -1,8 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { memo } from 'react'
 
 const Item = ({item}) => {
+    const navigate = useNavigate();
   return (
     <div className="card-item">
         <div className="card-item-inner">
@@ -22,8 +23,10 @@ const Item = ({item}) => {
             </p>
         </div>
         <div className="card-footer">
-            <div className="footer-left">
-            Buy Now
+            <div className="footer-left" onClick={e => {
+                navigate(`/detail/${item.id}`)
+            }}>
+                Buy Now
             </div>
             <div className="footer-right">
             ${item.price}

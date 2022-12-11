@@ -34,4 +34,41 @@
 }
 .profile-body .main-body-inner-right .item span i {
   margin: unset;
+}
+.profile-body .main-body-inner-right .item .edit-button {
+  border-radius: 5px;
+  padding: 15px;
+  background-color: rgba(219, 112, 147, 0.65);
+}
+
+.liked-product .table .thead .tr .th {
+  font-weight: bold;
+  font-size: 18px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+.liked-product .table .thead .tr .th:nth-of-type(1) {
+  width: 20%;
+  text-align: center;
+}
+.liked-product .table .thead .tr .th:nth-of-type(2), .liked-product .table .thead .tr .th:nth-of-type(3) {
+  width: 40%;
+}
+.liked-product .table .thead .tr .th:nth-of-type(3) {
+  text-align: right;
+}
+.liked-product .table .tbody .tr .td {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 5px;
+  vertical-align: middle;
+}
+.liked-product .table .tbody .tr .td:nth-of-type(1) {
+  text-align: center;
+}
+.liked-product .table .tbody .tr .td:nth-of-type(1) img {
+  width: 35%;
+  border-radius: 5px;
+  background-color: rgba(0, 128, 128, 0.65);
+}
+.liked-product .table .tbody .tr .td:nth-of-type(3) {
+  text-align: right;
 }/*# sourceMappingURL=profile.css.map */

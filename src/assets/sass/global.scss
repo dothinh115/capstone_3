@@ -153,3 +153,90 @@ i {
     font-size: 14px;
     color: rgba(red, 0.65);
 }
+
+.table {
+    display: table;
+    width: 100%;
+    .thead {
+        display: table-header-group;
+        .tr {
+            display: table-row;
+            .th {
+                display: table-cell;
+            }
+        }
+    }
+    .tbody {
+        display: table-row-group;
+        .tr {
+            display: table-row;
+            .td {
+                display: table-cell;
+            }
+        }
+    }
+}
+
+.loader {
+    border: 10px solid #f3f3f3; /* Light grey */
+    border-top: 10px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 2s linear infinite;
+    display: inline-block;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .card {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    &-item {
+        width: 33%;
+        padding: 10px;
+        &-inner {
+            background-color: $white-color;
+            border-radius: 5px;
+            overflow: hidden;
+            .card-img {
+                background-color: steelblue;
+                img {
+                    width: 100%;
+                }
+            }
+            .card-body {
+                h3 {
+                    padding: 10px;
+                }
+                p {
+                    padding: 10px;
+                    font-size: 14px;
+                }
+            }
+            .card-footer {
+                display: flex;
+                align-items: center;
+                .footer-left {
+                    width: 50%;
+                    background-color: tan;
+                    text-align: center;
+                    height: 40px;
+                    line-height: 40px;
+                    cursor: pointer;
+                }
+                .footer-right {
+                    width: 50%;
+                    text-align: center;
+                    height: 40px;
+                    line-height: 40px;
+                    background-color: cadetblue;
+                }
+            }
+        }
+    }
+}

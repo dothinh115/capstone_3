@@ -9,6 +9,7 @@ import Detail from './components/Detail';
 import Search from './components/Search';
 import Profile from './components/Profile';
 import Edit from './components/Edit';
+import Cart from './components/Cart';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/detail/:productId' element={<Detail />} />
           <Route path='/search' element={<Search />} />
+          <Route path='/cart' element={<Cart />} />
           <Route path='/profile/edit' element={<Edit />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='*' element={<Navigate to='/' /> } />

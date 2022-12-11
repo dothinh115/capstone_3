@@ -1,20 +1,20 @@
 import React from 'react'
 
-const Search = () => {
+const Cart = () => {
   return (
     <>
       <div className="main-container">
         <div className="page-header">
           <h1>
-            TÌM KIẾM
+            GIỎ HÀNG
           </h1>
         </div>
         <div className="main-body">
-          Tìm kiếm ở đây
+          Giỏ hàng ở đây
         </div>
       </div>
     </>
   )
 }
 
-export default Search
+export default Cart

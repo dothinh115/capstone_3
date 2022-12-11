@@ -1,0 +1,14 @@
+.edit-container .item {
+  margin-bottom: 10px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.edit-container .item-left {
+  width: 20%;
+  color: rgba(0, 0, 0, 0.65);
+}
+.edit-container .item-right {
+  width: 60%;
+}/*# sourceMappingURL=edit.css.map */

@@ -11,8 +11,14 @@ export const user = (state = {}, action) => {
 export const userData = (state = {}, action) => {
     switch(action.type) {
         case "UPDATE_USER_DATA": {
-            state = action.payload;
-            return state;
+            let newState = {...state};
+            for (let key in action.payload) {
+                newState = {
+                    ...newState,
+                    [key]: action.payload[key]
+                }
+            }
+            return newState;
         }
         default: return state;
     }

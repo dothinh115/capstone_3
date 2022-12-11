@@ -7,7 +7,7 @@
                 background-color: rgba(#a52a2a, .8);
                 border-radius: 4px;
                 padding: 5px;
-                color: rgba($white-color, .85);
+                color: rgba(#fff, .85);
             }
         }
     }
@@ -16,10 +16,29 @@
         &-left {
             width: 40%;
             padding: 10px;
+            position: relative;
             img {
                 width: 100%;
                 background-color: steelblue;
                 border-radius: 5px;
+            }
+            .detail-like {
+                position: absolute;
+                display: block;
+                top: 20px;
+                left: 20px;
+                font-size: 40px;
+                color: rgba(165, 42, 42, 0.8);
+                i {
+                    cursor: pointer;
+                    margin: unset;
+                    background-color: rgba(white, .65);
+                    border-radius: 8px;
+                    padding: 3px;
+                }
+                i:hover {
+                    font-weight: bold;
+                }
             }
         }
         &-right {
@@ -68,7 +87,7 @@
             width: 33%;
             padding: 10px;
             &-inner {
-                background-color: $white-color;
+                background-color: #fff;
                 border-radius: 5px;
                 overflow: hidden;
                 .card-img {

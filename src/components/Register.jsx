@@ -107,13 +107,13 @@ const Register = () => {
     if(res) {
       return (
         <>
-          <i class="fa-solid fa-check" style={{color: "green"}}></i>Đăng ký thành công, {<Link to="/login"><i className="fa-solid fa-arrow-right"></i>bấm vào đây</Link>} để đăng nhập!!
+          <i className="fa-solid fa-check" style={{color: "green"}}></i>Đăng ký thành công, {<Link to="/login"><i className="fa-solid fa-arrow-right"></i>bấm vào đây</Link>} để đăng nhập!!
         </>
       )
     }
     return (
       <>
-        <i class="fa-solid fa-circle-exclamation" style={{color: "red"}}></i> 
+        <i className="fa-solid fa-circle-exclamation" style={{color: "red"}}></i> 
         {result.message}
       </>
     ) 
