@@ -21,7 +21,7 @@
                     height: 100%;
                     padding: 4px;
                 }
-                a:hover {
+                a:hover, a.active {
                     background-color: rgba($white-color, .5);
                     border-radius: 4px;
                 }

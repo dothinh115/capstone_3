@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import useToken from './Hooks/useToken';
 
 const Profile = () => {
-  const currentUser = useSelector(store => store.user);
+  const token = useToken();
 
   const userData = useSelector(store => store.userData);
 
@@ -22,7 +23,7 @@ const Profile = () => {
         method: "GET",
         dataType: "application/json",
         headers: {
-          "Authorization": `Bearer ${currentUser.accessToken}`
+          "Authorization": `Bearer ${token}`
         }
       });
       setProductFavorite(fetch.data.content.productsFavorite);
@@ -41,7 +42,7 @@ const Profile = () => {
         method: "GET",
         dataType: "application/json",
         headers: {
-          "Authorization": `Bearer ${currentUser.accessToken}`
+          "Authorization": `Bearer ${token}`
         }
       });
       getProductFavorite();
@@ -51,18 +52,16 @@ const Profile = () => {
       setLoading(false);
     }
   } 
-  const getLocalStorage = () => {
-    let data = localStorage.getItem("loginInfo");
-    if(data) {
-      data = JSON.parse(data);
-      return data;
-    }
-  }
 
   useEffect(() => {
-    !getLocalStorage()?.accessToken && navigate("/login");
-    currentUser.accessToken && getProductFavorite();
-  }, [currentUser, userData]);
+    if(token) {
+      getProductFavorite();
+    }
+    else {
+      navigate("/login");
+    }
+
+  }, [userData]);
   return (
     <>
       <div className="main-container">

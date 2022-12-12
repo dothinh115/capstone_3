@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { NavLink, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios'
-import { useSelector } from 'react-redux';
 import { memo } from 'react';
 import Item from './Item';
+import useToken from './Hooks/useToken';
 
 const Detail = () => {
 
   const [productInfo, setProductInfo] = useState({});
+
+  const token = useToken();
 
   const { productId } = useParams();
 
@@ -18,8 +20,6 @@ const Detail = () => {
   const [productFavorite, setProductFavorite] = useState([]);
 
   const [like, setLike] = useState(false);
-
-  const currentUser = useSelector(store => store.user);
 
   const [loading, setLoading] = useState(false);
 
@@ -48,7 +48,7 @@ const Detail = () => {
         method: "GET",
         dataType: "application/json",
         headers: {
-          "Authorization": `Bearer ${currentUser.accessToken}`
+          "Authorization": `Bearer ${token}`
         }
       });
       getProductFavorite();
@@ -67,7 +67,7 @@ const Detail = () => {
         method: "GET",
         dataType: "application/json",
         headers: {
-          "Authorization": `Bearer ${currentUser.accessToken}`
+          "Authorization": `Bearer ${token}`
         }
       });
       setProductFavorite(fetch.data.content.productsFavorite);
@@ -79,7 +79,7 @@ const Detail = () => {
   }
 
   const likeHandle = e => {
-    if(currentUser.accessToken) {
+    if(token) {
       if(findIfLiked()) {
         sendLike(false);
       }
@@ -101,6 +101,7 @@ const Detail = () => {
 
   useEffect(() => {
     fetchData();
+    getProductFavorite();
   }, [productId]);
 
   useEffect(() => {

@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import useToken from './Hooks/useToken';
+import useUpdateUser from './Hooks/useUpdateUser';
 
 const Login = () => {
-  const currentUser = useSelector(store => store.user);
+  const token = useToken();
+
+  const userUpdateFunc = useUpdateUser();
 
   const navigate = useNavigate();
-
-  const reloadPage = () => {
-    window.location.reload(false);
-  }
 
   const [loginValue, setLoginValue] = useState({
     email: "",
@@ -23,6 +22,8 @@ const Login = () => {
   });
 
   const [valid, setValid] = useState(false);
+
+  const [result, setResult] = useState("");
 
   const checkValid = () => {
     for (let key in loginValue) {
@@ -74,9 +75,10 @@ const Login = () => {
         data: loginValue
       });
       setLocalStorage(fetch.data.content);
-      reloadPage();
+      userUpdateFunc();
+      navigate("/");
     } catch (err) {
-      console.log(err)
+      setResult(err.response.data.message);
     }
   }
 
@@ -88,12 +90,25 @@ const Login = () => {
   }
 
   useEffect(() => {
-    currentUser.accessToken && navigate("/");
-  }, [currentUser]);
+    token && navigate("/");
+  }, []);
 
   return (
     <>
-      <div className="main-container">
+      {result && <div className="main-container">
+        <div className="page-header">
+          <h1>
+            THÔNG BÁO
+          </h1>
+        </div>
+        <div className="main-body">
+          <p>
+            <i className="fa-solid fa-circle-exclamation" style={{color: "red"}}></i>
+            {result}
+          </p>
+        </div>
+      </div>}
+      <div className="main-container" style={{marginTop: result && "20px"}}>
         <div className="page-header">
           <h1>
             ĐĂNG NHẬP

@@ -1,16 +1,15 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
-import { userDataUpdate } from '../redux/actions/userActions';
+import useToken from './Hooks/useToken';
+import useUpdateUser from './Hooks/useUpdateUser';
+import dataConfig from '../templates/dataConfig';
 
 const Edit = () => {
-  const currentUser = useSelector(store => store.user);
-
+  const token = useToken();
+  const userUpdateFunc = useUpdateUser();
   const userInfo = useSelector(store => store.userData);
-
-  const dispatch = useDispatch();
-
   const navigate = useNavigate();
 
   const [dataValue, setDataValue] = useState({
@@ -31,13 +30,7 @@ const Edit = () => {
 
   const [valid, setValid] = useState(false);
 
-  const dataConfig = {
-    id: ["email", "password", "name", "gender", "phone"],
-    name: ["Email", "Password", "Họ tên", "Giới tính", "Số điện thoại"],
-    errorMessage: ["Email phải đúng định dạng!", "Passworld không hợp lệ!", "Tên chỉ được điền chữ!", "Giới tính phải được chọn!", "Số điện thoại chỉ được điền số!"],
-    icon: ["envelope", "lock", "file-signature", "venus-mars", "phone"],
-    reg: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{0,}$/, "^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶ" + "ẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợ" + "ụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]+$", "^([Tt][Rr][Uu][Ee]|[Ff][Aa][Ll][Ss][Ee])$", /^[0-9]+$/]
-  }
+  const [message, setMessage] = useState('');
 
   const checkValid = () => {
     for (let key in dataValue) {
@@ -95,25 +88,18 @@ const Edit = () => {
         dataType: "application/json",
         data: dataValue,
         headers: {
-          "Authorization": `Bearer ${currentUser.accessToken}`
+          "Authorization": `Bearer ${token}`
         }
       });
-      window.location.reload(false);
+      userUpdateFunc();
+      setMessage("Chỉnh sửa thông tin thành công");
     } catch (error) {
       console.log(error);
     }
   }
 
-  const getLocalStorage = () => {
-    let data = localStorage.getItem("loginInfo");
-    if(data) {
-      data = JSON.parse(data);
-      return data;
-    }
-  }
-
   useEffect(() => {
-    !getLocalStorage().accessToken && navigate("/login");
+    !token && navigate("/login");
     // for (let key in dataValue) {
     //   setDataValue({
     //     ...dataValue,
@@ -127,7 +113,7 @@ const Edit = () => {
       email: userInfo.email,
       phone: userInfo.phone
     })
-  }, [currentUser, userInfo]);
+  }, [userInfo]);
 
   useEffect(() => {
     setValid(checkValid());
@@ -135,7 +121,18 @@ const Edit = () => {
 
   return (
     <>
-      <div className="main-container">
+    {message && <div className="main-container">
+      <div className="page-header">
+        <h1>
+          Thông báo
+        </h1>
+      </div>
+      <div className="main-body">
+        <i className="fa-solid fa-check" style={{color: "green"}}></i>
+        {message}
+      </div>
+    </div>}
+      <div className="main-container" style={{marginTop: message && "20px"}}>
         <div className="page-header">
           <h1>
             Chỉnh sửa thông tin cá nhân - {userInfo.name}

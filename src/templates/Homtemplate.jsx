@@ -1,31 +1,15 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { NavLink, Outlet } from 'react-router-dom'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import axios from 'axios'
-import { loginUpdate, userDataUpdate } from '../redux/actions/userActions'
+import { loginUpdate } from '../redux/actions/userActions'
+import useUpdateUser from '../components/Hooks/useUpdateUser'
 
 const Homtemplate = () => {
-  const userInfo = useSelector(store => store.user);
   const dispatch = useDispatch();
-
-  const getUserInfo = async () => {
-    try {
-      const fetch = await axios({
-        url: "https://shop.cyberlearn.vn/api/Users/getProfile",
-        method: "POST",
-        dataType: "application/json",
-        headers: {
-          "Authorization": `Bearer ${userInfo.accessToken}`
-        }
-      });
-      const action = userDataUpdate(fetch.data.content);
-      dispatch(action);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  const updateUserFunc = useUpdateUser();
 
   const fetchData = async () => {
     try {
@@ -57,13 +41,8 @@ const Homtemplate = () => {
   useEffect(() => {
     fetchData();
     getLocalStorage();
+    updateUserFunc();
   }, []);
-
-  useEffect(()=> {
-    if(userInfo.accessToken) {
-      getUserInfo();
-    }
-  }, [userInfo]);
 
   return (
     <div className="container main-contain">

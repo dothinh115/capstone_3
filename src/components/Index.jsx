@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Carousel from './Carousel'
 import Item from './Item';
 import { useSelector } from 'react-redux';
+import useUpdateUser from './Hooks/useUpdateUser';
 
 const Index = () => {
   const indexData = useSelector(store => store.data);
-
+  const userUpdateFunc = useUpdateUser();
+  useEffect(() => {
+    userUpdateFunc();
+  }, []);
   return (
     <>
       <div className="index-carousel main-container">

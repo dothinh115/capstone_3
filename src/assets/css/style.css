@@ -16,6 +16,7 @@ body {
 a {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.45);
+  transition: all 0.5s ease;
 }
 
 a:hover {
@@ -44,8 +45,9 @@ a:hover {
 }
 
 .btn:disabled, .btn:disabled:hover {
-  background-color: rgba(0, 0, 0, 0.15);
+  opacity: 0.5;
   cursor: not-allowed;
+  background-color: #fff;
 }
 
 .btn-brown {
@@ -114,7 +116,7 @@ a:hover {
   padding: 15px;
 }
 
-h1.main-heading {
+.page-header h1 {
   color: rgba(0, 0, 0, 0.65);
   font-size: 20px;
 }
@@ -271,7 +273,7 @@ i {
   height: 100%;
   padding: 4px;
 }
-.header-menu ul li a:hover {
+.header-menu ul li a:hover, .header-menu ul li a.active {
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 4px;
 }

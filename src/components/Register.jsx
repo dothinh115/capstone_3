@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import useToken from './Hooks/useToken';
+import dataConfig from '../templates/dataConfig';
 
 const Register = () => {
-  const currentUser = useSelector(store => store.user);
+  const token = useToken()
 
   const navigate = useNavigate();
 
@@ -31,17 +32,9 @@ const Register = () => {
 
   const [valid, setValid] = useState(false);
 
-  const dataConfig = {
-    id: ["email", "password", "name", "gender", "phone"],
-    name: ["Email", "Password", "Họ tên", "Giới tính", "Số điện thoại"],
-    errorMessage: ["Email phải đúng định dạng!", "Passworld không hợp lệ!", "Tên chỉ được điền chữ!", "Giới tính phải được chọn!", "Số điện thoại chỉ được điền số!"],
-    icon: ["envelope", "lock", "file-signature", "venus-mars", "phone"],
-    reg: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{0,}$/, "^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶ" + "ẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợ" + "ụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]+$", "^([Tt][Rr][Uu][Ee]|[Ff][Aa][Ll][Ss][Ee])$", /^[0-9]+$/]
-  }
-
   const checkValid = () => {
     for (let key in dataValue) {
-      if(dataValue[key] === "" || error[key] !== ""){
+      if (dataValue[key] === "" || error[key] !== "") {
         return false;
       }
     }
@@ -49,24 +42,23 @@ const Register = () => {
   }
 
   const inputChangeHandle = e => {
-    const {value} = e.target;
+    const { value } = e.target;
     const id = e.target.getAttribute("data-id");
     let errMess = "";
-    if(value.trim() === "") {
+    if (value.trim() === "") {
       errMess = "Không được để trống!";
     }
     else {
       for (let key in dataConfig.id) {
         switch (id) {
           case dataConfig.id[key]: {
-            if(!value.match(dataConfig.reg[key])){
+            if (!value.match(dataConfig.reg[key])) {
               errMess = dataConfig.errorMessage[key];
             }
           }
         }
       }
     }
-
     setError({
       ...error,
       [id]: errMess
@@ -76,8 +68,6 @@ const Register = () => {
       ...dataValue,
       [id]: value
     });
-
-    setValid(checkValid());
   }
 
   const sendData = async () => {
@@ -104,19 +94,19 @@ const Register = () => {
   }
 
   const showResult = res => {
-    if(res) {
+    if (res) {
       return (
         <>
-          <i className="fa-solid fa-check" style={{color: "green"}}></i>Đăng ký thành công, {<Link to="/login"><i className="fa-solid fa-arrow-right"></i>bấm vào đây</Link>} để đăng nhập!!
+          <i className="fa-solid fa-check" style={{ color: "green" }}></i>Đăng ký thành công, {<Link to="/login"><i className="fa-solid fa-arrow-right"></i>bấm vào đây</Link>} để đăng nhập!!
         </>
       )
     }
     return (
       <>
-        <i className="fa-solid fa-circle-exclamation" style={{color: "red"}}></i> 
+        <i className="fa-solid fa-circle-exclamation" style={{ color: "red" }}></i>
         {result.message}
       </>
-    ) 
+    )
   }
 
   const resetButtonHandle = e => {
@@ -138,28 +128,32 @@ const Register = () => {
   }
 
   const regButtonHandle = e => {
-    if(checkValid()){
+    if (checkValid()) {
       sendData();
     }
   }
 
   useEffect(() => {
-    currentUser.accessToken && navigate("/");
-  }, [currentUser]);
+    token && navigate("/");
+  }, []);
+
+  useEffect(() => {
+    setValid(checkValid());
+  }, [dataValue])
 
   return (
     <>
-    {result.message && <div className="main-container">
-      <div className="page-header">
-        <h1>
-          THÔNG BÁO
-        </h1>
-      </div>
-      <div className="main-body">
-        {showResult(result.result)}
-      </div>
-    </div>}
-      <div className="main-container" style={{marginTop: result.message && "20px"}}>
+      {result.message && <div className="main-container">
+        <div className="page-header">
+          <h1>
+            THÔNG BÁO
+          </h1>
+        </div>
+        <div className="main-body">
+          {showResult(result.result)}
+        </div>
+      </div>}
+      <div className="main-container" style={{ marginTop: result.message && "20px" }}>
         <div className="page-header">
           <h1>
             ĐĂNG KÝ TÀI KHOẢN
@@ -188,10 +182,10 @@ const Register = () => {
                           <option value="false">
                             Nữ
                           </option>
-                          </select> : <input data-id={item} type={item === "password" ? "password" : "text"} value={dataValue[item]} onChange={e => inputChangeHandle(e)} />}
-                          {error[item] && <div className="form-error">
-                            {error[item]}
-                          </div>}
+                        </select> : <input data-id={item} type={item === "password" ? "password" : "text"} value={dataValue[item]} onChange={e => inputChangeHandle(e)} />}
+                        {error[item] && <div className="form-error">
+                          {error[item]}
+                        </div>}
                       </div>
                     </div>
                   )

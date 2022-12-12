@@ -1,15 +1,19 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import useToken from './Hooks/useToken'
+import useCheckLogin from './Hooks/useCheckLogin'
 
 const Header = () => {
   const userData = useSelector(store => store.userData);
-  const loggedIn = useSelector(store => store.user);
-
+  const token = useToken();
+  const checkLoginFunc = useCheckLogin();
+  const navigate = useNavigate();
   const logoutHandle = e => {
     e.preventDefault();
     setLocalStorage();
-    window.location.href = "/";
+    checkLoginFunc();
+    navigate("/");
   }
 
   const setLocalStorage = () => {
@@ -23,7 +27,7 @@ const Header = () => {
       </div>
       <div className="header-menu">
         <ul>
-          {loggedIn.accessToken ?
+          {token ?
             <>
               <li>
                 <NavLink to="/profile">
