@@ -22,6 +22,7 @@ const useUpdateUser = () => {
           dispatch(action);
         } catch (error) {
           console.log(error);
+          localStorage.removeItem("loginInfo");
         }
       }
     }
