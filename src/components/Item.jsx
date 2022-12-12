@@ -8,7 +8,7 @@ const Item = ({ item }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const addToCartHandle = () => {
+    const addToCartHandle = item => {
         const payload = {
             ...item,
             quantity: 1,
@@ -37,7 +37,7 @@ const Item = ({ item }) => {
                 </div>
                 <div className="card-footer">
                     <div className="footer-left" onClick={async e => {
-                        await addToCartHandle();
+                        await addToCartHandle(item);
                         navigate("/cart");
                     }}>
                         <i className="fa-solid fa-cart-shopping"></i>

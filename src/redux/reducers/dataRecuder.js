@@ -34,9 +34,9 @@ export const cart = (state = [], action) => {
         }
         case "QUANTITY_UPDATE": {
             let newState = [...state];
-            const {payload} = action;
+            const { payload } = action;
             const index = newState.findIndex(item => item.id === payload.id);
-            if(index !== -1) {
+            if (index !== -1) {
                 newState[index] = {
                     ...newState[index],
                     quantity: newState[index].quantity + payload.value
@@ -45,19 +45,19 @@ export const cart = (state = [], action) => {
             return newState;
         }
         case "DELETE_CART_ITEM": {
-            const {payload} = action;
+            const { payload } = action;
             let newState = [...state];
             const index = newState.findIndex(item => item.id === payload);
-            if(index !== -1){
+            if (index !== -1) {
                 newState.splice(index, 1);
             }
             return newState;
         }
         case "SET_CHECKED": {
             let newState = [...state];
-            const {payload} = action;
+            const { payload } = action;
             const index = newState.findIndex(item => item.id === payload);
-            if(index !== -1) {
+            if (index !== -1) {
                 newState[index] = {
                     ...newState[index],
                     checked: !newState[index].checked

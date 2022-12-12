@@ -23,7 +23,7 @@ const Cart = () => {
 
   const getCartData = () => {
     let data = localStorage.getItem(`cartData.${currentEmail}`);
-    if(data) {
+    if (data) {
       data = JSON.parse(data);
       const action = loadCartData(data);
       dispatch(action);
@@ -43,7 +43,7 @@ const Cart = () => {
   const totalCounting = () => {
     let total = 0;
     for (let key in cartData) {
-      if(cartData[key].checked === true) total += cartData[key].price * cartData[key].quantity;
+      if (cartData[key].checked === true) total += cartData[key].price * cartData[key].quantity;
     }
     return total;
   }
@@ -61,73 +61,77 @@ const Cart = () => {
           </h1>
         </div>
         <div className="main-body cart">
-          {cartData.length !== 0 ? 
-          <>
-          <div className="table">
-            <div className="thead">
-              <div className="tr">
-                <div className="th"></div>
-                <div className="th">Tên sản phẩm</div>
-                <div className="th">Số lượng</div>
-                <div className="th">Giá</div>
-                <div className="th">Thao tác</div>
+          {cartData.length !== 0 ?
+            <>
+              <div className="table">
+                <div className="thead">
+                  <div className="tr">
+                    <div className="th"></div>
+                    <div className="th">Tên sản phẩm</div>
+                    <div className="th">Số lượng</div>
+                    <div className="th">Giá</div>
+                    <div className="th">Thao tác</div>
+                  </div>
+                </div>
+                <div className="tbody">
+                  {Object.values(cartData)?.map((item, index) => {
+                    return (<div key={index} className="tr">
+                      <div className="td">
+                        <input type="checkbox" onChange={e => checkboxHandle(item.id)} checked={item.checked ? true : false} />
+                      </div>
+                      <div className="td">
+                        <Link to={`/detail/${item.id}`}>
+                          {item.name}
+                        </Link>
+                      </div>
+                      <div className="td">
+                        <button className="btn" onClick={e => quantityUpdateHandle(item.id, -1)} disabled={item.quantity <= 1 ? true : false}>
+                          <i className="fa-solid fa-minus"></i>
+                        </button>
+                        {item.quantity}
+                        <button className="btn" onClick={e => quantityUpdateHandle(item.id, 1)}>
+                          <i className="fa-solid fa-plus"></i>
+                        </button>
+                      </div>
+                      <div className="td">
+                        <i className="fa-solid fa-tag"></i>
+                        {item.price * item.quantity}
+                      </div>
+                      <div className="td">
+                        <button className="btn btn-red" onClick={e => deleteHandle(item.id)}>
+                          <i className="fa-solid fa-trash"></i>
+                        </button>
+                      </div>
+                    </div>
+                    )
+                  })}
+                  <div className="tr">
+                    <div className="td"></div>
+                    <div className="td" style={{ margin: "5px" }}>
+                      <h3>Tổng cộng:</h3>
+                    </div>
+                    <div className="td"></div>
+                    <div className="td" style={{ margin: "5px" }}>
+                      <h3>
+                        <i className="fa-solid fa-tags"></i>
+                        {totalCounting()}
+                      </h3>
+                    </div>
+                    <div className="td"></div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="tbody">
-              {Object.values(cartData)?.map((item, index) => {
-                return (<div key={index} className="tr">
-                  <div className="td">
-                    <input type="checkbox" onChange={e => checkboxHandle(item.id)} checked={item.checked ? true : false} />
-                  </div>
-                  <div className="td">
-                    <Link to={`/detail/${item.id}`}>
-                      {item.name}
-                    </Link>
-                  </div>
-                  <div className="td">
-                    <button className="btn" onClick={e => quantityUpdateHandle(item.id, -1)} disabled={item.quantity <= 1 ? true : false}>
-                      <i className="fa-solid fa-minus"></i>
-                    </button>
-                    {item.quantity}
-                    <button className="btn" onClick={e => quantityUpdateHandle(item.id, 1)}>
-                      <i className="fa-solid fa-plus"></i>
-                    </button>
-                  </div>
-                  <div className="td">
-                    ${item.price * item.quantity}
-                  </div>
-                  <div className="td">
-                    <button className="btn btn-red" onClick={e => deleteHandle(item.id)}>
-                      <i className="fa-solid fa-trash"></i>
-                    </button>
-                  </div>
-                </div>
-                )
-              })}
-              <div className="tr">
-                <div className="td"></div>
-                <div className="td" style={{margin: "5px"}}>
-                    <h3>Tổng cộng:</h3>
-                </div>
-                <div className="td"></div>
-                <div className="td" style={{margin: "5px"}}>
-                    <h3>$ {totalCounting()}</h3>
-                </div>
-                <div className="td"></div>
+              <div className="cart-button">
+                <button className="btn">
+                  <i className="fa-solid fa-cart-shopping" style={{ marginRight: "10px" }}></i>
+                  Thanh toán
+                </button>
               </div>
-            </div>
-          </div>
-          <div className="cart-button">
-            <button className="btn">
-              <i className="fa-solid fa-cart-shopping" style={{marginRight: "10px"}}></i>
-              Thanh toán
-            </button>
-          </div>
-          </> :
-          <>
-            Chưa có sản phẩm trong giỏ hàng
-          </>}
-          
+            </> :
+            <>
+              Chưa có sản phẩm trong giỏ hàng
+            </>}
+
         </div>
       </div>
     </>

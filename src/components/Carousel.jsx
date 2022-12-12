@@ -1,14 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import { memo } from 'react';
-import "slick-carousel/slick/slick.css"; 
+import React from 'react'
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../assets/css/carousel.css";
 import Slider from 'react-slick';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../redux/actions/dataActions';
 
 const Carousel = () => {
   const indexData = useSelector(store => store.data);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const addToCartHandle = item => {
+    const payload = {
+      ...item,
+      quantity: 1,
+      checked: false
+    }
+    const action = addToCart(payload);
+    dispatch(action);
+  }
 
   const settings = {
     dots: true,
@@ -46,6 +58,13 @@ const Carousel = () => {
                   ${item.price}
                 </li>
               </ul>
+              <button className="btn btn-brown" onClick={async e => {
+                await addToCartHandle(item);
+                navigate("/cart");
+              }}>
+                <i class="fa-solid fa-cart-plus"></i>
+                Thêm vào giỏ hàng
+              </button>
             </div>
           </div>
         )
@@ -54,4 +73,4 @@ const Carousel = () => {
   )
 }
 
-export default memo(Carousel)
+export default Carousel

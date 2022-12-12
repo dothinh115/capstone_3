@@ -94,7 +94,7 @@ const Login = () => {
         <div className="page-header">
           <p>
             <i className="fa-solid fa-arrow-right"></i>
-            Nếu chưa có tài khoản, <Link to="/register" style={{padding: "5px", borderRadius: "5px", backgroundColor: "rgba(255, 0, 0, .5)", color: "#fff"}}>bấm vào đây</Link> để đăng ký!!
+            Nếu chưa có tài khoản, <Link to="/register" className="alert-link">bấm vào đây</Link> để đăng ký!!
           </p>
         </div>
       </div>

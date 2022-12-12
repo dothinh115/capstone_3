@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios'
 import Item from './Item';
 import useToken from '../Hooks/useToken';
@@ -14,7 +14,7 @@ const Detail = () => {
   const [number, setNumber] = useState(1);
   const navigate = useNavigate();
   const [like, setLike] = useState(false);
-  const [addResultIcon, setAddResultIcon] = useState(false);
+  const [addResult, setAddResult] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -43,7 +43,7 @@ const Detail = () => {
       getProductFavorite();
     } catch (error) {
       console.log(error);
-    } 
+    }
   }
 
   const getProductFavorite = async () => {
@@ -59,7 +59,7 @@ const Detail = () => {
       setLike(findIfLiked(Object.values(fetch.data.content.productsFavorite)));
     } catch (error) {
       console.log(error);
-    } 
+    }
   }
 
   const likeHandle = e => {
@@ -68,12 +68,11 @@ const Detail = () => {
 
   const findIfLiked = arr => {
     const find = arr.find(item => item.id == productId);
-    if(find) return true;
+    if (find) return true;
     return false;
   }
 
-  const addToCartHandle = e => {
-    e.preventDefault();
+  const addToCartHandle = () => {
     const payload = {
       ...productInfo,
       quantity: number,
@@ -81,7 +80,7 @@ const Detail = () => {
     }
     const action = addToCart(payload);
     dispatch(action);
-    setAddResultIcon(true);
+    setAddResult(true);
   }
 
   useEffect(() => {
@@ -91,6 +90,11 @@ const Detail = () => {
 
   return (
     <>
+      {addResult && <div className="main-container" style={{marginBottom: "20px"}}>
+        <div className="page-header">
+          Thêm giỏ hàng thành công, <Link to="/cart" className="alert-link">xem giỏ hàng</Link>.
+        </div>
+      </div>}
       <div className="detail-container main-container">
         <div className="page-header">
           <h1>
@@ -111,8 +115,8 @@ const Detail = () => {
                 ${productInfo.price}
               </span>
               <span className="detail-like" onClick={e => likeHandle(e)}>
-                <i className="fa-regular fa-heart" style={{fontWeight: like && "bold"}}></i>
-                  Like
+                <i className="fa-regular fa-heart" style={{ fontWeight: like && "bold" }}></i>
+                Like
               </span>
             </p>
             <h1>
@@ -126,8 +130,8 @@ const Detail = () => {
               </ul>
             </div>
             <div className="detail-body-number">
-              <button disabled={number > 1 ? false : true} className="btn" onClick={e=> {
-                if(number > 1) {
+              <button disabled={number > 1 ? false : true} className="btn" onClick={e => {
+                if (number > 1) {
                   setNumber(number - 1);
                 }
               }}>
@@ -142,29 +146,27 @@ const Detail = () => {
                 <i className="fa-solid fa-plus"></i>
               </button>
             </div>
-            <button className="btn btn-brown" onClick={e => addToCartHandle(e)}>
+            <button className="btn btn-brown" onClick={e => addToCartHandle()}>
               <i className="fa-solid fa-cart-plus"></i>
               Thêm vào giỏ
             </button>
-            {addResultIcon && <span style={{margin: "0px 10px", color: "green", fontSize: "25px"}}><i className="fa-solid fa-check"></i></span>}
-            
           </div>
         </div>
       </div>
 
       <div className="related-product main-container">
-          <div className="page-header">
-            <h1>
-              Sản phẩm tương tự
-            </h1>
+        <div className="page-header">
+          <h1>
+            Sản phẩm tương tự
+          </h1>
+        </div>
+        <div className="related-product-body">
+          <div className="card">
+            {productInfo.relatedProducts?.map((item, index) => {
+              return <Item item={item} key={index} />
+            })}
           </div>
-          <div className="related-product-body">
-            <div className="card">
-              {productInfo.relatedProducts?.map((item, index) => {
-                return <Item item={item} key={index} />
-              })}
-            </div>
-          </div>
+        </div>
       </div>
     </>
   )
