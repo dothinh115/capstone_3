@@ -1,21 +1,24 @@
 import axios from 'axios';
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { useSearchParams } from 'react-router-dom';
 import Item from './Item';
 
 const Search = () => {
-  const searchValue = useRef("");
+  const [searchValue, setSearchValue] = useState("");
 
   const [searchResult, setSearchResult] = useState([]);
 
+  const [params, setParams] = useSearchParams();
+
   const inputChangeHandle = e => {
     const {value} = e.target;
-    searchValue.current = value.trim();
+    setSearchValue(value.trim());
   }
 
-  const sendData = async () => {
+  const sendData = async (value) => {
     try {
       const fetch = await axios({
-        url: `https://shop.cyberlearn.vn/api/Product?keyword=${searchValue.current}`,
+        url: `https://shop.cyberlearn.vn/api/Product?keyword=${value}`,
         method: "GET",
         dataType: "application/json",
       });
@@ -27,8 +30,19 @@ const Search = () => {
 
   const submitHandle = e => {
     e.preventDefault();
-    searchValue.current ? sendData() : setSearchResult([]);
+    setParams({
+      keywords: searchValue
+    });
+    sendData(searchValue);
   }
+
+  useEffect(() => {
+    const keywords = params.get("keywords");
+    if(keywords) {
+      setSearchValue(keywords);
+      sendData(keywords);
+    }
+  }, []);
 
   return (
     <>
@@ -45,7 +59,7 @@ const Search = () => {
               Tìm kiếm
             </div>
             <div className="search-right">
-              <input type="text" placeholder="Nhập từ khóa!!" onChange={e => inputChangeHandle(e)} />
+              <input defaultValue={searchValue} type="text" placeholder="Nhập từ khóa!!" onChange={e => inputChangeHandle(e)} />
             </div>
             <div className="search-button" style={{marginLeft: "20px"}}>
               <button className="btn">Tìm</button>
