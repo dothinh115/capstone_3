@@ -12,9 +12,7 @@ const Cart = () => {
   const cartData = useSelector(store => store.cart);
   const currentEmail = useCurrentUserEmail();
   const [total, setTotal] = useState(0);
-
-  console.log(cartData);
-
+  
   const quantityUpdateHandle = (id, value) => {
     const payload = {
       id,
