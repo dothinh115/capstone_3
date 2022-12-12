@@ -22,7 +22,7 @@ const useUpdateUser = () => {
           dispatch(action);
         } catch (error) {
           console.log(error);
-          if(error.response.state === 401) {
+          if(error.response.status === 401) {
             localStorage.removeItem("loginInfo");
             window.location.reload(false);
           }
