@@ -2,14 +2,6 @@
     .page-header {
         display: flex;
         align-items: center;
-        h1 {
-            span {
-                background-color: rgba(#a52a2a, .8);
-                border-radius: 4px;
-                padding: 5px;
-                color: rgba(#fff, .85);
-            }
-        }
     }
     .detail-body {
         display: flex;
@@ -22,34 +14,42 @@
                 background-color: steelblue;
                 border-radius: 5px;
             }
-            .detail-like {
-                position: absolute;
-                display: block;
-                top: 20px;
-                left: 20px;
-                font-size: 40px;
-                color: rgba(165, 42, 42, 0.8);
-                i {
-                    cursor: pointer;
-                    margin: unset;
-                    background-color: rgba(white, .65);
-                    border-radius: 8px;
-                    padding: 3px;
-                }
-                i:hover {
-                    font-weight: bold;
-                }
-            }
         }
         &-right {
             width: 60%;
             padding: 10px;
             p {
                 font-size: 20px;
+                color: rgba(black, .65);
+                border-bottom: 1px solid #ccc;
+                padding: 10px;
+                .price {
+                    background-color: rgba(#a52a2a, .8);
+                    border-radius: 4px;
+                    padding: 5px;
+                    color: rgba(#fff, .85);
+                    font-size: 30px;
+                }
             }
             h1 {
                 margin: 15px 0;
-                color: rgba($color: #a52a2a, $alpha: 0.65);
+                color: rgba(#a52a2a, 0.65);
+            }
+            .price-layout {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .detail-like {
+                    display: block;
+                    cursor: pointer;
+                    i {
+                        font-size: 25px;
+                        color: rgba(165, 42, 42, 0.8);
+                    }
+                    i:hover {
+                        font-weight: bold;
+                    }
+                }
             }
         }
         &-size {

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import useToken from './Hooks/useToken';
 import dataConfig from '../templates/dataConfig';
+import useToken from '../Hooks/useToken';
 
 const Register = () => {
   const token = useToken()
@@ -34,9 +34,7 @@ const Register = () => {
 
   const checkValid = () => {
     for (let key in dataValue) {
-      if (dataValue[key] === "" || error[key] !== "") {
-        return false;
-      }
+      if(dataValue[key] === "" || error[key] !== "") return false;
     }
     return true;
   }
@@ -128,9 +126,7 @@ const Register = () => {
   }
 
   const regButtonHandle = e => {
-    if (checkValid()) {
-      sendData();
-    }
+    checkValid() && sendData();
   }
 
   useEffect(() => {
@@ -143,6 +139,14 @@ const Register = () => {
 
   return (
     <>
+      <div className="main-container" style={{marginBottom: "20px"}}>
+        <div className="page-header">
+          <p>
+            <i className="fa-solid fa-arrow-right"></i>
+            Nếu đã có tài khoản, vui lòng <Link to="/login" style={{padding: "5px", borderRadius: "5px", backgroundColor: "rgba(255, 0, 0, .5)", color: "#fff"}}>đăng nhập</Link>!!!
+          </p>
+        </div>
+      </div>
       {result.message && <div className="main-container">
         <div className="page-header">
           <h1>
@@ -160,10 +164,6 @@ const Register = () => {
           </h1>
         </div>
         <div className="main-body">
-          <p>
-            <i className="fa-solid fa-arrow-right"></i>
-            Nếu đã có tài khoản, vui lòng <Link to="/login">đăng nhập</Link>!!!
-          </p>
           <div className="register-form">
             <form onSubmit={e => submitHandle(e)}>
               <div className="register-form-main">

@@ -1,0 +1,17 @@
+.breadcrumbs li {
+  display: inline;
+  list-style-type: none;
+}
+.breadcrumbs li::after {
+  display: inline-block;
+  content: " > ";
+  margin: 0px 5px;
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 12px;
+}
+.breadcrumbs li:not(.breadcrumbs li:nth-of-type(1)) {
+  display: none;
+}
+.breadcrumbs li:has(> .active) {
+  display: inline !important;
+}/*# sourceMappingURL=breadcrumbs.css.map */

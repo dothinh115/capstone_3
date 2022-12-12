@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import useToken from './Hooks/useToken';
-import useUpdateUser from './Hooks/useUpdateUser';
+import useToken from '../Hooks/useToken';
+import useUpdateUser from '../Hooks/useUpdateUser';
 
 const Login = () => {
   const token = useToken();
@@ -27,23 +27,21 @@ const Login = () => {
 
   const checkValid = () => {
     for (let key in loginValue) {
-      if(loginValue[key] === "" || error[key] !== ""){
-        return false;
-      }
+      if (loginValue[key] === "" || error[key] !== "") return false;
     }
     return true;
   }
 
   const inputChangeHandle = e => {
-    const {value} = e.target;
+    const { value } = e.target;
     const id = e.target.getAttribute("data-id");
     let errMess = "";
-    if(value.trim() === "") {
+    if (value.trim() === "") {
       errMess = "Không được để trống!";
     }
     else {
       const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      if(!value.match(reg) && id === "email") {
+      if (!value.match(reg) && id === "email") {
         errMess = "Email phải đúng định dạng!";
       }
     }
@@ -57,7 +55,6 @@ const Login = () => {
       ...error,
       [id]: errMess
     });
-
     setValid(checkValid());
   }
 
@@ -84,9 +81,7 @@ const Login = () => {
 
   const submitHandle = e => {
     e.preventDefault();
-    if(checkValid()) {
-      sendData();
-    }
+    checkValid() && sendData();
   }
 
   useEffect(() => {
@@ -95,6 +90,14 @@ const Login = () => {
 
   return (
     <>
+      <div className="main-container" style={{marginBottom: "20px"}}>
+        <div className="page-header">
+          <p>
+            <i className="fa-solid fa-arrow-right"></i>
+            Nếu chưa có tài khoản, <Link to="/register" style={{padding: "5px", borderRadius: "5px", backgroundColor: "rgba(255, 0, 0, .5)", color: "#fff"}}>bấm vào đây</Link> để đăng ký!!
+          </p>
+        </div>
+      </div>
       {result && <div className="main-container">
         <div className="page-header">
           <h1>
@@ -103,22 +106,19 @@ const Login = () => {
         </div>
         <div className="main-body">
           <p>
-            <i className="fa-solid fa-circle-exclamation" style={{color: "red"}}></i>
+            <i className="fa-solid fa-circle-exclamation" style={{ color: "red" }}></i>
             {result}
           </p>
         </div>
       </div>}
-      <div className="main-container" style={{marginTop: result && "20px"}}>
+      
+      <div className="main-container" style={{ marginTop: result && "20px" }}>
         <div className="page-header">
           <h1>
             ĐĂNG NHẬP
           </h1>
         </div>
         <div className="main-body login-container">
-          <p>
-            <i className="fa-solid fa-arrow-right"></i>
-            Nếu chưa có tài khoản, <Link to="/register">bấm vào đây</Link> để đăng ký!!
-          </p>
           <form onSubmit={e => submitHandle(e)}>
             <div className="form-main">
               <div className="item">

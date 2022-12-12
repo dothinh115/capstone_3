@@ -11,17 +11,18 @@ body {
   font-weight: 400;
   min-height: 100vh;
   padding-top: 150px;
+  font-size: 15px;
 }
 
 a {
   text-decoration: none;
-  color: rgba(0, 0, 0, 0.45);
+  color: rgba(0, 0, 0, 0.55);
   transition: all 0.5s ease;
 }
 
 a:hover {
   text-decoration: none;
-  color: rgba(0, 0, 0, 0.75);
+  color: rgba(0, 0, 0, 0.85);
 }
 
 .container {
@@ -38,25 +39,39 @@ a:hover {
   color: rgba(0, 0, 0, 0.65);
   cursor: pointer;
   transition: all ease 0.3s;
+  text-align: center;
 }
-
+.btn i {
+  margin: unset;
+}
 .btn:hover {
   background-color: lightskyblue;
 }
-
 .btn:disabled, .btn:disabled:hover {
   opacity: 0.5;
   cursor: not-allowed;
   background-color: #fff;
 }
-
 .btn-brown {
   background-color: brown;
   color: #fff;
 }
-
+.btn-brown i {
+  margin-right: 5px;
+}
 .btn-brown:hover {
   background-color: brown;
+  opacity: 0.8;
+}
+.btn-red {
+  background-color: rgba(255, 0, 0, 0.6);
+  color: #fff;
+}
+.btn-red i {
+  margin-right: unset;
+}
+.btn-red:hover {
+  background-color: red;
   opacity: 0.8;
 }
 
@@ -121,7 +136,7 @@ a:hover {
   font-size: 20px;
 }
 
-input, input:focus, input:focus-visible {
+input:not(input[type=checkbox]), input:focus, input:focus-visible {
   width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.05);
   border-radius: 5px;
@@ -166,6 +181,7 @@ i {
 }
 .table .thead .tr .th {
   display: table-cell;
+  color: rgba(0, 0, 0, 0.65);
 }
 .table .tbody {
   display: table-row-group;
@@ -207,7 +223,6 @@ i {
 }
 .card {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
 }
 .card-item {
@@ -286,12 +301,6 @@ i {
   display: flex;
   align-items: center;
 }
-.detail-container .page-header h1 span {
-  background-color: rgba(165, 42, 42, 0.8);
-  border-radius: 4px;
-  padding: 5px;
-  color: rgba(255, 255, 255, 0.85);
-}
 .detail-container .detail-body {
   display: flex;
 }
@@ -305,34 +314,42 @@ i {
   background-color: steelblue;
   border-radius: 5px;
 }
-.detail-container .detail-body-left .detail-like {
-  position: absolute;
-  display: block;
-  top: 20px;
-  left: 20px;
-  font-size: 40px;
-  color: rgba(165, 42, 42, 0.8);
-}
-.detail-container .detail-body-left .detail-like i {
-  cursor: pointer;
-  margin: unset;
-  background-color: rgba(255, 255, 255, 0.65);
-  border-radius: 8px;
-  padding: 3px;
-}
-.detail-container .detail-body-left .detail-like i:hover {
-  font-weight: bold;
-}
 .detail-container .detail-body-right {
   width: 60%;
   padding: 10px;
 }
 .detail-container .detail-body-right p {
   font-size: 20px;
+  color: rgba(0, 0, 0, 0.65);
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+}
+.detail-container .detail-body-right p .price {
+  background-color: rgba(165, 42, 42, 0.8);
+  border-radius: 4px;
+  padding: 5px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 30px;
 }
 .detail-container .detail-body-right h1 {
   margin: 15px 0;
   color: rgba(165, 42, 42, 0.65);
+}
+.detail-container .detail-body-right .price-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.detail-container .detail-body-right .price-layout .detail-like {
+  display: block;
+  cursor: pointer;
+}
+.detail-container .detail-body-right .price-layout .detail-like i {
+  font-size: 25px;
+  color: rgba(165, 42, 42, 0.8);
+}
+.detail-container .detail-body-right .price-layout .detail-like i:hover {
+  font-weight: bold;
 }
 .detail-container .detail-body-size ul li {
   list-style-type: none;
@@ -474,6 +491,55 @@ i {
   background-color: rgba(0, 128, 128, 0.65);
 }
 .liked-product .table .tbody .tr .td:nth-of-type(3) {
+  text-align: right;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+}
+.search-left {
+  width: 20%;
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 14px;
+}
+.search-right {
+  width: 80%;
+}
+
+.cart .table .thead .tr .th {
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+.cart .table .thead .tr .th:nth-of-type(1) {
+  width: 5%;
+}
+.cart .table .thead .tr .th:nth-of-type(2) {
+  width: 30%;
+  text-align: left;
+}
+.cart .table .thead .tr .th:last-of-type {
+  text-align: right;
+}
+.cart .table .tbody .tr .td {
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 5px;
+  vertical-align: middle;
+}
+.cart .table .tbody .tr .td button {
+  margin: 0px 5px;
+}
+.cart .table .tbody .tr .td:nth-of-type(2) {
+  text-align: left;
+}
+.cart .table .tbody .tr .td:last-of-type {
+  text-align: right;
+}
+.cart .cart-button {
+  margin: 10px 0px;
   text-align: right;
 }
 

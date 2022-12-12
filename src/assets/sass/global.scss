@@ -11,17 +11,18 @@ body {
     font-weight: 400;
     min-height: 100vh;
     padding-top: 150px;
+    font-size: 15px;
 }
 
 a {
     text-decoration: none;
-    color: rgba(0, 0, 0, .45);
+    color: rgba(0, 0, 0, .55);
     transition: all .5s ease;
 }
 
 a:hover {
     text-decoration: none;
-    color: rgba(0, 0, 0, .75);
+    color: rgba(0, 0, 0, .85);
 }
 
 .container {
@@ -38,27 +39,42 @@ a:hover {
     color: rgba(0, 0, 0, .65);
     cursor: pointer;
     transition: all ease .3s;
+    text-align: center;
+    i {
+        margin: unset;
+    }
+    &:hover {
+        background-color: lightskyblue;
+    }
+    &:disabled, &:disabled:hover {
+        opacity: .5;
+        cursor: not-allowed;
+        background-color: #fff;
+    }
+    &-brown {
+        background-color: brown;
+        color: #fff;
+        i {
+            margin-right: 5px;
+        }
+    }
+    &-brown:hover {
+        background-color: brown;
+        opacity: 0.8;
+    }
+    &-red {
+        background-color: rgba(red, .6);
+        color: #fff;
+        i {
+            margin-right: unset;
+        }
+    }
+    &-red:hover {
+        background-color: red;
+        opacity: 0.8;
+    }
 }
 
-.btn:hover {
-    background-color: lightskyblue;
-}
-
-.btn:disabled, .btn:disabled:hover {
-    opacity: .5;
-    cursor: not-allowed;
-    background-color: #fff;
-}
-
-.btn-brown {
-    background-color: brown;
-    color: $white-color;
-}
-
-.btn-brown:hover {
-    background-color: brown;
-    opacity: 0.8;
-}
 
 .main-contain {
     background-color: rgba(255, 255, 255, .25);
@@ -123,7 +139,7 @@ a:hover {
     font-size: 20px;
 }
 
-input, input:focus, input:focus-visible {
+input:not(input[type="checkbox"]), input:focus, input:focus-visible {
     width: 100%;
     border: 1px solid rgba($black-color, 0.05);
     border-radius: 5px;
@@ -165,6 +181,7 @@ i {
             display: table-row;
             .th {
                 display: table-cell;
+                color: rgba(black, .65)
             }
         }
     }
@@ -196,7 +213,6 @@ i {
 
   .card {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
     &-item {
         width: 33%;

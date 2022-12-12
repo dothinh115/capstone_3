@@ -1,0 +1,12 @@
+.search {
+    display: flex;
+    align-items: center;
+    &-left {
+        width: 20%;
+        color: rgba(black, .65);
+        font-size: 14px;
+    }
+    &-right {
+        width: 80%;
+    }
+}

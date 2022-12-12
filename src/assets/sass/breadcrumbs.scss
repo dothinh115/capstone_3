@@ -1,0 +1,19 @@
+.breadcrumbs {
+    li {
+        display: inline;
+        list-style-type: none;
+        &::after {
+            display: inline-block;
+            content: " > ";
+            margin: 0px 5px;
+            color: rgba(black, .65);
+            font-size: 12px;
+        }
+        &:not(&:nth-of-type(1)) {
+            display: none;
+        }
+        &:has(>.active) {
+            display: inline!important;
+        }
+    }
+}
