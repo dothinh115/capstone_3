@@ -1,15 +1,19 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, Outlet } from 'react-router-dom'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import axios from 'axios'
-import { loginUpdate } from '../redux/actions/userActions'
-import useUpdateUser from '../components/Hooks/useUpdateUser'
+import useUpdateUser from '../Hooks/useUpdateUser'
+import Breadcrumbs from '../components/Breadcrumbs'
+import { loadCartData, updateData } from '../redux/actions/dataActions'
+import useCurrentUserEmail from '../Hooks/useCurrentUserEmail'
 
 const Homtemplate = () => {
   const dispatch = useDispatch();
   const updateUserFunc = useUpdateUser();
+  const cartData = useSelector(store => store.cart);
+  const currentEmail = useCurrentUserEmail();
 
   const fetchData = async () => {
     try {
@@ -18,31 +22,30 @@ const Homtemplate = () => {
         method: "GET",
         dataType: "application/json"
       });
-      const action = {
-        type: "UPDATE_DATA",
-        payload: fetch.data.content
-      }
+      const action = updateData(fetch.data.content);
       dispatch(action);
-    } 
+    }
     catch (error) {
       console.log(error);
     }
   }
 
-  const getLocalStorage = () => {
-    let data = localStorage.getItem("loginInfo");
-    if(data) {
-      data = JSON.parse(data);
-      const action = loginUpdate(data);
-      dispatch(action);
+  const saveCartData = () => {
+    if (currentEmail && cartData) {
+      let data = cartData;
+      data = JSON.stringify(data);
+      localStorage.setItem(`cartData.${currentEmail}`, data);
     }
   }
 
   useEffect(() => {
     fetchData();
-    getLocalStorage();
     updateUserFunc();
   }, []);
+
+  useEffect(() => {
+    saveCartData();
+  }, [cartData]);
 
   return (
     <div className="container main-contain">
@@ -76,6 +79,7 @@ const Homtemplate = () => {
           </ul>
         </div>
         <div className="body-right">
+          <Breadcrumbs />
           <Outlet />
         </div>
       </div>

@@ -1,12 +1,13 @@
 import {configureStore} from '@reduxjs/toolkit';
 import { data } from './reducers/dataRecuder';
-import { user, userData } from './reducers/userReducer';
+import { userData } from './reducers/userReducer';
+import { cart } from './reducers/dataRecuder';
 
 const globalStore = configureStore({
     reducer: {
         data,
-        user,
-        userData
+        userData,
+        cart
     }
 });
 

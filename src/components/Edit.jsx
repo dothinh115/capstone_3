@@ -2,9 +2,9 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
-import useToken from './Hooks/useToken';
-import useUpdateUser from './Hooks/useUpdateUser';
 import dataConfig from '../templates/dataConfig';
+import useToken from '../Hooks/useToken';
+import useUpdateUser from '../Hooks/useUpdateUser';
 
 const Edit = () => {
   const token = useToken();
@@ -99,7 +99,6 @@ const Edit = () => {
   }
 
   useEffect(() => {
-    !token && navigate("/login");
     // for (let key in dataValue) {
     //   setDataValue({
     //     ...dataValue,
@@ -118,6 +117,10 @@ const Edit = () => {
   useEffect(() => {
     setValid(checkValid());
   }, [dataValue]);
+
+  useEffect(() => {
+    !token && navigate("/login");
+  }, [])
 
   return (
     <>

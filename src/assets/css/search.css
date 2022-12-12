@@ -1,0 +1,12 @@
+.search {
+  display: flex;
+  align-items: center;
+}
+.search-left {
+  width: 20%;
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 14px;
+}
+.search-right {
+  width: 80%;
+}/*# sourceMappingURL=search.css.map */

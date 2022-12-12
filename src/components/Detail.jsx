@@ -1,30 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios'
-import { memo } from 'react';
 import Item from './Item';
-import useToken from './Hooks/useToken';
+import useToken from '../Hooks/useToken';
+import { addToCart } from '../redux/actions/dataActions';
+import { useDispatch } from 'react-redux';
 
 const Detail = () => {
-
   const [productInfo, setProductInfo] = useState({});
-
+  const dispatch = useDispatch();
   const token = useToken();
-
   const { productId } = useParams();
-
   const [number, setNumber] = useState(1);
-
   const navigate = useNavigate();
-
-  const [productFavorite, setProductFavorite] = useState([]);
-
   const [like, setLike] = useState(false);
-
-  const [loading, setLoading] = useState(false);
+  const [addResultIcon, setAddResultIcon] = useState(false);
 
   const fetchData = async () => {
-    setLoading(true);
     try {
       const fetch = await axios({
         url: `https://shop.cyberlearn.vn/api/Product/getbyid?id=${productId}`,
@@ -35,13 +27,10 @@ const Detail = () => {
     }
     catch (error) {
       console.log(error);
-    } finally {
-      setLoading(false);
     }
   }
 
   const sendLike = async (bool) => {
-    setLoading(true);
     try {
       const fetch = await axios({
         url: `https://shop.cyberlearn.vn/api/Users/${bool ? "like" : "unlike"}?productId=${productId}`,
@@ -54,13 +43,10 @@ const Detail = () => {
       getProductFavorite();
     } catch (error) {
       console.log(error);
-    } finally {
-      setLoading(false);
-    }
+    } 
   }
 
   const getProductFavorite = async () => {
-    setLoading(true);
     try {
       const fetch = await axios({
         url: "https://shop.cyberlearn.vn/api/Users/getproductfavorite",
@@ -70,33 +56,31 @@ const Detail = () => {
           "Authorization": `Bearer ${token}`
         }
       });
-      setProductFavorite(fetch.data.content.productsFavorite);
+      setLike(findIfLiked(Object.values(fetch.data.content.productsFavorite)));
     } catch (error) {
       console.log(error);
-    } finally {
-      setLoading(false);
-    }
+    } 
   }
 
   const likeHandle = e => {
-    if(token) {
-      if(findIfLiked()) {
-        sendLike(false);
-      }
-      else {
-        sendLike(true);
-      }
-    }
-    else {
-      navigate("/login");
-    }
-    
+    token ? like ? sendLike(false) : sendLike(true) : navigate("/login");
   }
 
-  const findIfLiked = () => {
-    const find = productFavorite.find(item => item.id == productId);
+  const findIfLiked = arr => {
+    const find = arr.find(item => item.id == productId);
     if(find) return true;
     return false;
+  }
+
+  const addToCartHandle = e => {
+    e.preventDefault();
+    const payload = {
+      ...productInfo,
+      quantity: number
+    }
+    const action = addToCart(payload);
+    dispatch(action);
+    setAddResultIcon(true);
   }
 
   useEffect(() => {
@@ -104,28 +88,31 @@ const Detail = () => {
     getProductFavorite();
   }, [productId]);
 
-  useEffect(() => {
-    setLike(findIfLiked());
-  }, [productFavorite]);
-
   return (
     <>
       <div className="detail-container main-container">
         <div className="page-header">
           <h1>
-            {productInfo.name} - <span>${productInfo.price}</span> {loading && <div className="loader"></div>}
+            {productInfo.name}
           </h1>
         </div>
         <div className="detail-body main-body">
           <div className="detail-body-left">
             <img src={productInfo.image} alt="" />
-            <div className="detail-like">
-              <i className="fa-regular fa-heart" onClick={e => likeHandle(e)} style={{fontWeight: like && "bold"}}></i>
-            </div>
           </div>
           <div className="detail-body-right">
             <p>
               {productInfo.description}
+            </p>
+            <p className="price-layout">
+              <span className="price">
+                <i className="fa-solid fa-tag"></i>
+                ${productInfo.price}
+              </span>
+              <span className="detail-like" onClick={e => likeHandle(e)}>
+                <i className="fa-regular fa-heart" style={{fontWeight: like && "bold"}}></i>
+                  Like
+              </span>
             </p>
             <h1>
               Size có sẵn
@@ -143,7 +130,7 @@ const Detail = () => {
                   setNumber(number - 1);
                 }
               }}>
-                -
+                <i className="fa-solid fa-minus"></i>
               </button>
               <span>
                 {number}
@@ -151,12 +138,15 @@ const Detail = () => {
               <button className="btn" onClick={e => {
                 setNumber(number + 1);
               }}>
-                +
+                <i className="fa-solid fa-plus"></i>
               </button>
             </div>
-            <button className="btn btn-brown">
+            <button className="btn btn-brown" onClick={e => addToCartHandle(e)}>
+              <i className="fa-solid fa-cart-plus"></i>
               Thêm vào giỏ
             </button>
+            {addResultIcon && <span style={{margin: "0px 10px", color: "green", fontSize: "25px"}}><i className="fa-solid fa-check"></i></span>}
+            
           </div>
         </div>
       </div>
@@ -179,4 +169,4 @@ const Detail = () => {
   )
 }
 
-export default memo(Detail)
+export default Detail

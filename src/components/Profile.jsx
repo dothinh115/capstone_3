@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import useToken from './Hooks/useToken';
+import useToken from '../Hooks/useToken';
 
 const Profile = () => {
   const token = useToken();
@@ -13,10 +13,7 @@ const Profile = () => {
 
   const [productFavorite, setProductFavorite] = useState([]);
 
-  const [loading, setLoading] = useState(false);
-
   const getProductFavorite = async () => {
-    setLoading(true);
     try {
       const fetch = await axios({
         url: "https://shop.cyberlearn.vn/api/Users/getproductfavorite",
@@ -29,13 +26,10 @@ const Profile = () => {
       setProductFavorite(fetch.data.content.productsFavorite);
     } catch (error) {
       console.log(error);
-    } finally {
-      setLoading(false);
-    }
+    } 
   }
 
   const sendUnLike = async (productId) => {
-    setLoading(true);
     try {
       const fetch = await axios({
         url: `https://shop.cyberlearn.vn/api/Users/unlike?productId=${productId}`,
@@ -48,19 +42,11 @@ const Profile = () => {
       getProductFavorite();
     } catch (error) {
       console.log(error);
-    } finally {
-      setLoading(false);
     }
   } 
 
   useEffect(() => {
-    if(token) {
-      getProductFavorite();
-    }
-    else {
-      navigate("/login");
-    }
-
+    token ? getProductFavorite() : navigate("/login");
   }, [userData]);
   return (
     <>
@@ -118,7 +104,7 @@ const Profile = () => {
       <div className="main-container" style={{marginTop: "20px"}}>
         <div className="page-header">
           <h1>
-            SẢN PHẨM YÊU THÍCH {loading && <div className="loader"></div>}
+            SẢN PHẨM YÊU THÍCH
           </h1>
         </div>
         <div className="main-body liked-product">
@@ -144,8 +130,8 @@ const Profile = () => {
                         </Link>
                       </div>
                       <div className="td">
-                        <button className="btn" onClick={e => sendUnLike(item.id)}>
-                          Xóa
+                        <button className="btn btn-red" onClick={e => sendUnLike(item.id)}>
+                          <i className="fa-solid fa-trash"></i>
                         </button>
                       </div>
                     </div>

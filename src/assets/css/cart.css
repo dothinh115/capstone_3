@@ -1,0 +1,35 @@
+.cart .table .thead .tr .th {
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+.cart .table .thead .tr .th:nth-of-type(1) {
+  width: 5%;
+}
+.cart .table .thead .tr .th:nth-of-type(2) {
+  width: 30%;
+  text-align: left;
+}
+.cart .table .thead .tr .th:last-of-type {
+  text-align: right;
+}
+.cart .table .tbody .tr .td {
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 5px;
+  vertical-align: middle;
+}
+.cart .table .tbody .tr .td button {
+  margin: 0px 5px;
+}
+.cart .table .tbody .tr .td:nth-of-type(2) {
+  text-align: left;
+}
+.cart .table .tbody .tr .td:last-of-type {
+  text-align: right;
+}
+.cart .cart-button {
+  margin: 10px 0px;
+  text-align: right;
+}/*# sourceMappingURL=cart.css.map */
