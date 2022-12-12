@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import useCurrentUserEmail from '../Hooks/useCurrentUserEmail';
 import useToken from '../Hooks/useToken'
-import { deleteCartItem, loadCartData, quantityUpdate } from '../redux/actions/dataActions';
+import { deleteCartItem, loadCartData, quantityUpdate, setChecked } from '../redux/actions/dataActions';
 
 const Cart = () => {
   const token = useToken();
@@ -11,8 +11,7 @@ const Cart = () => {
   const dispatch = useDispatch()
   const cartData = useSelector(store => store.cart);
   const currentEmail = useCurrentUserEmail();
-  const [total, setTotal] = useState(0);
-  
+
   const quantityUpdateHandle = (id, value) => {
     const payload = {
       id,
@@ -36,14 +35,17 @@ const Cart = () => {
     dispatch(action);
   }
 
-  const checkboxHandle = (e, value) => {
-    const {checked} = e.target;
-    if(checked) {
-      setTotal(total + value);
+  const checkboxHandle = id => {
+    const action = setChecked(id);
+    dispatch(action);
+  }
+
+  const totalCounting = () => {
+    let total = 0;
+    for (let key in cartData) {
+      if(cartData[key].checked === true) total += cartData[key].price * cartData[key].quantity;
     }
-    else {
-      setTotal(total - value);
-    }
+    return total;
   }
 
   useEffect(() => {
@@ -75,7 +77,7 @@ const Cart = () => {
               {Object.values(cartData)?.map((item, index) => {
                 return (<div key={index} className="tr">
                   <div className="td">
-                    <input type="checkbox" onChange={e => checkboxHandle(e, item.price * item.quantity)} />
+                    <input type="checkbox" onChange={e => checkboxHandle(item.id)} checked={item.checked ? true : false} />
                   </div>
                   <div className="td">
                     <Link to={`/detail/${item.id}`}>
@@ -109,7 +111,7 @@ const Cart = () => {
                 </div>
                 <div className="td"></div>
                 <div className="td" style={{margin: "5px"}}>
-                    <h3>${total}</h3>
+                    <h3>$ {totalCounting()}</h3>
                 </div>
                 <div className="td"></div>
               </div>

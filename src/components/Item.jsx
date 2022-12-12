@@ -11,7 +11,8 @@ const Item = ({ item }) => {
     const addToCartHandle = () => {
         const payload = {
             ...item,
-            quantity: 1
+            quantity: 1,
+            checked: false
         }
         const action = addToCart(payload);
         dispatch(action);

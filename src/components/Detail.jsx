@@ -76,7 +76,8 @@ const Detail = () => {
     e.preventDefault();
     const payload = {
       ...productInfo,
-      quantity: number
+      quantity: number,
+      checked: false
     }
     const action = addToCart(payload);
     dispatch(action);

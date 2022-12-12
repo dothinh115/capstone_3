@@ -53,6 +53,18 @@ export const cart = (state = [], action) => {
             }
             return newState;
         }
+        case "SET_CHECKED": {
+            let newState = [...state];
+            const {payload} = action;
+            const index = newState.findIndex(item => item.id === payload);
+            if(index !== -1) {
+                newState[index] = {
+                    ...newState[index],
+                    checked: !newState[index].checked
+                }
+            }
+            return newState;
+        }
         default: return state;
     }
 }

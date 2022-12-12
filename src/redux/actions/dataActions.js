@@ -22,3 +22,8 @@ export const deleteCartItem = payload => ({
     type: "DELETE_CART_ITEM",
     payload
 });
+
+export const setChecked = payload => ({
+    type: "SET_CHECKED",
+    payload
+});
