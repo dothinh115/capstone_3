@@ -62,7 +62,7 @@ const Carousel = () => {
                 await addToCartHandle(item);
                 navigate("/cart");
               }}>
-                <i class="fa-solid fa-cart-plus"></i>
+                <i className="fa-solid fa-cart-plus"></i>
                 Thêm vào giỏ hàng
               </button>
             </div>
