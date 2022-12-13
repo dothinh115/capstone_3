@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import Item from './Item';
 
 const Search = () => {
-  const [searchValue, setSearchValue] = useState("");
+  const searchValue = useRef("");
 
   const [searchResult, setSearchResult] = useState([]);
 
@@ -12,7 +12,7 @@ const Search = () => {
 
   const inputChangeHandle = e => {
     const {value} = e.target;
-    setSearchValue(value.trim());
+    searchValue.current = value.trim();
   }
 
   const sendData = async (value) => {
@@ -31,7 +31,7 @@ const Search = () => {
   const submitHandle = e => {
     e.preventDefault();
     setParams({
-      keywords: searchValue
+      keywords: searchValue.current
     });
     sendData(searchValue);
   }
@@ -39,7 +39,7 @@ const Search = () => {
   useEffect(() => {
     const keywords = params.get("keywords");
     if(keywords) {
-      setSearchValue(keywords);
+      searchValue.current = keywords;
       sendData(keywords);
     }
   }, []);
@@ -59,7 +59,7 @@ const Search = () => {
               Tìm kiếm
             </div>
             <div className="search-right">
-              <input defaultValue={searchValue} type="text" placeholder="Nhập từ khóa!!" onChange={e => inputChangeHandle(e)} />
+              <input defaultValue={searchValue.current} type="text" placeholder="Nhập từ khóa!!" onChange={e => inputChangeHandle(e)} />
             </div>
             <div className="search-button" style={{marginLeft: "20px"}}>
               <button className="btn">Tìm</button>

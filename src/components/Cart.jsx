@@ -37,6 +37,14 @@ const Cart = () => {
     return total;
   }
 
+  const cartItemsCounting = () => {
+    let total = 0;
+    for (let key in cartData) {
+      if (cartData[key].checked === true) total += cartData[key].quantity;
+    }
+    return total;
+  }
+
   useEffect(() => {
     !token && navigate("/login");
   }, []);
@@ -96,7 +104,7 @@ const Cart = () => {
                   <div className="tr">
                     <div className="td"></div>
                     <div className="td" style={{ margin: "5px" }}>
-                      <h3>Tổng cộng:</h3>
+                      <h3>Tổng cộng ({cartItemsCounting()} sản phẩm):</h3>
                     </div>
                     <div className="td"></div>
                     <div className="td" style={{ margin: "5px" }}>

@@ -69,18 +69,15 @@ const Homtemplate = () => {
     <div className="container main-contain">
       <div className="contain-header">
         <Header />
-        <div className="sub-menu">
-
-        </div>
       </div>
       <div className="contain-body">
         <div className="body-left">
           <ul className="index-menu">
             <li>
-              <NavLink to="/">
-                <i className="fa-solid fa-house"></i>
-                Trang chủ
-              </NavLink>
+            <NavLink to="/">
+              <i className="fa-solid fa-house"></i>
+              Trang chủ
+            </NavLink>
             </li>
             <li>
               <NavLink to="/search">
