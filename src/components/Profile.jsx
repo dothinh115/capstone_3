@@ -6,13 +6,9 @@ import useToken from '../Hooks/useToken';
 
 const Profile = () => {
   const token = useToken();
-
   const userData = useSelector(store => store.userData);
-
   const navigate = useNavigate();
-
   const [productFavorite, setProductFavorite] = useState([]);
-
   const getProductFavorite = async () => {
     try {
       const fetch = await axios({

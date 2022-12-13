@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import useCurrentUserEmail from '../Hooks/useCurrentUserEmail';
 import useToken from '../Hooks/useToken'
-import { deleteCartItem, loadCartData, quantityUpdate, setChecked } from '../redux/actions/dataActions';
+import { deleteCartItem, quantityUpdate, setChecked } from '../redux/actions/dataActions';
 
 const Cart = () => {
   const token = useToken();
   const navigate = useNavigate();
   const dispatch = useDispatch()
   const cartData = useSelector(store => store.cart);
-  const currentEmail = useCurrentUserEmail();
 
   const quantityUpdateHandle = (id, value) => {
     const payload = {
@@ -19,15 +17,6 @@ const Cart = () => {
     }
     const action = quantityUpdate(payload);
     dispatch(action);
-  }
-
-  const getCartData = () => {
-    let data = localStorage.getItem(`cartData.${currentEmail}`);
-    if (data) {
-      data = JSON.parse(data);
-      const action = loadCartData(data);
-      dispatch(action);
-    }
   }
 
   const deleteHandle = id => {
@@ -50,7 +39,6 @@ const Cart = () => {
 
   useEffect(() => {
     !token && navigate("/login");
-    getCartData();
   }, []);
   return (
     <>

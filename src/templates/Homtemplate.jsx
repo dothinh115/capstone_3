@@ -38,9 +38,27 @@ const Homtemplate = () => {
     }
   }
 
+  const getCartData = () => {
+    let data = localStorage.getItem(`cartData.${currentEmail}`);
+    if (data) {
+      data = JSON.parse(data);
+      const action = loadCartData(data);
+      dispatch(action);
+    }
+  }
+
+  const cartItemsCounting = () => {
+    let total = 0;
+    for (let key in cartData) {
+      total += cartData[key].quantity;
+    }
+    return total;
+  }
+
   useEffect(() => {
     fetchData();
     updateUserFunc();
+    getCartData();
   }, []);
 
   useEffect(() => {
@@ -73,7 +91,7 @@ const Homtemplate = () => {
             <li>
               <NavLink to="/cart">
                 <i className="fa-solid fa-cart-shopping"></i>
-                Giỏ hàng
+                Giỏ hàng [ <b>{cartItemsCounting()}</b> ]
               </NavLink>
             </li>
           </ul>
