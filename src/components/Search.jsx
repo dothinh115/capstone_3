@@ -33,7 +33,7 @@ const Search = () => {
     setParams({
       keywords: searchValue.current
     });
-    sendData(searchValue);
+    sendData(searchValue.current);
   }
 
   useEffect(() => {

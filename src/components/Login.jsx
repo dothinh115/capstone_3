@@ -2,12 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useToken from '../Hooks/useToken';
-import useUpdateUser from '../Hooks/useUpdateUser';
 
 const Login = () => {
   const token = useToken();
-
-  const userUpdateFunc = useUpdateUser();
 
   const navigate = useNavigate();
 
