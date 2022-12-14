@@ -32,7 +32,7 @@ const Detail = () => {
 
   const sendLike = async (bool) => {
     try {
-      const fetch = await axios({
+      await axios({
         url: `https://shop.cyberlearn.vn/api/Users/${bool ? "like" : "unlike"}?productId=${productId}`,
         method: "GET",
         dataType: "application/json",
@@ -40,7 +40,7 @@ const Detail = () => {
           "Authorization": `Bearer ${token}`
         }
       });
-      getProductFavorite();
+      setLike(bool);
     } catch (error) {
       console.log(error);
     }
@@ -63,7 +63,7 @@ const Detail = () => {
   }
 
   const likeHandle = e => {
-    token ? like ? sendLike(false) : sendLike(true) : navigate("/login");
+    token ? sendLike(!like) : navigate("/login");
   }
 
   const findIfLiked = arr => {

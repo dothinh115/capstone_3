@@ -72,7 +72,6 @@ const Login = () => {
         data: loginValue
       });
       setLocalStorage(fetch.data.content);
-      userUpdateFunc();
       window.location.reload(false);
     } catch (err) {
       setResult(err.response.data.message);
@@ -90,7 +89,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="main-container" style={{marginBottom: "20px"}}>
+      <div className="main-container" style={{ marginBottom: "20px" }}>
         <div className="page-header">
           <p>
             <i className="fa-solid fa-arrow-right"></i>
@@ -111,7 +110,7 @@ const Login = () => {
           </p>
         </div>
       </div>}
-      
+
       <div className="main-container" style={{ marginTop: result && "20px" }}>
         <div className="page-header">
           <h1>
@@ -127,7 +126,7 @@ const Login = () => {
                   Email
                 </div>
                 <div className="item-right">
-                  <input type="text" data-id="email" onChange={e => inputChangeHandle(e)} />
+                  <input type="text" data-id="email" onChange={e => inputChangeHandle(e)} className={error.email && "invalid"} />
                   {error.email && <div className="form-error">{error.email}</div>}
                 </div>
               </div>
@@ -137,7 +136,7 @@ const Login = () => {
                   Mật khẩu
                 </div>
                 <div className="item-right">
-                  <input type="password" data-id="password" onChange={e => inputChangeHandle(e)} />
+                  <input type="password" data-id="password" onChange={e => inputChangeHandle(e)} className={error.password && "invalid"} />
                   {error.password && <div className="form-error">{error.password}</div>}
                 </div>
               </div>

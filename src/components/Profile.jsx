@@ -28,7 +28,7 @@ const Profile = () => {
 
   const sendUnLike = async (productId) => {
     try {
-      const fetch = await axios({
+      await axios({
         url: `https://shop.cyberlearn.vn/api/Users/unlike?productId=${productId}`,
         method: "GET",
         dataType: "application/json",

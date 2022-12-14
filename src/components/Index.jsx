@@ -6,10 +6,7 @@ import useUpdateUser from '../Hooks/useUpdateUser';
 
 const Index = () => {
   const indexData = useSelector(store => store.data);
-  const userUpdateFunc = useUpdateUser();
-  useEffect(() => {
-    userUpdateFunc();
-  }, []);
+  
   return (
     <>
       <div className="index-carousel main-container">

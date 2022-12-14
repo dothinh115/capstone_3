@@ -144,6 +144,10 @@ input:not(input[type=checkbox]), input:focus, input:focus-visible {
   outline: none;
 }
 
+input.invalid {
+  border-color: rgba(255, 0, 0, 0.25) !important;
+}
+
 select {
   padding: 5px;
   border-radius: 5px;

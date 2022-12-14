@@ -82,7 +82,7 @@ const Edit = () => {
 
   const sendData = async () => {
     try {
-      const fetch = await axios({
+      await axios({
         url: "https://shop.cyberlearn.vn/api/Users/updateProfile",
         method: "POST",
         dataType: "application/json",

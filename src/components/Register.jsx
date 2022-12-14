@@ -182,7 +182,7 @@ const Register = () => {
                           <option value="false">
                             Nữ
                           </option>
-                        </select> : <input data-id={item} type={item === "password" ? "password" : "text"} value={dataValue[item]} onChange={e => inputChangeHandle(e)} />}
+                        </select> : <input data-id={item} type={item === "password" ? "password" : "text"} value={dataValue[item]} onChange={e => inputChangeHandle(e)} className={error[item] && "invalid"} />}
                         {error[item] && <div className="form-error">
                           {error[item]}
                         </div>}
