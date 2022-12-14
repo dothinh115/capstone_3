@@ -65,6 +65,16 @@ export const cart = (state = [], action) => {
             }
             return newState;
         }
+        case "SET_ALL": {
+            let newState = [...state];
+            for (let key in newState) {
+                newState[key] = {
+                    ...newState[key],
+                    checked: action.payload
+                }
+            }
+            return newState;
+        }
         default: return state;
     }
 }

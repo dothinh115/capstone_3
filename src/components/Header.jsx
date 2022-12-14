@@ -1,18 +1,14 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import useToken from '../Hooks/useToken'
-import useCheckLogin from '../Hooks/useCheckLogin'
 const Header = () => {
   const userData = useSelector(store => store.userData);
   const token = useToken();
-  const checkLoginFunc = useCheckLogin();
-  const navigate = useNavigate();
   const logoutHandle = e => {
     e.preventDefault();
     setLocalStorage();
-    checkLoginFunc();
-    navigate("/");
+    window.location.reload(false);
   }
 
   const setLocalStorage = () => {
@@ -46,13 +42,13 @@ const Header = () => {
               <li>
                 <NavLink to="/login">
                   <i className="fa-solid fa-right-to-bracket"></i>
-                  Login
+                  Đăng nhập
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/register">
                   <i className="fa-solid fa-user-plus"></i>
-                  Register
+                  Đăng ký
                 </NavLink>
               </li></>}
 

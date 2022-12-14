@@ -79,8 +79,13 @@ const Detail = () => {
       checked: false
     }
     const action = addToCart(payload);
-    dispatch(action);
-    setAddResult(true);
+    if(token) {
+      dispatch(action);
+      setAddResult(true);
+    }
+    else {
+      navigate("/login");
+    }
   }
 
   useEffect(() => {

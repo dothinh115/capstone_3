@@ -27,3 +27,8 @@ export const setChecked = payload => ({
     type: "SET_CHECKED",
     payload
 });
+
+export const setAll = payload => ({
+    type: "SET_ALL",
+    payload
+});

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import useToken from '../Hooks/useToken'
-import { deleteCartItem, quantityUpdate, setChecked } from '../redux/actions/dataActions';
+import { deleteCartItem, quantityUpdate, setAll, setChecked } from '../redux/actions/dataActions';
 
 const Cart = () => {
   const token = useToken();
@@ -45,6 +45,20 @@ const Cart = () => {
     return total;
   }
 
+  const checkAllHandle = e => {
+    const {checked} = e.target;
+    const action = setAll(checked);
+    dispatch(action);
+  }
+
+  const findIfCheckAll = () => {
+    let result = true;
+    for (let value of cartData) {
+      if(!value.checked) result &= false;
+    }
+    return result;
+  }
+
   useEffect(() => {
     !token && navigate("/login");
   }, []);
@@ -62,7 +76,7 @@ const Cart = () => {
               <div className="table">
                 <div className="thead">
                   <div className="tr">
-                    <div className="th"></div>
+                    <div className="th"><input type="checkbox" onChange={e => checkAllHandle(e)} checked={findIfCheckAll()} /></div>
                     <div className="th">Tên sản phẩm</div>
                     <div className="th">Số lượng</div>
                     <div className="th">Giá</div>

@@ -3,10 +3,12 @@ import { Link, useNavigate } from 'react-router-dom'
 import { memo } from 'react'
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/actions/dataActions';
+import useToken from '../Hooks/useToken';
 
 const Item = ({ item }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const token = useToken();
 
     const addToCartHandle = item => {
         const payload = {
@@ -15,7 +17,7 @@ const Item = ({ item }) => {
             checked: false
         }
         const action = addToCart(payload);
-        dispatch(action);
+        if(token ) dispatch(action);
     }
     return (
         <div className="card-item">

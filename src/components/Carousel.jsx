@@ -6,20 +6,23 @@ import Slider from 'react-slick';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../redux/actions/dataActions';
+import useToken from '../Hooks/useToken';
 
 const Carousel = () => {
   const indexData = useSelector(store => store.data);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const token = useToken();
 
   const addToCartHandle = item => {
+    
     const payload = {
       ...item,
       quantity: 1,
       checked: false
     }
     const action = addToCart(payload);
-    dispatch(action);
+    if(token) dispatch(action);
   }
 
   const settings = {

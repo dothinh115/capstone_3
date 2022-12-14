@@ -18,12 +18,17 @@ const Breadcrumbs = () => {
                     </li>
                     <li>
                         <NavLink to="/profile">
-                            Profile
+                            Thông tin cá nhân
                         </NavLink>
                     </li>
                     <li>
                         <NavLink to="/profile/edit">
                             Sửa
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to={`/detail/${productId}`}>
+                            Sản phẩm
                         </NavLink>
                     </li>
                     <li>

@@ -1,12 +1,10 @@
 const useToken = () => {
-  const getToken = () => {
-    let data = localStorage.getItem("loginInfo");
-    if (data) {
-      data = JSON.parse(data);
-      return data.accessToken;
-    }
+  let token = localStorage.getItem("loginInfo");
+  if (token) {
+    token = JSON.parse(token);
+    return token.accessToken;
   }
-  return getToken();
+  return false;
 }
 
 export default useToken

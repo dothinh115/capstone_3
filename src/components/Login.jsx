@@ -73,7 +73,7 @@ const Login = () => {
       });
       setLocalStorage(fetch.data.content);
       userUpdateFunc();
-      navigate("/");
+      window.location.reload(false);
     } catch (err) {
       setResult(err.response.data.message);
     }

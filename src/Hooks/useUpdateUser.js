@@ -1,14 +1,12 @@
 import axios from 'axios';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { userDataUpdate } from '../redux/actions/userActions';
 import useToken from './useToken';
 
 const useUpdateUser = () => {
     const token = useToken();
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const getUserInfo = async () => {
       if(token) {
         try {
@@ -24,7 +22,7 @@ const useUpdateUser = () => {
           dispatch(action);
         } catch (error) {
           localStorage.removeItem("loginInfo");
-          navigate("/");
+          window.location.reload(false);
         }
       }
     }
