@@ -1,12 +1,19 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import '../assets/css/breadcrumbs.css'
 
 const Breadcrumbs = () => {
-    const { productId } = useParams();
+    const { productId, category } = useParams();
     const productData = useSelector(store => store.data);
     const find = productData.find(item => item.id == productId);
+    const navigate = useNavigate();
+
+    const onClickCate = e => {
+        e.preventDefault();
+        navigate(`/search/?keywords=${JSON.parse(find?.categories)[0].category}`)
+    }
+    
     return (
         <div className="main-container" style={{ marginBottom: "20px" }}>
             <div className="page-header">
@@ -27,8 +34,8 @@ const Breadcrumbs = () => {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to={`/detail/${productId}`}>
-                            Sản phẩm
+                        <NavLink to={`/detail/${productId}`} onClick={e => onClickCate(e)}>
+                            {find && JSON.parse(find?.categories)[0].category}
                         </NavLink>
                     </li>
                     <li>

@@ -22,8 +22,9 @@ function App() {
           <Route path='/detail/:productId' element={<Detail />} />
           <Route path='/search' element={<Search />} />
           <Route path='/cart' element={<Cart />} />
-          <Route path='/profile/edit' element={<Edit />} />
-          <Route path='/profile' element={<Profile />} />
+          <Route path='/profile' element={<Profile />}>
+            <Route path='/profile/edit' element={<Edit />} />
+          </Route>
           <Route path='*' element={<Navigate to='/' /> } />
         </Route>
       </Routes>

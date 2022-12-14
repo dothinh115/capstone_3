@@ -30,8 +30,6 @@ const Edit = () => {
 
   const [valid, setValid] = useState(false);
 
-  const [message, setMessage] = useState('');
-
   const checkValid = () => {
     for (let key in dataValue) {
       if(key === "gender"){
@@ -92,7 +90,7 @@ const Edit = () => {
         }
       });
       userUpdateFunc();
-      setMessage("Chỉnh sửa thông tin thành công");
+      navigate("/profile");
     } catch (error) {
       console.log(error);
     }
@@ -124,18 +122,7 @@ const Edit = () => {
 
   return (
     <>
-    {message && <div className="main-container">
-      <div className="page-header">
-        <h1>
-          Thông báo
-        </h1>
-      </div>
-      <div className="main-body">
-        <i className="fa-solid fa-check" style={{color: "green"}}></i>
-        {message}
-      </div>
-    </div>}
-      <div className="main-container" style={{marginTop: message && "20px"}}>
+      <div className="main-container">
         <div className="page-header">
           <h1>
             Chỉnh sửa thông tin cá nhân - {userInfo.name}
