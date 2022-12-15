@@ -95,7 +95,7 @@ const Register = () => {
     if (res) {
       return (
         <>
-          <i className="fa-solid fa-check" style={{ color: "green" }}></i>Đăng ký thành công, {<Link to="/login"><i className="fa-solid fa-arrow-right"></i>bấm vào đây</Link>} để đăng nhập!!
+          <i className="fa-solid fa-check" style={{ color: "green" }}></i>Đăng ký thành công, {<Link className="alert-link" to="/login"><i className="fa-solid fa-arrow-right"></i>bấm vào đây</Link>} để đăng nhập!!
         </>
       )
     }
@@ -143,7 +143,7 @@ const Register = () => {
         <div className="page-header">
           <p>
             <i className="fa-solid fa-arrow-right"></i>
-            Nếu đã có tài khoản, vui lòng <Link to="/login" style={{padding: "5px", borderRadius: "5px", backgroundColor: "rgba(255, 0, 0, .5)", color: "#fff"}}>đăng nhập</Link>!!!
+            Nếu đã có tài khoản, vui lòng <Link to="/login" className="alert-link">đăng nhập</Link>!!!
           </p>
         </div>
       </div>
