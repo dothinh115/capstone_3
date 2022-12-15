@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Carousel from './Carousel'
 import Item from './Item';
 import { useSelector } from 'react-redux';
-import useUpdateUser from '../Hooks/useUpdateUser';
 
 const Index = () => {
   const indexData = useSelector(store => store.data);
@@ -12,11 +11,12 @@ const Index = () => {
       <div className="index-carousel main-container">
         <div className="page-header">
           <h1>
-            CÓ THỂ BẠN THÍCH 
+            CÓ THỂ BẠN THÍCH
           </h1>
         </div>
-        <Carousel/>
+        <Carousel />
       </div>
+
       <div className="index-container main-container">
         <div className="page-header">
           <h1>

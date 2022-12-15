@@ -32,3 +32,18 @@ export const setAll = payload => ({
     type: "SET_ALL",
     payload
 });
+
+export const updateOrderHistory = payload => ({
+    type: "UPDATE_ORDER_HISTORY",
+    payload
+});
+
+export const loadOrderHistory = payload => ({
+    type: "LOAD_ORDER_HISTORY",
+    payload
+});
+
+export const deleteOrder = payload => ({
+    type: "DELETE_ORDER",
+    payload
+});

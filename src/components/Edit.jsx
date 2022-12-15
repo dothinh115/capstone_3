@@ -89,7 +89,7 @@ const Edit = () => {
           "Authorization": `Bearer ${token}`
         }
       });
-      userUpdateFunc();
+      await userUpdateFunc();
       navigate("/profile");
     } catch (error) {
       console.log(error);

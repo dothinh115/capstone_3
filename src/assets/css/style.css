@@ -144,6 +144,13 @@ input:not(input[type=checkbox]), input:focus, input:focus-visible {
   outline: none;
 }
 
+select {
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
+  padding: 10px;
+  outline: none;
+}
+
 input.invalid {
   border-color: rgba(255, 0, 0, 0.25) !important;
 }

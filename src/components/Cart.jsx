@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import useToken from '../Hooks/useToken'
-import { deleteCartItem, quantityUpdate, setAll, setChecked } from '../redux/actions/dataActions';
+import { deleteCartItem, quantityUpdate, setAll, setChecked, updateOrderHistory } from '../redux/actions/dataActions';
 
 const Cart = () => {
   const token = useToken();
   const navigate = useNavigate();
   const dispatch = useDispatch()
   const cartData = useSelector(store => store.cart);
+  const [checkoutRes, setCheckoutRes] = useState(false);
+  const [error, setError] = useState("");
 
   const quantityUpdateHandle = (id, value) => {
     const payload = {
@@ -59,11 +61,42 @@ const Cart = () => {
     return result;
   }
 
+  const checkOutHandle = e => {
+    e.preventDefault();
+    let checkedItem = [];
+    for(let key in cartData) {
+      if(cartData[key].checked) checkedItem = [...checkedItem, cartData[key]];
+    }
+    if(checkedItem.length !== 0) {
+      const action = updateOrderHistory(checkedItem);
+      dispatch(action);
+      for (let value of checkedItem) {
+        const action = deleteCartItem(value.id);
+        dispatch(action);
+      }
+      setCheckoutRes(true);
+      setError("");
+    } 
+    else {
+      setCheckoutRes(true);
+      setError("Chọn sản phẩm trước khi đặt hàng");
+    }
+  }
+
   useEffect(() => {
     !token && navigate("/login");
   }, []);
   return (
     <>
+      {checkoutRes && <div className="main-container" style={{marginBottom: "20px"}}>
+        <div className="page-header">
+          {error ? error : 
+          <>
+            Đặt hàng thành công, <Link className="alert-link" to="/profile">xem lịch sử đặt hàng</Link>.
+          </>}
+        </div>
+      </div>}
+      
       <div className="main-container">
         <div className="page-header">
           <h1>
@@ -132,9 +165,9 @@ const Cart = () => {
                 </div>
               </div>
               <div className="cart-button">
-                <button className="btn">
+                <button className="btn" onClick={e => checkOutHandle(e)}>
                   <i className="fa-solid fa-cart-shopping" style={{ marginRight: "10px" }}></i>
-                  Thanh toán
+                  Đặt hàng
                 </button>
               </div>
             </> :

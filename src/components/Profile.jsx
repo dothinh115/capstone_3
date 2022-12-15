@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { Link, Outlet, useNavigate, useOutlet } from 'react-router-dom';
 import axios from 'axios';
 import useToken from '../Hooks/useToken';
+import OrderHistory from './OrderHistory';
 
 const Profile = () => {
   const token = useToken();
@@ -89,17 +90,15 @@ const Profile = () => {
           </div>
         </div>
       </> }
-      
-
-
-      <div className="main-container" style={{marginTop: "20px"}}>
+    
+      <div className="main-container order-history" style={{marginTop: "20px"}}>
         <div className="page-header">
           <h1>
             LỊCH SỬ MUA HÀNG
           </h1>
         </div>
         <div className="main-body">
-          {!userData.orderHistory && "Chưa có lịch sử mua hàng!"}
+          <OrderHistory />
         </div>
       </div>
 

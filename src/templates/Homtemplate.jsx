@@ -6,13 +6,14 @@ import Header from '../components/Header'
 import axios from 'axios'
 import useUpdateUser from '../Hooks/useUpdateUser'
 import Breadcrumbs from '../components/Breadcrumbs'
-import { loadCartData, updateData } from '../redux/actions/dataActions'
+import { loadCartData, loadOrderHistory, updateData } from '../redux/actions/dataActions'
 import useCurrentUserEmail from '../Hooks/useCurrentUserEmail'
 
 const Homtemplate = () => {
   const dispatch = useDispatch();
   const updateUserFunc = useUpdateUser();
   const cartData = useSelector(store => store.cart);
+  const orderHistoryData = useSelector(store => store.orderHistory);
   const currentEmail = useCurrentUserEmail();
 
   const fetchData = async () => {
@@ -27,6 +28,23 @@ const Homtemplate = () => {
     }
     catch (error) {
       console.log(error);
+    }
+  }
+
+  const saveOrderHistoryData = () => {
+    if (currentEmail && orderHistoryData) {
+      let data = orderHistoryData;
+      data = JSON.stringify(data);
+      localStorage.setItem(`orderHistoryData.${currentEmail}`, data);
+    }
+  }
+
+  const getOrderHistoryData = () => {
+    let data = localStorage.getItem(`orderHistoryData.${currentEmail}`);
+    if (data) {
+      data = JSON.parse(data);
+      const action = loadOrderHistory(data);
+      dispatch(action);
     }
   }
 
@@ -59,11 +77,16 @@ const Homtemplate = () => {
     fetchData();
     updateUserFunc();
     getCartData();
+    getOrderHistoryData();
   }, []);
 
   useEffect(() => {
     saveCartData();
   }, [cartData]);
+
+  useEffect(() => {
+    saveOrderHistoryData();
+  }, [orderHistoryData])
 
   return (
     <div className="container main-contain">

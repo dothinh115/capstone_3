@@ -5,9 +5,7 @@ import Item from './Item';
 
 const Search = () => {
   const searchValue = useRef("");
-
   const [searchResult, setSearchResult] = useState([]);
-
   const [params, setParams] = useSearchParams();
 
   const inputChangeHandle = e => {
@@ -30,15 +28,41 @@ const Search = () => {
 
   const submitHandle = e => {
     e.preventDefault();
-    setParams({
-      keywords: searchValue.current
-    });
-    sendData(searchValue.current);
+    if(searchValue.current) {
+      setParams({
+        keyWords: searchValue.current
+      });
+      sendData(searchValue.current);
+    }
+  }
+
+  const sortBy = value => {
+    switch(value) {
+      case "priceUp": {
+        setSearchResult(searchResult.sort((a, b) => b.price - a.price));
+        break;
+      }
+      case "priceDown": {
+        setSearchResult(searchResult.sort((a, b) => a.price - b.price));
+        break;
+      }
+    }
+  }
+
+  const sortHandle = e => {
+    e.preventDefault();
+    const {value} = e.target;
+    if(value !== "" && searchValue.current) {
+      setParams({
+        keywords: searchValue.current,
+      });
+      sortBy(value);
+    }
   }
 
   useEffect(() => {
     const keywords = params.get("keywords");
-    if(keywords) {
+    if (keywords) {
       searchValue.current = keywords;
       sendData(keywords);
     }
@@ -70,8 +94,13 @@ const Search = () => {
 
       <div className="main-container" style={{ marginTop: "20px" }}>
         <div className="page-header">
-          <h1>
-            KẾT QUẢ
+          <h1 style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+            <span>KẾT QUẢ</span>
+            <select onChange={e => {sortHandle(e)}}>
+              <option value="">Lọc</option>
+              <option value="priceUp">Giá giảm dần</option>
+              <option value="priceDown">Giá tăng dần</option>
+            </select>
           </h1>
         </div>
         <div className="main-body">
