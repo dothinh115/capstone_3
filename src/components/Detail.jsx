@@ -4,7 +4,7 @@ import axios from 'axios'
 import Item from './Item';
 import useToken from '../Hooks/useToken';
 import { addToCart } from '../redux/actions/dataActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Detail = () => {
   const [productInfo, setProductInfo] = useState({});
@@ -90,8 +90,11 @@ const Detail = () => {
 
   useEffect(() => {
     fetchData();
-    getProductFavorite();
   }, [productId]);
+
+  useEffect(() => {
+    if(token) getProductFavorite();
+  }, [])
 
   return (
     <>
