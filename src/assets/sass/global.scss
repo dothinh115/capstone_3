@@ -10,10 +10,7 @@ body {
     font-family: "Montserrat", sans-serif;
     font-weight: 400;
     min-height: 100vh;
-    padding-top: 1vh;
-    @media (min-width: 950px) {
-        padding-top: 150px;
-    }
+    padding-top: 50px;
     font-size: 15px;
     @media (max-width: 600px) {
         font-size: 13px;
@@ -36,9 +33,6 @@ a:hover {
     margin: auto;
     @media (max-width: 1200px) {
         max-width: 98%;
-    }
-    @media screen {
-        
     }
 }
 
