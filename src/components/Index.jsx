@@ -2,13 +2,13 @@ import React, { useEffect } from 'react'
 import Carousel from './Carousel'
 import Item from './Item';
 import { useSelector } from 'react-redux';
-import useUpdateUser from '../Hooks/useUpdateUser';
+import useCheckToken from '../Hooks/useCheckToken';
 
 const Index = () => {
   const indexData = useSelector(store => store.data);
-  const updateUser = useUpdateUser();
+  const checkToken = useCheckToken();
   useEffect(() => {
-    updateUser();
+    checkToken();
   }, []);
   return (
     <>

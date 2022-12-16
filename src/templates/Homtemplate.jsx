@@ -7,12 +7,14 @@ import axios from 'axios'
 import Breadcrumbs from '../components/Breadcrumbs'
 import { loadCartData, loadOrderHistory, updateData } from '../redux/actions/dataActions'
 import useCurrentUserEmail from '../Hooks/useCurrentUserEmail'
+import useUpdateUser from '../Hooks/useUpdateUser'
 
 const Homtemplate = () => {
   const dispatch = useDispatch();
   const cartData = useSelector(store => store.cart);
   const orderHistoryData = useSelector(store => store.orderHistory);
   const currentEmail = useCurrentUserEmail();
+  const updateUser = useUpdateUser();
 
   const fetchData = async () => {
     try {
@@ -75,6 +77,7 @@ const Homtemplate = () => {
     fetchData();
     getCartData();
     getOrderHistoryData();
+    updateUser();
   }, []);
 
   useEffect(() => {

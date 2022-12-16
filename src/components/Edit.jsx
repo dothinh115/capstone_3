@@ -5,12 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import dataConfig from '../templates/dataConfig';
 import useToken from '../Hooks/useToken';
 import useUpdateUser from '../Hooks/useUpdateUser';
+import useCheckToken from '../Hooks/useCheckToken';
 
 const Edit = () => {
   const token = useToken();
   const updateUser = useUpdateUser();
   const userInfo = useSelector(store => store.userData);
   const navigate = useNavigate();
+  const checkToken = useCheckToken();
 
   const [dataValue, setDataValue] = useState({
     email: "",
@@ -89,6 +91,7 @@ const Edit = () => {
           "Authorization": `Bearer ${token}`
         }
       });
+      updateUser();
       navigate("/profile");
     } catch (error) {
       console.log(error);
@@ -117,7 +120,7 @@ const Edit = () => {
 
   useEffect(() => {
     !token && navigate("/login");
-    updateUser();
+    checkToken();
   }, [])
 
   return (

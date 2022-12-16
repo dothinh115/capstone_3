@@ -1,14 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
-import useUpdateUser from '../Hooks/useUpdateUser';
 import Item from './Item';
+import useCheckToken from '../Hooks/useCheckToken';
 
 const Search = () => {
   const searchValue = useRef("");
   const [searchResult, setSearchResult] = useState([]);
   const [params, setParams] = useSearchParams();
-  const updateUser = useUpdateUser();
+  const checkToken = useCheckToken();
 
   const inputChangeHandle = e => {
     const {value} = e.target;
@@ -69,7 +69,7 @@ const Search = () => {
       searchValue.current = keywords;
       sendData(keywords);
     }
-    updateUser();
+    checkToken();
   }, []);
 
   return (

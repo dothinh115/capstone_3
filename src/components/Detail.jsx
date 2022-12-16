@@ -5,7 +5,7 @@ import Item from './Item';
 import useToken from '../Hooks/useToken';
 import { addToCart } from '../redux/actions/dataActions';
 import { useDispatch } from 'react-redux';
-import useUpdateUser from '../Hooks/useUpdateUser';
+import useCheckToken from '../Hooks/useCheckToken';
 
 const Detail = () => {
   const [productInfo, setProductInfo] = useState({});
@@ -16,7 +16,7 @@ const Detail = () => {
   const navigate = useNavigate();
   const [like, setLike] = useState(false);
   const [addResult, setAddResult] = useState(false);
-  const userUpdate = useUpdateUser();
+  const checkToken = useCheckToken();
 
   const fetchData = async () => {
     try {
@@ -31,7 +31,6 @@ const Detail = () => {
       console.log(error);
     }
   }
-
   const sendLike = async (bool) => {
     try {
       await axios({
@@ -91,10 +90,12 @@ const Detail = () => {
   }
   useEffect(() => {
     if(token) getProductFavorite();
-    if(productId) fetchData();
-    userUpdate();
-  }, [])
+    checkToken();
+  }, []);
 
+  useEffect(() => {
+    fetchData();
+  }, [productId]);
   return (
     <>
       {addResult && <div className="main-container" style={{marginBottom: "20px"}}>
