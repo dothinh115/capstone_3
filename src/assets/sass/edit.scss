@@ -6,6 +6,9 @@
         flex-wrap: wrap;
         align-items: center;
         margin-bottom: 10px;
+        @media (max-width:600px) {
+            width: 100%;
+        }
         &-left {
             width: 20%;
             color: rgba(#000, .65);

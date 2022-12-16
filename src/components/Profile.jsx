@@ -68,18 +68,18 @@ const Profile = () => {
               <div className="main-body-inner-right">
                 <div className="item">
                   <div className="inner-left">
-                    Email: <span>{userData.email}</span>
+                    Email: {userData.email}
                   </div>
                   <div className="inner-right">
-                    Họ tên: <span>{userData.name}</span>
+                    Họ tên: {userData.name}
                   </div>
                 </div>
                 <div className="item">
                   <div className="inner-left">
-                    Giới tính: <span><i className={`fa-solid fa-${userData.gender ? "mars" : "venus"}`}></i></span>
+                    Giới tính: <i className={`fa-solid fa-${userData.gender ? "mars" : "venus"}`}></i>
                   </div>
                   <div className="inner-right">
-                    Điện thoại: <span>{userData.phone}</span>
+                    Điện thoại: {userData.phone}
                   </div>
                 </div>
                 <div className="item">

@@ -18,8 +18,18 @@
   color: #fff;
   text-align: center;
 }
+@media (max-width: 600px) {
+  .order-history ul > li > div > span {
+    font-size: 15px;
+  }
+}
 .order-history ul > li > div:nth-of-type(2), .order-history ul > li > div:nth-of-type(4) {
   text-align: right;
+}
+@media (max-width: 600px) {
+  .order-history ul > li > div:nth-of-type(3) {
+    font-size: 15px;
+  }
 }
 .order-history ul > li > ul {
   width: 100%;

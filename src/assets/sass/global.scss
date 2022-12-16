@@ -10,8 +10,14 @@ body {
     font-family: "Montserrat", sans-serif;
     font-weight: 400;
     min-height: 100vh;
-    padding-top: 150px;
+    padding-top: 1vh;
+    @media (min-width: 950px) {
+        padding-top: 150px;
+    }
     font-size: 15px;
+    @media (max-width: 600px) {
+        font-size: 13px;
+    }
 }
 
 a {
@@ -74,10 +80,18 @@ a:hover {
         i {
             margin-right: unset;
         }
-    }
-    &-red:hover {
-        background-color: red;
-        opacity: 0.8;
+        &:disabled {
+            background-color: red;
+            opacity: 0.4;
+        }
+        &:hover {
+            background-color: red;
+            opacity: 0.8;
+            &:disabled {
+                background-color: red;
+                opacity: 0.4;
+            }
+        }
     }
 }
 
@@ -118,16 +132,19 @@ a:hover {
                     margin-right: 5px;
                 }
                 a {
-                    color: rgba($black-color, 0.65);
+                    color: rgba(black, 0.65);
                     padding: 12px;
                     display: block;
                     height: 100%;
+                    @media (max-width:600px) {
+                        padding: 5px;
+                    }
                 }
                 &:has(>.active) {
-                    background-color: rgba($white-color, 0.65);
+                    background-color: rgba(white, 0.65);
                 }
                 &:hover {
-                    border: 1px solid rgba($white-color, 0.35);
+                    border: 1px solid rgba(white, 0.35);
                 }
                 transition: all ease .3s;
                 @media (max-width:950px) {
@@ -142,7 +159,7 @@ a:hover {
             width: 100%;
         }
     }
-    border-bottom: 1px solid rgba($black-color, 0.05);
+    border-bottom: 1px solid rgba(black, 0.05);
     @media (max-width: 950px) {
         display: block;
     }
@@ -153,20 +170,20 @@ a:hover {
 }
 
 .page-header h1 {
-    color: rgba($black-color, 0.65);
+    color: rgba(black, 0.65);
     font-size: 20px;
 }
 
 input:not(input[type="checkbox"]), input:focus, input:focus-visible {
     width: 100%;
-    border: 1px solid rgba($black-color, 0.05);
+    border: 1px solid rgba(black, 0.05);
     border-radius: 5px;
     padding: 10px;
     outline: none;
 }
 
 select {
-    border: 1px solid rgba($black-color, 0.05);
+    border: 1px solid rgba(black, 0.05);
     border-radius: 5px;
     padding: 10px;
     outline: none;
@@ -247,11 +264,17 @@ i {
     &-item {
         width: 33%;
         padding: 10px;
-        @media (max-width:768px) {
+        @media (max-width:600px) {
+            width: 100%;
+        }
+        @media (min-width:600px) {
             width: 50%;
         }
+        @media (min-width:768px) {
+            width: 33%;
+        }
         &-inner {
-            background-color: $white-color;
+            background-color: white;
             border-radius: 5px;
             overflow: hidden;
             .card-img {

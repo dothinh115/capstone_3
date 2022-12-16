@@ -43,7 +43,7 @@ const Item = ({ item }) => {
                         navigate("/cart");
                     }}>
                         <i className="fa-solid fa-cart-shopping"></i>
-                        Buy Now
+                        Mua ngay
                     </div>
                     <div className="footer-right">
                         <i className="fa-sharp fa-solid fa-tag"></i>

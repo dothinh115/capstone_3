@@ -5,6 +5,11 @@
   width: 80%;
   margin: auto;
 }
+@media (max-width: 600px) {
+  .register-form-main {
+    width: 100%;
+  }
+}
 .register-form-main .item {
   width: 100%;
   display: flex;

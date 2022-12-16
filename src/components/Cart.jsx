@@ -85,6 +85,22 @@ const Cart = () => {
     }
   }
 
+  const checkIfAnyChecked = () => {
+    let res = false;
+    for (let value of cartData) {
+      if(value.checked) res = true;
+    }
+    return res;
+  }
+
+  const deleteCheckedItem = e => {
+    e.preventDefault();
+    const filter = cartData.filter(item => item.checked === true);
+    for (let value of filter) {
+      deleteHandle(value.id);
+    }
+  }
+
   useEffect(() => {
     !token && navigate("/login");
     updateUser();
@@ -100,13 +116,16 @@ const Cart = () => {
         </div>
       </div>}
       
-      <div className="main-container">
+      <div className="main-container cart">
         <div className="page-header">
           <h1>
             GIỎ HÀNG
           </h1>
+          <button className="btn btn-red" disabled={checkIfAnyChecked() ? false : true} onClick={e => deleteCheckedItem(e)}>
+            <i className="fa-solid fa-trash"></i>
+          </button>
         </div>
-        <div className="main-body cart">
+        <div className="main-body">
           {cartData.length !== 0 ?
             <>
               <div className="table">
@@ -116,7 +135,6 @@ const Cart = () => {
                     <div className="th">Tên sản phẩm</div>
                     <div className="th">Số lượng</div>
                     <div className="th">Giá</div>
-                    <div className="th">Thao tác</div>
                   </div>
                 </div>
                 <div className="tbody">
@@ -143,11 +161,6 @@ const Cart = () => {
                         <i className="fa-solid fa-tag"></i>
                         {item.price * item.quantity}
                       </div>
-                      <div className="td">
-                        <button className="btn btn-red" onClick={e => deleteHandle(item.id)}>
-                          <i className="fa-solid fa-trash"></i>
-                        </button>
-                      </div>
                     </div>
                     )
                   })}
@@ -163,7 +176,6 @@ const Cart = () => {
                         {totalCounting()}
                       </h3>
                     </div>
-                    <div className="td"></div>
                   </div>
                 </div>
               </div>

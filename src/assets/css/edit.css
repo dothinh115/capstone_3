@@ -6,6 +6,11 @@
   align-items: center;
   margin-bottom: 10px;
 }
+@media (max-width: 600px) {
+  .edit-container .item {
+    width: 100%;
+  }
+}
 .edit-container .item-left {
   width: 20%;
   color: rgba(0, 0, 0, 0.65);

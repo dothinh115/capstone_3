@@ -5,6 +5,11 @@
 .login-container .form-main div:not(div.item, div.form-error) {
   margin-top: 10px;
 }
+@media (max-width: 600px) {
+  .login-container .form-main {
+    width: 100%;
+  }
+}
 .login-container .form-main .item {
   display: flex;
   align-items: center;

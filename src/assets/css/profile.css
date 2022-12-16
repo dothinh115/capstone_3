@@ -75,9 +75,19 @@
   font-size: 18px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
+@media (max-width: 600px) {
+  .liked-product .table .thead .tr .th {
+    font-size: 15px;
+  }
+}
 .liked-product .table .thead .tr .th:nth-of-type(1) {
   width: 20%;
   text-align: center;
+}
+@media (max-width: 600px) {
+  .liked-product .table .thead .tr .th:nth-of-type(1) {
+    width: 30%;
+  }
 }
 .liked-product .table .thead .tr .th:nth-of-type(2), .liked-product .table .thead .tr .th:nth-of-type(3) {
   width: 40%;

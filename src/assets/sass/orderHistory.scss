@@ -16,10 +16,18 @@
                     border-radius: 5px;
                     color: #fff;
                     text-align: center;
+                    @media (max-width:600px) {
+                        font-size: 15px;
+                    }
                 }
                 width: 50%;
                 &:nth-of-type(2), &:nth-of-type(4) {
                     text-align: right;
+                }
+                &:nth-of-type(3) {
+                    @media (max-width:600px) {
+                        font-size: 15px;
+                    }
                 }
             }
             &>ul {

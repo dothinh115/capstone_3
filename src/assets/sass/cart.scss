@@ -13,9 +13,6 @@
                         width: 30%;
                         text-align: left;
                     }
-                    &:last-of-type {
-                        text-align: right;
-                    }
                     border-bottom: 1px solid rgba(black, 0.05);
                 }
             }
@@ -34,9 +31,6 @@
                     &:nth-of-type(2) {
                         text-align: left;
                     }
-                    &:last-of-type {
-                        text-align: right;
-                    }
                 }
             }
         }
@@ -44,5 +38,13 @@
     .cart-button {
         margin: 10px 0px;
         text-align: right;
+    }
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        button {
+            display: block;
+        }
     }
 }
