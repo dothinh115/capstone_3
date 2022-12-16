@@ -1,3 +1,7 @@
+.login-container .form-main {
+  width: 80%;
+  margin: auto;
+}
 .login-container .form-main div:not(div.item, div.form-error) {
   margin-top: 10px;
 }
@@ -9,6 +13,16 @@
   width: 20%;
   color: rgba(0, 0, 0, 0.65);
 }
+@media (max-width: 768px) {
+  .login-container .form-main .item-left {
+    width: 30%;
+  }
+}
 .login-container .form-main .item-right {
-  width: 60%;
+  width: 80%;
+}
+@media (max-width: 768px) {
+  .login-container .form-main .item-right {
+    width: 70%;
+  }
 }/*# sourceMappingURL=login.css.map */

@@ -10,18 +10,30 @@
                 width: 80%;
                 border-radius: 5px;
             }
+            @media (max-width:768px) {
+                width: 50%;
+            }
         }
         &-right {
             width: 70%;
             padding: 10px;
+            @media (max-width:768px) {
+                width: 50%;
+            }
             .item {
                 margin-bottom: 20px;
                 display: flex;
                 .inner-left {
                     width: 50%;
+                    @media (max-width:768px) {
+                        width: 100%;
+                    }
                 }
                 .inner-right {
                     width: 50%;
+                    @media (max-width:768px) {
+                        width: 100%;
+                    }
                 }
                 span {
                     padding: 5px;
@@ -38,6 +50,13 @@
                     padding: 15px;
                     background-color: rgba(palevioletred, 0.65);
 
+                }
+                @media (max-width:768px) {
+                    width: 100%;
+                    display: block;
+                    &>div {
+                        margin: 15px 0;
+                    }
                 }
             }
         }

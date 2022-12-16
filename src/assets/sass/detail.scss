@@ -5,19 +5,32 @@
     }
     .detail-body {
         display: flex;
+        @media (max-width:768px) {
+            display: block;
+        }
         &-left {
             width: 40%;
+            @media (max-width:768px) {
+                width: 100%;
+            }
             padding: 10px;
+            text-align: center;
             position: relative;
             img {
                 width: 100%;
                 background-color: steelblue;
                 border-radius: 5px;
+                @media (max-width:768px) {
+                    width: 80%;
+                }
             }
         }
         &-right {
             width: 60%;
             padding: 10px;
+            @media (max-width:768px) {
+                width: 100%;
+            }
             p {
                 font-size: 20px;
                 color: rgba(black, .65);
@@ -70,9 +83,18 @@
         }
         &-number {
             margin: 20px 0px;
+            display: flex;
+            align-items: center;
             span {
                 font-size: 20px;
                 margin: 0px 10px;
+            }
+            &-left {
+                width: 50%;
+            }
+            &-right {
+                width: 50%;
+                text-align: right;
             }
         }
     }
@@ -80,50 +102,4 @@
 
 .related-product {
     margin-top: 20px;
-    .card {
-        display: flex;
-        flex-wrap: wrap;
-        &-item {
-            width: 33%;
-            padding: 10px;
-            &-inner {
-                background-color: #fff;
-                border-radius: 5px;
-                overflow: hidden;
-                .card-img {
-                    background-color: steelblue;
-                    img {
-                        width: 100%;
-                    }
-                }
-                .card-body {
-                    h3 {
-                        padding: 10px;
-                    }
-                    p {
-                        padding: 10px;
-                        font-size: 14px;
-                    }
-                }
-                .card-footer {
-                    display: flex;
-                    align-items: center;
-                    .footer-left {
-                        width: 50%;
-                        background-color: tan;
-                        text-align: center;
-                        height: 40px;
-                        line-height: 40px;
-                    }
-                    .footer-right {
-                        width: 50%;
-                        text-align: center;
-                        height: 40px;
-                        line-height: 40px;
-                        background-color: cadetblue;
-                    }
-                }
-            }
-        }
-    }
 }

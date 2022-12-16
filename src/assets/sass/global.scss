@@ -28,6 +28,12 @@ a:hover {
 .container {
     max-width: 1200px;
     margin: auto;
+    @media (max-width: 1200px) {
+        max-width: 98%;
+    }
+    @media screen {
+        
+    }
 }
 
 .btn {
@@ -97,6 +103,9 @@ a:hover {
     padding: 20px 10px 10px 10px;
     .body-left {
         width: 20%;
+        @media (max-width:950px) {
+            width: 100%;
+        }
         .index-menu {
             li {
                 list-style-type: none;
@@ -120,14 +129,23 @@ a:hover {
                 &:hover {
                     border: 1px solid rgba($white-color, 0.35);
                 }
-                transition: all ease .3s
+                transition: all ease .3s;
+                @media (max-width:950px) {
+                    display: inline-block;
+                }
             }
         }
     }
     .body-right {
         width: 80%;
+        @media (max-width:950px) {
+            width: 100%;
+        }
     }
     border-bottom: 1px solid rgba($black-color, 0.05);
+    @media (max-width: 950px) {
+        display: block;
+    }
 }
 
 .contain-footer {
@@ -229,6 +247,9 @@ i {
     &-item {
         width: 33%;
         padding: 10px;
+        @media (max-width:768px) {
+            width: 50%;
+        }
         &-inner {
             background-color: $white-color;
             border-radius: 5px;

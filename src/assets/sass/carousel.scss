@@ -27,10 +27,16 @@
     }
     .slick-dots {
         bottom: 25px;
+        @media (max-width:768px) {
+            display: none!important;
+        }
     }
     .slider-item {
         display: flex!important;
         padding: 20px;
+        @media (max-width:768px) {
+            display: block!important;
+        }
         &-left {
             width: 70%;
             padding: 20px;
@@ -43,10 +49,16 @@
                     margin: auto;
                 }
             }
+            @media (max-width:768px) {
+                width: 100%;
+            }
         }
         &-right {
             width: 45%;
             padding: 20px;
+            @media (max-width:768px) {
+                width: 100%;
+            }
             ul {
                 li {
                     list-style-type: none;

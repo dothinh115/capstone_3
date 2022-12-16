@@ -1,6 +1,10 @@
 .register-form div:not(div.item, div.form-error) {
   margin-top: 10px;
 }
+.register-form-main {
+  width: 80%;
+  margin: auto;
+}
 .register-form-main .item {
   width: 100%;
   display: flex;
@@ -11,8 +15,18 @@
   width: 20%;
   color: rgba(0, 0, 0, 0.65);
 }
+@media (max-width: 768px) {
+  .register-form-main .item-left {
+    width: 30%;
+  }
+}
 .register-form-main .item-right {
-  width: 60%;
+  width: 80%;
+}
+@media (max-width: 768px) {
+  .register-form-main .item-right {
+    width: 70%;
+  }
 }
 .register-form .form-button button {
   margin-right: 10px;

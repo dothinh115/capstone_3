@@ -29,7 +29,11 @@ a:hover {
   max-width: 1200px;
   margin: auto;
 }
-
+@media (max-width: 1200px) {
+  .container {
+    max-width: 98%;
+  }
+}
 .btn {
   padding: 7px 15px;
   background: #fff;
@@ -99,6 +103,11 @@ a:hover {
 .contain-body .body-left {
   width: 20%;
 }
+@media (max-width: 950px) {
+  .contain-body .body-left {
+    width: 100%;
+  }
+}
 .contain-body .body-left .index-menu li {
   list-style-type: none;
   max-width: 80%;
@@ -123,8 +132,23 @@ a:hover {
 .contain-body .body-left .index-menu li:hover {
   border: 1px solid rgba(255, 255, 255, 0.35);
 }
+@media (max-width: 950px) {
+  .contain-body .body-left .index-menu li {
+    display: inline-block;
+  }
+}
 .contain-body .body-right {
   width: 80%;
+}
+@media (max-width: 950px) {
+  .contain-body .body-right {
+    width: 100%;
+  }
+}
+@media (max-width: 950px) {
+  .contain-body {
+    display: block;
+  }
 }
 
 .contain-footer {
@@ -241,6 +265,11 @@ i {
   width: 33%;
   padding: 10px;
 }
+@media (max-width: 768px) {
+  .card-item {
+    width: 50%;
+  }
+}
 .card-item-inner {
   background-color: #fff;
   border-radius: 5px;
@@ -323,19 +352,40 @@ i {
 .detail-container .detail-body {
   display: flex;
 }
+@media (max-width: 768px) {
+  .detail-container .detail-body {
+    display: block;
+  }
+}
 .detail-container .detail-body-left {
   width: 40%;
   padding: 10px;
+  text-align: center;
   position: relative;
+}
+@media (max-width: 768px) {
+  .detail-container .detail-body-left {
+    width: 100%;
+  }
 }
 .detail-container .detail-body-left img {
   width: 100%;
   background-color: steelblue;
   border-radius: 5px;
 }
+@media (max-width: 768px) {
+  .detail-container .detail-body-left img {
+    width: 80%;
+  }
+}
 .detail-container .detail-body-right {
   width: 60%;
   padding: 10px;
+}
+@media (max-width: 768px) {
+  .detail-container .detail-body-right {
+    width: 100%;
+  }
 }
 .detail-container .detail-body-right p {
   font-size: 20px;
@@ -384,58 +434,23 @@ i {
 }
 .detail-container .detail-body-number {
   margin: 20px 0px;
+  display: flex;
+  align-items: center;
 }
 .detail-container .detail-body-number span {
   font-size: 20px;
   margin: 0px 10px;
 }
+.detail-container .detail-body-number-left {
+  width: 50%;
+}
+.detail-container .detail-body-number-right {
+  width: 50%;
+  text-align: right;
+}
 
 .related-product {
   margin-top: 20px;
-}
-.related-product .card {
-  display: flex;
-  flex-wrap: wrap;
-}
-.related-product .card-item {
-  width: 33%;
-  padding: 10px;
-}
-.related-product .card-item-inner {
-  background-color: #fff;
-  border-radius: 5px;
-  overflow: hidden;
-}
-.related-product .card-item-inner .card-img {
-  background-color: steelblue;
-}
-.related-product .card-item-inner .card-img img {
-  width: 100%;
-}
-.related-product .card-item-inner .card-body h3 {
-  padding: 10px;
-}
-.related-product .card-item-inner .card-body p {
-  padding: 10px;
-  font-size: 14px;
-}
-.related-product .card-item-inner .card-footer {
-  display: flex;
-  align-items: center;
-}
-.related-product .card-item-inner .card-footer .footer-left {
-  width: 50%;
-  background-color: tan;
-  text-align: center;
-  height: 40px;
-  line-height: 40px;
-}
-.related-product .card-item-inner .card-footer .footer-right {
-  width: 50%;
-  text-align: center;
-  height: 40px;
-  line-height: 40px;
-  background-color: cadetblue;
 }
 
 .profile-body .main-body-inner {
@@ -451,9 +466,19 @@ i {
   width: 80%;
   border-radius: 5px;
 }
+@media (max-width: 768px) {
+  .profile-body .main-body-inner-left {
+    width: 50%;
+  }
+}
 .profile-body .main-body-inner-right {
   width: 70%;
   padding: 10px;
+}
+@media (max-width: 768px) {
+  .profile-body .main-body-inner-right {
+    width: 50%;
+  }
 }
 .profile-body .main-body-inner-right .item {
   margin-bottom: 20px;
@@ -462,8 +487,18 @@ i {
 .profile-body .main-body-inner-right .item .inner-left {
   width: 50%;
 }
+@media (max-width: 768px) {
+  .profile-body .main-body-inner-right .item .inner-left {
+    width: 100%;
+  }
+}
 .profile-body .main-body-inner-right .item .inner-right {
   width: 50%;
+}
+@media (max-width: 768px) {
+  .profile-body .main-body-inner-right .item .inner-right {
+    width: 100%;
+  }
 }
 .profile-body .main-body-inner-right .item span {
   padding: 5px;
@@ -479,6 +514,15 @@ i {
   border-radius: 5px;
   padding: 15px;
   background-color: rgba(219, 112, 147, 0.65);
+}
+@media (max-width: 768px) {
+  .profile-body .main-body-inner-right .item {
+    width: 100%;
+    display: block;
+  }
+  .profile-body .main-body-inner-right .item > div {
+    margin: 15px 0;
+  }
 }
 
 .liked-product .table .thead .tr .th {
@@ -563,20 +607,35 @@ i {
 }
 
 .edit-container .item {
-  margin-bottom: 10px;
-  width: 100%;
+  width: 80%;
+  margin: auto;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  margin-bottom: 10px;
 }
 .edit-container .item-left {
   width: 20%;
   color: rgba(0, 0, 0, 0.65);
 }
+@media (max-width: 768px) {
+  .edit-container .item-left {
+    width: 30%;
+  }
+}
 .edit-container .item-right {
-  width: 60%;
+  width: 80%;
+}
+@media (max-width: 768px) {
+  .edit-container .item-right {
+    width: 70%;
+  }
 }
 
+.login-container .form-main {
+  width: 80%;
+  margin: auto;
+}
 .login-container .form-main div:not(div.item, div.form-error) {
   margin-top: 10px;
 }
@@ -588,12 +647,26 @@ i {
   width: 20%;
   color: rgba(0, 0, 0, 0.65);
 }
+@media (max-width: 768px) {
+  .login-container .form-main .item-left {
+    width: 30%;
+  }
+}
 .login-container .form-main .item-right {
-  width: 60%;
+  width: 80%;
+}
+@media (max-width: 768px) {
+  .login-container .form-main .item-right {
+    width: 70%;
+  }
 }
 
 .register-form div:not(div.item, div.form-error) {
   margin-top: 10px;
+}
+.register-form-main {
+  width: 80%;
+  margin: auto;
 }
 .register-form-main .item {
   width: 100%;
@@ -605,8 +678,18 @@ i {
   width: 20%;
   color: rgba(0, 0, 0, 0.65);
 }
+@media (max-width: 768px) {
+  .register-form-main .item-left {
+    width: 30%;
+  }
+}
 .register-form-main .item-right {
-  width: 60%;
+  width: 80%;
+}
+@media (max-width: 768px) {
+  .register-form-main .item-right {
+    width: 70%;
+  }
 }
 .register-form .form-button button {
   margin-right: 10px;

@@ -80,7 +80,7 @@ const Detail = () => {
       checked: false
     }
     const action = addToCart(payload);
-    if(token) {
+    if (token) {
       dispatch(action);
       setAddResult(true);
     }
@@ -89,16 +89,17 @@ const Detail = () => {
     }
   }
   useEffect(() => {
-    if(token) getProductFavorite();
+    if (token) getProductFavorite();
     checkToken();
   }, []);
 
   useEffect(() => {
     fetchData();
   }, [productId]);
+
   return (
     <>
-      {addResult && <div className="main-container" style={{marginBottom: "20px"}}>
+      {addResult && <div className="main-container" style={{ marginBottom: "20px" }}>
         <div className="page-header">
           Thêm giỏ hàng thành công, <Link to="/cart" className="alert-link">xem giỏ hàng</Link>.
         </div>
@@ -138,26 +139,30 @@ const Detail = () => {
               </ul>
             </div>
             <div className="detail-body-number">
-              <button disabled={number > 1 ? false : true} className="btn" onClick={e => {
-                if (number > 1) {
-                  setNumber(number - 1);
-                }
-              }}>
-                <i className="fa-solid fa-minus"></i>
-              </button>
-              <span>
-                {number}
-              </span>
-              <button className="btn" onClick={e => {
-                setNumber(number + 1);
-              }}>
-                <i className="fa-solid fa-plus"></i>
-              </button>
+              <div className="detail-body-number-left">
+                <button disabled={number > 1 ? false : true} className="btn" onClick={e => {
+                  if (number > 1) {
+                    setNumber(number - 1);
+                  }
+                }}>
+                  <i className="fa-solid fa-minus"></i>
+                </button>
+                <span>
+                  {number}
+                </span>
+                <button className="btn" onClick={e => {
+                  setNumber(number + 1);
+                }}>
+                  <i className="fa-solid fa-plus"></i>
+                </button>
+              </div>
+              <div className="detail-body-number-right">
+                <button className="btn btn-brown" onClick={e => addToCartHandle()}>
+                  <i className="fa-solid fa-cart-plus"></i>
+                  Thêm vào giỏ
+                </button>
+              </div>
             </div>
-            <button className="btn btn-brown" onClick={e => addToCartHandle()}>
-              <i className="fa-solid fa-cart-plus"></i>
-              Thêm vào giỏ
-            </button>
           </div>
         </div>
       </div>

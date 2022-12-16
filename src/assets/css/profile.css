@@ -11,9 +11,19 @@
   width: 80%;
   border-radius: 5px;
 }
+@media (max-width: 768px) {
+  .profile-body .main-body-inner-left {
+    width: 50%;
+  }
+}
 .profile-body .main-body-inner-right {
   width: 70%;
   padding: 10px;
+}
+@media (max-width: 768px) {
+  .profile-body .main-body-inner-right {
+    width: 50%;
+  }
 }
 .profile-body .main-body-inner-right .item {
   margin-bottom: 20px;
@@ -22,8 +32,18 @@
 .profile-body .main-body-inner-right .item .inner-left {
   width: 50%;
 }
+@media (max-width: 768px) {
+  .profile-body .main-body-inner-right .item .inner-left {
+    width: 100%;
+  }
+}
 .profile-body .main-body-inner-right .item .inner-right {
   width: 50%;
+}
+@media (max-width: 768px) {
+  .profile-body .main-body-inner-right .item .inner-right {
+    width: 100%;
+  }
 }
 .profile-body .main-body-inner-right .item span {
   padding: 5px;
@@ -39,6 +59,15 @@
   border-radius: 5px;
   padding: 15px;
   background-color: rgba(219, 112, 147, 0.65);
+}
+@media (max-width: 768px) {
+  .profile-body .main-body-inner-right .item {
+    width: 100%;
+    display: block;
+  }
+  .profile-body .main-body-inner-right .item > div {
+    margin: 15px 0;
+  }
 }
 
 .liked-product .table .thead .tr .th {

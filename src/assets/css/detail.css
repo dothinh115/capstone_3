@@ -5,19 +5,40 @@
 .detail-container .detail-body {
   display: flex;
 }
+@media (max-width: 768px) {
+  .detail-container .detail-body {
+    display: block;
+  }
+}
 .detail-container .detail-body-left {
   width: 40%;
   padding: 10px;
+  text-align: center;
   position: relative;
+}
+@media (max-width: 768px) {
+  .detail-container .detail-body-left {
+    width: 100%;
+  }
 }
 .detail-container .detail-body-left img {
   width: 100%;
   background-color: steelblue;
   border-radius: 5px;
 }
+@media (max-width: 768px) {
+  .detail-container .detail-body-left img {
+    width: 80%;
+  }
+}
 .detail-container .detail-body-right {
   width: 60%;
   padding: 10px;
+}
+@media (max-width: 768px) {
+  .detail-container .detail-body-right {
+    width: 100%;
+  }
 }
 .detail-container .detail-body-right p {
   font-size: 20px;
@@ -66,56 +87,21 @@
 }
 .detail-container .detail-body-number {
   margin: 20px 0px;
+  display: flex;
+  align-items: center;
 }
 .detail-container .detail-body-number span {
   font-size: 20px;
   margin: 0px 10px;
 }
+.detail-container .detail-body-number-left {
+  width: 50%;
+}
+.detail-container .detail-body-number-right {
+  width: 50%;
+  text-align: right;
+}
 
 .related-product {
   margin-top: 20px;
-}
-.related-product .card {
-  display: flex;
-  flex-wrap: wrap;
-}
-.related-product .card-item {
-  width: 33%;
-  padding: 10px;
-}
-.related-product .card-item-inner {
-  background-color: #fff;
-  border-radius: 5px;
-  overflow: hidden;
-}
-.related-product .card-item-inner .card-img {
-  background-color: steelblue;
-}
-.related-product .card-item-inner .card-img img {
-  width: 100%;
-}
-.related-product .card-item-inner .card-body h3 {
-  padding: 10px;
-}
-.related-product .card-item-inner .card-body p {
-  padding: 10px;
-  font-size: 14px;
-}
-.related-product .card-item-inner .card-footer {
-  display: flex;
-  align-items: center;
-}
-.related-product .card-item-inner .card-footer .footer-left {
-  width: 50%;
-  background-color: tan;
-  text-align: center;
-  height: 40px;
-  line-height: 40px;
-}
-.related-product .card-item-inner .card-footer .footer-right {
-  width: 50%;
-  text-align: center;
-  height: 40px;
-  line-height: 40px;
-  background-color: cadetblue;
 }/*# sourceMappingURL=detail.css.map */
