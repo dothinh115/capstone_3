@@ -1,12 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
+import useUpdateUser from '../Hooks/useUpdateUser';
 import Item from './Item';
 
 const Search = () => {
   const searchValue = useRef("");
   const [searchResult, setSearchResult] = useState([]);
   const [params, setParams] = useSearchParams();
+  const updateUser = useUpdateUser();
 
   const inputChangeHandle = e => {
     const {value} = e.target;
@@ -46,6 +48,7 @@ const Search = () => {
         setSearchResult(searchResult.sort((a, b) => a.price - b.price));
         break;
       }
+      default: return
     }
   }
 
@@ -66,6 +69,7 @@ const Search = () => {
       searchValue.current = keywords;
       sendData(keywords);
     }
+    updateUser();
   }, []);
 
   return (

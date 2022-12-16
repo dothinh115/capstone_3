@@ -8,7 +8,7 @@ import useUpdateUser from '../Hooks/useUpdateUser';
 
 const Edit = () => {
   const token = useToken();
-  const userUpdateFunc = useUpdateUser();
+  const updateUser = useUpdateUser();
   const userInfo = useSelector(store => store.userData);
   const navigate = useNavigate();
 
@@ -89,7 +89,6 @@ const Edit = () => {
           "Authorization": `Bearer ${token}`
         }
       });
-      await userUpdateFunc();
       navigate("/profile");
     } catch (error) {
       console.log(error);
@@ -118,6 +117,7 @@ const Edit = () => {
 
   useEffect(() => {
     !token && navigate("/login");
+    updateUser();
   }, [])
 
   return (

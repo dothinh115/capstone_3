@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import useToken from '../Hooks/useToken'
+import useUpdateUser from '../Hooks/useUpdateUser';
 import { deleteCartItem, quantityUpdate, setAll, setChecked, updateOrderHistory } from '../redux/actions/dataActions';
 
 const Cart = () => {
@@ -11,6 +12,7 @@ const Cart = () => {
   const cartData = useSelector(store => store.cart);
   const [checkoutRes, setCheckoutRes] = useState(false);
   const [error, setError] = useState("");
+  const updateUser = useUpdateUser();
 
   const quantityUpdateHandle = (id, value) => {
     const payload = {
@@ -85,6 +87,7 @@ const Cart = () => {
 
   useEffect(() => {
     !token && navigate("/login");
+    updateUser();
   }, []);
   return (
     <>

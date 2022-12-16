@@ -4,7 +4,8 @@ import axios from 'axios'
 import Item from './Item';
 import useToken from '../Hooks/useToken';
 import { addToCart } from '../redux/actions/dataActions';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import useUpdateUser from '../Hooks/useUpdateUser';
 
 const Detail = () => {
   const [productInfo, setProductInfo] = useState({});
@@ -15,6 +16,7 @@ const Detail = () => {
   const navigate = useNavigate();
   const [like, setLike] = useState(false);
   const [addResult, setAddResult] = useState(false);
+  const userUpdate = useUpdateUser();
 
   const fetchData = async () => {
     try {
@@ -67,7 +69,7 @@ const Detail = () => {
   }
 
   const findIfLiked = arr => {
-    const find = arr.find(item => item.id == productId);
+    const find = arr.find(item => item.id === productId);
     if (find) return true;
     return false;
   }
@@ -87,13 +89,10 @@ const Detail = () => {
       navigate("/login");
     }
   }
-
-  useEffect(() => {
-    fetchData();
-  }, [productId]);
-
   useEffect(() => {
     if(token) getProductFavorite();
+    if(productId) fetchData();
+    userUpdate();
   }, [])
 
   return (

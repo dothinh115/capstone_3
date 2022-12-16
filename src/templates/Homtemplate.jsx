@@ -4,14 +4,12 @@ import { NavLink, Outlet } from 'react-router-dom'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import axios from 'axios'
-import useUpdateUser from '../Hooks/useUpdateUser'
 import Breadcrumbs from '../components/Breadcrumbs'
 import { loadCartData, loadOrderHistory, updateData } from '../redux/actions/dataActions'
 import useCurrentUserEmail from '../Hooks/useCurrentUserEmail'
 
 const Homtemplate = () => {
   const dispatch = useDispatch();
-  const updateUserFunc = useUpdateUser();
   const cartData = useSelector(store => store.cart);
   const orderHistoryData = useSelector(store => store.orderHistory);
   const currentEmail = useCurrentUserEmail();
@@ -75,7 +73,6 @@ const Homtemplate = () => {
 
   useEffect(() => {
     fetchData();
-    updateUserFunc();
     getCartData();
     getOrderHistoryData();
   }, []);

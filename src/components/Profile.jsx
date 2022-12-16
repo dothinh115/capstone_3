@@ -4,6 +4,7 @@ import { Link, Outlet, useNavigate, useOutlet } from 'react-router-dom';
 import axios from 'axios';
 import useToken from '../Hooks/useToken';
 import OrderHistory from './OrderHistory';
+import useUpdateUser from '../Hooks/useUpdateUser';
 
 const Profile = () => {
   const token = useToken();
@@ -11,6 +12,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const [productFavorite, setProductFavorite] = useState([]);
   const outlet = useOutlet();
+  const updateUser = useUpdateUser();
 
   const getProductFavorite = async () => {
     try {
@@ -46,6 +48,7 @@ const Profile = () => {
 
   useEffect(() => {
     token ? getProductFavorite() : navigate("/login");
+    updateUser();
   }, []);
   return (
     <>
