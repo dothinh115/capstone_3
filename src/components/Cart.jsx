@@ -65,22 +65,31 @@ const Cart = () => {
 
   const checkOutHandle = e => {
     e.preventDefault();
+    //tạo 1 mảng chứa những sp đã check
     let checkedItem = [];
-    for(let key in cartData) {
-      if(cartData[key].checked) checkedItem = [...checkedItem, cartData[key]];
+    // chạy vòng lặp tìm những sp đã check và đưa vào mảng trên
+    for(let value of cartData) {
+      if(value.checked) checkedItem = [...checkedItem, value];
     }
+    //nếu mảng trên ko rỗng thì tiến hành đặt hàng
     if(checkedItem.length !== 0) {
+      //chạy vòng lặp gửi danh sách sp đã check lên store và lưu ở đó
       const action = updateOrderHistory(checkedItem);
       dispatch(action);
+      //chạy vòng lặp xóa những sản phẩm vừa đặt hàng thành công trong giỏ hàng
       for (let value of checkedItem) {
         const action = deleteCartItem(value.id);
         dispatch(action);
       }
+      //set state hiện thông báo lên màn hình
       setCheckoutRes(true);
+      //set state xóa lỗi
       setError("");
     } 
     else {
+      //set state hiện thông báo lên màn hình
       setCheckoutRes(true);
+      //set state thông báo lỗi
       setError("Chọn sản phẩm trước khi đặt hàng");
     }
   }

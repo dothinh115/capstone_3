@@ -34,7 +34,7 @@ const Detail = () => {
   const sendLike = async (bool) => {
     try {
       await axios({
-        url: `https://shop.cyberlearn.vn/api/Users/${bool ? "like" : "unlike"}?productId=${productId}`,
+        url: `https://shop.cyberlearn.vn/api/Users/${bool ? "" : "un"}like?productId=${productId}`,
         method: "GET",
         dataType: "application/json",
         headers: {
@@ -68,7 +68,7 @@ const Detail = () => {
   }
 
   const findIfLiked = arr => {
-    const find = arr.find(item => item.id === productId);
+    const find = arr.find(item => item.id == productId);
     if (find) return true;
     return false;
   }
@@ -89,7 +89,7 @@ const Detail = () => {
     }
   }
   useEffect(() => {
-    if (token) getProductFavorite();
+    getProductFavorite();
     checkToken();
   }, []);
 
