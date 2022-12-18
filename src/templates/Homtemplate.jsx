@@ -8,6 +8,7 @@ import Breadcrumbs from '../components/Breadcrumbs'
 import { loadCartData, loadOrderHistory, updateData } from '../redux/actions/dataActions'
 import useCurrentUserEmail from '../Hooks/useCurrentUserEmail'
 import useUpdateUser from '../Hooks/useUpdateUser'
+import { getLocalStorage, saveLocalStorage } from '../function'
 
 const Homtemplate = () => {
   const dispatch = useDispatch();
@@ -34,35 +35,28 @@ const Homtemplate = () => {
   const saveOrderHistoryData = () => {
     if (currentEmail && orderHistoryData) {
       let data = orderHistoryData;
-      data = JSON.stringify(data);
-      localStorage.setItem(`orderHistoryData.${currentEmail}`, data);
+      saveLocalStorage(`orderHistoryData.${currentEmail}`, data);
     }
   }
 
   const getOrderHistoryData = () => {
-    let data = localStorage.getItem(`orderHistoryData.${currentEmail}`);
-    if (data) {
-      data = JSON.parse(data);
-      const action = loadOrderHistory(data);
-      dispatch(action);
-    }
+    const data = getLocalStorage(`orderHistoryData.${currentEmail}`);
+    const action = loadOrderHistory(data);
+    dispatch(action);
+
   }
 
   const saveCartData = () => {
     if (currentEmail && cartData) {
       let data = cartData;
-      data = JSON.stringify(data);
-      localStorage.setItem(`cartData.${currentEmail}`, data);
+      saveLocalStorage(`cartData.${currentEmail}`, data);
     }
   }
 
   const getCartData = () => {
-    let data = localStorage.getItem(`cartData.${currentEmail}`);
-    if (data) {
-      data = JSON.parse(data);
-      const action = loadCartData(data);
-      dispatch(action);
-    }
+    const data = getLocalStorage(`cartData.${currentEmail}`);
+    const action = loadCartData(data);
+    dispatch(action);
   }
 
   const cartItemsCounting = () => {
@@ -97,10 +91,10 @@ const Homtemplate = () => {
         <div className="body-left">
           <ul className="index-menu">
             <li>
-            <NavLink to="/">
-              <i className="fa-solid fa-house"></i>
-              Trang chủ
-            </NavLink>
+              <NavLink to="/">
+                <i className="fa-solid fa-house"></i>
+                Trang chủ
+              </NavLink>
             </li>
             <li>
               <NavLink to="/search">

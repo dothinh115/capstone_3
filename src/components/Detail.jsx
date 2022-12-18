@@ -95,6 +95,8 @@ const Detail = () => {
 
   useEffect(() => {
     fetchData();
+    setNumber(1);
+    if(token ) getProductFavorite();
   }, [productId]);
 
   return (
