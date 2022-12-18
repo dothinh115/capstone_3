@@ -89,7 +89,7 @@ const Detail = () => {
     }
   }
   useEffect(() => {
-    getProductFavorite();
+    if(token ) getProductFavorite();
     checkToken();
   }, []);
 
