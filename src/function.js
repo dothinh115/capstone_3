@@ -1,4 +1,4 @@
-export const { getLocalStorage, saveLocalStorage } = {
+export const { getLocalStorage, saveLocalStorage, totalCount } = {
     getLocalStorage(name) {
         let data = localStorage.getItem(name);
         if (data) {
@@ -10,5 +10,12 @@ export const { getLocalStorage, saveLocalStorage } = {
     saveLocalStorage(name, data) {
         data = JSON.stringify(data);
         localStorage.setItem(name, data);
+    },
+    totalCount(arr, option) {
+        let total = 0;
+        for (let key in arr) {
+            total += arr[key][option];
+        }
+        return total;
     }
 }

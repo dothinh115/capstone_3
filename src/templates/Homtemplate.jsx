@@ -8,7 +8,7 @@ import Breadcrumbs from '../components/Breadcrumbs'
 import { loadCartData, loadOrderHistory, updateData } from '../redux/actions/dataActions'
 import useCurrentUserEmail from '../Hooks/useCurrentUserEmail'
 import useUpdateUser from '../Hooks/useUpdateUser'
-import { getLocalStorage, saveLocalStorage } from '../function'
+import { getLocalStorage, saveLocalStorage, totalCount } from '../function'
 
 const Homtemplate = () => {
   const dispatch = useDispatch();
@@ -59,14 +59,6 @@ const Homtemplate = () => {
     dispatch(action);
   }
 
-  const cartItemsCounting = () => {
-    let total = 0;
-    for (let key in cartData) {
-      total += cartData[key].quantity;
-    }
-    return total;
-  }
-
   useEffect(() => {
     fetchData();
     getCartData();
@@ -105,7 +97,7 @@ const Homtemplate = () => {
             <li>
               <NavLink to="/cart">
                 <i className="fa-solid fa-cart-shopping"></i>
-                Giỏ hàng [ <b>{cartItemsCounting()}</b> ]
+                Giỏ hàng [ <b>{totalCount(cartData, "quantity")}</b> ]
               </NavLink>
             </li>
           </ul>
