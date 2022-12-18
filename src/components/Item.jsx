@@ -17,7 +17,7 @@ const Item = ({ item }) => {
             checked: false
         }
         const action = addToCart(payload);
-        if(token ) dispatch(action);
+        if(token) dispatch(action);
     }
     return (
         <div className="card-item">

@@ -41,9 +41,10 @@ const Homtemplate = () => {
 
   const getOrderHistoryData = () => {
     const data = getLocalStorage(`orderHistoryData.${currentEmail}`);
-    const action = loadOrderHistory(data);
-    dispatch(action);
-
+    if (data) {
+      const action = loadOrderHistory(data);
+      dispatch(action);
+    }
   }
 
   const saveCartData = () => {
@@ -55,8 +56,10 @@ const Homtemplate = () => {
 
   const getCartData = () => {
     const data = getLocalStorage(`cartData.${currentEmail}`);
-    const action = loadCartData(data);
-    dispatch(action);
+    if (data) {
+      const action = loadCartData(data);
+      dispatch(action);
+    }
   }
 
   useEffect(() => {
