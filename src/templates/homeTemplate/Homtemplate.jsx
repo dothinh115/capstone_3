@@ -5,12 +5,12 @@ import Footer from '../../components/footer/Footer'
 import Header from '../../components/header/Header'
 import axios from 'axios'
 import Breadcrumbs from '../../components/breadCrumbs/BreadCrumbs'
-import useCurrentUserEmail from '../../hooks/useCurrentUserEmail'
 import useUpdateUser from '../../hooks/useUpdateUser'
 import { getLocalStorage, saveLocalStorage, totalCount } from '../../function'
 import { updateProductReducer } from '../../redux/reducers/productReducer'
 import { loadCartData } from '../../redux/reducers/cartReducer'
 import { loadOrder } from '../../redux/reducers/orderReducer'
+import useCurrentUserEmail from '../../hooks/useCurrentUserEmail'
 
 const Homtemplate = () => {
   const dispatch = useDispatch();

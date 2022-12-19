@@ -1,6 +1,6 @@
 import { getLocalStorage } from "../function";
 
-const useToken = () => {
+const useCurrentUserEmail = () => {
   let token = getLocalStorage("loginInfo");
   if(token) {
     return token.email;
@@ -8,4 +8,4 @@ const useToken = () => {
   return false;
 }
 
-export default useToken
+export default useCurrentUserEmail
