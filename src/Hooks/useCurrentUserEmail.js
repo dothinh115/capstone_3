@@ -2,7 +2,7 @@ import { getLocalStorage } from "../function";
 
 const useCurrentUserEmail = () => {
   let email = getLocalStorage("loginInfo");
-  if(email) {
+  if (email) {
     return email.email;
   }
   return false;
