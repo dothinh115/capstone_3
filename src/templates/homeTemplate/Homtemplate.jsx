@@ -64,8 +64,11 @@ const Homtemplate = () => {
     getAllProduct();
     getCartData();
     getOrderHistoryData();
-    getProfile();
   }, []);
+
+  useEffect(() => {
+    if(token) getProfile();
+  }, [token]);
 
   useEffect(() => {
     saveCartData();
