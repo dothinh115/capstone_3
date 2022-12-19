@@ -3,35 +3,25 @@ import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, Outlet } from 'react-router-dom'
 import Footer from '../../components/footer/Footer'
 import Header from '../../components/header/Header'
-import axios from 'axios'
 import Breadcrumbs from '../../components/breadCrumbs/BreadCrumbs'
-import useUpdateUser from '../../hooks/useUpdateUser'
 import { getLocalStorage, saveLocalStorage, totalCount } from '../../function'
-import { updateProductReducer } from '../../redux/reducers/productReducer'
+import { getAllProductApi } from '../../redux/reducers/productReducer'
 import { loadCartData } from '../../redux/reducers/cartReducer'
 import { loadOrder } from '../../redux/reducers/orderReducer'
 import useCurrentUserEmail from '../../hooks/useCurrentUserEmail'
+import { getProfileApi } from '../../redux/reducers/userReducer'
+import useToken from '../../hooks/useToken'
 
 const Homtemplate = () => {
   const dispatch = useDispatch();
+  const token = useToken();
   const {cartData} = useSelector(store => store.cart);
   const {orderData} = useSelector(store => store.orderHistory);
   const currentEmail = useCurrentUserEmail();
-  const updateUser = useUpdateUser();
 
-  const fetchData = async () => {
-    try {
-      const fetch = await axios({
-        url: "https://shop.cyberlearn.vn/api/Product",
-        method: "GET",
-        dataType: "application/json"
-      });
-      const action = updateProductReducer(fetch.data.content);
-      dispatch(action);
-    }
-    catch (error) {
-      console.log(error);
-    }
+  const getAllProduct = () => {
+    const action = getAllProductApi;
+    dispatch(action);
   }
 
   const saveOrderHistoryData = () => {
@@ -65,11 +55,16 @@ const Homtemplate = () => {
     }
   }
 
+  const getProfile = () => {
+    const action = getProfileApi(token);
+    dispatch(action);
+  }
+
   useEffect(() => {
-    fetchData();
+    getAllProduct();
     getCartData();
     getOrderHistoryData();
-    updateUser();
+    getProfile();
   }, []);
 
   useEffect(() => {

@@ -1,15 +1,14 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import dataConfig from '../../templates/dataConfig';
 import useToken from '../../hooks/useToken';
-import useUpdateUser from '../../hooks/useUpdateUser';
 import useCheckToken from '../../hooks/useCheckToken';
+import { getProfileApi, updateProfileApi } from '../../redux/reducers/userReducer';
 
 const Edit = () => {
   const token = useToken();
-  const updateUser = useUpdateUser();
+  const dispatch = useDispatch()
   const {userData} = useSelector(store => store.userData);
   const navigate = useNavigate();
   const checkToken = useCheckToken();
@@ -81,21 +80,11 @@ const Edit = () => {
   }
 
   const sendData = async () => {
-    try {
-      await axios({
-        url: "https://shop.cyberlearn.vn/api/Users/updateProfile",
-        method: "POST",
-        dataType: "application/json",
-        data: dataValue,
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
-      });
-      updateUser();
-      navigate("/profile");
-    } catch (error) {
-      console.log(error);
-    }
+    const action = await updateProfileApi(token, dataValue);
+    await dispatch(action);
+    const action_2 = await getProfileApi(token);
+    await dispatch(action_2);
+    await navigate("/profile");
   }
 
   useEffect(() => {

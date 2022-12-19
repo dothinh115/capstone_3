@@ -5,14 +5,15 @@ import Item from '../item/Item';
 import useCheckToken from '../../hooks/useCheckToken';
 
 const Search = () => {
-  const searchValue = useRef("");
+  const [searchValue, setSearchValue] = useState(null);
   const [searchResult, setSearchResult] = useState([]);
+  const [sortby, setSortby] = useState(null);
   const [params, setParams] = useSearchParams();
   const checkToken = useCheckToken();
 
   const inputChangeHandle = e => {
     const {value} = e.target;
-    searchValue.current = value.trim();
+    setSearchValue(value.trim());
   }
 
   const sendData = async (value) => {
@@ -30,11 +31,11 @@ const Search = () => {
 
   const submitHandle = e => {
     e.preventDefault();
-    if(searchValue.current) {
+    if(searchValue) {
       setParams({
-        keyWords: searchValue.current
+        keywords: searchValue
       });
-      sendData(searchValue.current);
+      sendData(searchValue);
     }
   }
 
@@ -55,18 +56,18 @@ const Search = () => {
   const sortHandle = e => {
     e.preventDefault();
     const {value} = e.target;
-    if(value !== "" && searchValue.current) {
+    if(value !== "" && searchValue) {
       setParams({
-        keyWords: searchValue.current,
+        keywords: searchValue
       });
       sortBy(value);
     }
   }
 
   useEffect(() => {
-    const keywords = params.get("keyWords");
+    const keywords = params.get("keywords");
     if (keywords) {
-      searchValue.current = keywords;
+      setSearchValue(keywords);
       sendData(keywords);
     }
     checkToken();
@@ -87,7 +88,7 @@ const Search = () => {
               Tìm kiếm
             </div>
             <div className="search-right">
-              <input defaultValue={searchValue.current} type="text" placeholder="Nhập từ khóa!!" onChange={e => inputChangeHandle(e)} />
+              <input defaultValue={searchValue} type="text" placeholder="Nhập từ khóa!!" onChange={e => inputChangeHandle(e)} />
             </div>
             <div className="search-button" style={{marginLeft: "20px"}}>
               <button className="btn">Tìm</button>
@@ -100,7 +101,7 @@ const Search = () => {
         <div className="page-header">
           <h1 style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
             <span>KẾT QUẢ</span>
-            <select onChange={e => {sortHandle(e)}}>
+            <select onChange={e => {sortHandle(e)}} defaultValue={`${sortby}`}>
               <option value="">Lọc</option>
               <option value="priceUp">Giá giảm dần</option>
               <option value="priceDown">Giá tăng dần</option>

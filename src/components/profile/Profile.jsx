@@ -1,49 +1,29 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, Outlet, useNavigate, useOutlet } from 'react-router-dom';
-import axios from 'axios';
 import useToken from '../../hooks/useToken';
 import OrderHistory from './OrderHistory';
 import useCheckToken from '../../hooks/useCheckToken';
+import { getProductFavoriteApi, setLikeByIdApi } from '../../redux/reducers/productReducer';
 
 const Profile = () => {
   const token = useToken();
+  const dispatch = useDispatch();
   const {userData} = useSelector(store => store.userData);
+  const {productFavorite} = useSelector(store => store.product);
   const navigate = useNavigate();
-  const [productFavorite, setProductFavorite] = useState([]);
   const outlet = useOutlet();
   const checkToken = useCheckToken();
 
-  const getProductFavorite = async () => {
-    try {
-      const fetch = await axios({
-        url: "https://shop.cyberlearn.vn/api/Users/getproductfavorite",
-        method: "GET",
-        dataType: "application/json",
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
-      });
-      setProductFavorite(fetch.data.content.productsFavorite);
-    } catch (error) {
-      console.log(error);
-    } 
+  const getProductFavorite = () => {
+    const action = getProductFavoriteApi(token);
+    dispatch(action);
   }
 
   const sendUnLike = async (productId) => {
-    try {
-      await axios({
-        url: `https://shop.cyberlearn.vn/api/Users/unlike?productId=${productId}`,
-        method: "GET",
-        dataType: "application/json",
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
-      });
-      getProductFavorite();
-    } catch (error) {
-      console.log(error);
-    }
+    const action = await setLikeByIdApi(false, token, productId);
+    await dispatch(action);
+    await getProductFavorite();
   } 
 
   useEffect(() => {

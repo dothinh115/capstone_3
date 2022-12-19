@@ -1,81 +1,44 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios'
 import Item from '../item/Item';
 import useToken from '../../hooks/useToken';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useCheckToken from '../../hooks/useCheckToken';
 import { addToCart } from '../../redux/reducers/cartReducer';
+import { findIfLikeApi, getProductByIdApi, setLikeByIdApi } from '../../redux/reducers/productReducer';
 
 const Detail = () => {
-  const [productInfo, setProductInfo] = useState({});
+  const {productDetail, ifProductLiked} = useSelector(store => store.product);
   const dispatch = useDispatch();
   const token = useToken();
   const { productId } = useParams();
   const [number, setNumber] = useState(1);
   const navigate = useNavigate();
-  const [like, setLike] = useState(false);
   const [addResult, setAddResult] = useState(false);
   const checkToken = useCheckToken();
 
-  const fetchData = async () => {
-    try {
-      const fetch = await axios({
-        url: `https://shop.cyberlearn.vn/api/Product/getbyid?id=${productId}`,
-        method: "GET",
-        dataType: "application/json"
-      });
-      setProductInfo(fetch.data.content);
-    }
-    catch (error) {
-      console.log(error);
-    }
-  }
-  const sendLike = async (bool) => {
-    try {
-      await axios({
-        url: `https://shop.cyberlearn.vn/api/Users/${bool ? "" : "un"}like?productId=${productId}`,
-        method: "GET",
-        dataType: "application/json",
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
-      });
-      setLike(bool);
-    } catch (error) {
-      console.log(error);
-    }
+  const getProductById = async () => {
+    const action = getProductByIdApi(productId);
+    dispatch(action);
   }
 
-  const getProductFavorite = async () => {
-    try {
-      const fetch = await axios({
-        url: "https://shop.cyberlearn.vn/api/Users/getproductfavorite",
-        method: "GET",
-        dataType: "application/json",
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
-      });
-      setLike(findIfLiked(Object.values(fetch.data.content.productsFavorite)));
-    } catch (error) {
-      console.log(error);
-    }
+  const setLike = async (bool) => {
+    const action = setLikeByIdApi(bool, token, productId);
+    dispatch(action);
+  }
+
+  const findIfLike = () => {
+    const action = findIfLikeApi(token, productId);
+    dispatch(action);
   }
 
   const likeHandle = e => {
-    token ? sendLike(!like) : navigate("/login");
-  }
-
-  const findIfLiked = arr => {
-    const find = arr.find(item => item.id == productId);
-    if (find) return true;
-    return false;
+    token ? setLike(!ifProductLiked) : navigate("/login");
   }
 
   const addToCartHandle = () => {
     const payload = {
-      ...productInfo,
+      ...productDetail,
       quantity: number,
       checked: false
     }
@@ -89,14 +52,14 @@ const Detail = () => {
     }
   }
   useEffect(() => {
-    if(token ) getProductFavorite();
+    if(token ) findIfLike();
     checkToken();
   }, []);
 
   useEffect(() => {
-    fetchData();
+    getProductById();
     setNumber(1);
-    if(token ) getProductFavorite();
+    if(token) findIfLike();
   }, [productId]);
 
   return (
@@ -109,24 +72,24 @@ const Detail = () => {
       <div className="detail-container main-container">
         <div className="page-header">
           <h1>
-            {productInfo.name}
+            {productDetail?.name}
           </h1>
         </div>
         <div className="detail-body main-body">
           <div className="detail-body-left">
-            <img src={productInfo.image} alt="" />
+            <img src={productDetail?.image} alt="" />
           </div>
           <div className="detail-body-right">
             <p>
-              {productInfo.description}
+              {productDetail?.description}
             </p>
             <p className="price-layout">
               <span className="price">
                 <i className="fa-solid fa-tag"></i>
-                ${productInfo.price}
+                ${productDetail?.price}
               </span>
               <span className="detail-like" onClick={e => likeHandle(e)}>
-                <i className="fa-regular fa-heart" style={{ fontWeight: like && "bold" }}></i>
+                <i className="fa-regular fa-heart" style={{ fontWeight: ifProductLiked && "bold" }}></i>
                 Like
               </span>
             </p>
@@ -135,7 +98,7 @@ const Detail = () => {
             </h1>
             <div className="detail-body-size">
               <ul>
-                {productInfo.size?.map((item, index) => {
+                {productDetail?.size?.map((item, index) => {
                   return <li key={index}>{item}</li>
                 })}
               </ul>
@@ -177,7 +140,7 @@ const Detail = () => {
         </div>
         <div className="related-product-body">
           <div className="card">
-            {productInfo.relatedProducts?.map((item, index) => {
+            {productDetail?.relatedProducts?.map((item, index) => {
               return <Item item={item} key={index} />
             })}
           </div>

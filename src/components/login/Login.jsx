@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useToken from '../../hooks/useToken';
+import { saveLocalStorage } from '../../function';
 
 const Login = () => {
   const token = useToken();
@@ -55,11 +56,6 @@ const Login = () => {
     setValid(checkValid());
   }
 
-  const setLocalStorage = data => {
-    data = JSON.stringify(data);
-    localStorage.setItem("loginInfo", data);
-  }
-
   const sendData = async () => {
     try {
       const fetch = await axios({
@@ -68,7 +64,7 @@ const Login = () => {
         dataType: "application/json",
         data: loginValue
       });
-      setLocalStorage(fetch.data.content);
+      saveLocalStorage("loginInfo", fetch.data.content);
       window.location.reload(false);
     } catch (err) {
       setResult(err.response.data.message);
