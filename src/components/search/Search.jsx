@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import Item from '../item/Item';
 import useCheckToken from '../../hooks/useCheckToken';
@@ -7,7 +7,6 @@ import useCheckToken from '../../hooks/useCheckToken';
 const Search = () => {
   const [searchValue, setSearchValue] = useState(null);
   const [searchResult, setSearchResult] = useState([]);
-  const [sortby, setSortby] = useState(null);
   const [params, setParams] = useSearchParams();
   const checkToken = useCheckToken();
 
@@ -23,7 +22,13 @@ const Search = () => {
         method: "GET",
         dataType: "application/json",
       });
-      setSearchResult(fetch.data.content);
+      const sort = params.get("sortby");
+      if(sort) {
+        sortBy(sort, fetch.data.content);
+      }
+      else {
+        setSearchResult(fetch.data.content);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -39,14 +44,14 @@ const Search = () => {
     }
   }
 
-  const sortBy = value => {
+  const sortBy = (value, arr) => {
     switch(value) {
       case "priceUp": {
-        setSearchResult(searchResult.sort((a, b) => b.price - a.price));
+        setSearchResult(arr.sort((a, b) => b.price - a.price));
         break;
       }
       case "priceDown": {
-        setSearchResult(searchResult.sort((a, b) => a.price - b.price));
+        setSearchResult(arr.sort((a, b) => a.price - b.price));
         break;
       }
       default: return
@@ -58,20 +63,24 @@ const Search = () => {
     const {value} = e.target;
     if(value !== "" && searchValue) {
       setParams({
-        keywords: searchValue
+        keywords: searchValue,
+        sortby: value
       });
-      sortBy(value);
+      sortBy(value, searchResult);
     }
   }
 
+  useEffect(() => {
+    checkToken();
+  }, []);
+  
   useEffect(() => {
     const keywords = params.get("keywords");
     if (keywords) {
       setSearchValue(keywords);
       sendData(keywords);
     }
-    checkToken();
-  }, []);
+  }, [params.get("keywords")]);
 
   return (
     <>
@@ -101,7 +110,7 @@ const Search = () => {
         <div className="page-header">
           <h1 style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
             <span>KẾT QUẢ</span>
-            <select onChange={e => {sortHandle(e)}} defaultValue={`${sortby}`}>
+            <select onChange={e => {sortHandle(e)}} defaultValue={params.get("sortby")}>
               <option value="">Lọc</option>
               <option value="priceUp">Giá giảm dần</option>
               <option value="priceDown">Giá tăng dần</option>
