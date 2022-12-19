@@ -1,9 +1,9 @@
 import { getLocalStorage } from "../function";
 
 const useCurrentUserEmail = () => {
-  let token = getLocalStorage("loginInfo");
-  if(token) {
-    return token.email;
+  let email = getLocalStorage("loginInfo");
+  if(email) {
+    return email.email;
   }
   return false;
 }
