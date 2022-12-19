@@ -57,7 +57,7 @@ const Search = () => {
     const {value} = e.target;
     if(value !== "" && searchValue.current) {
       setParams({
-        keywords: searchValue.current,
+        keyWords: searchValue.current,
       });
       sortBy(value);
     }
