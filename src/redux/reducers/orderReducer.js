@@ -5,7 +5,7 @@ const initialState = {
 }
 
 const d = new Date();
-const today = `${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`;
+const today = `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
 
 const orderReducer = createSlice({
     name: "orderReducer",
