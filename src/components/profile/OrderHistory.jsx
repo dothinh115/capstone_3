@@ -1,12 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import '../assets/css/orderHistory.css';
 import { useDispatch } from 'react-redux';
-import { deleteOrder } from '../redux/actions/dataActions';
+import { deleteOrder } from '../../redux/reducers/orderReducer';
 
 const OrderHistory = () => {
-  const orderHistory = useSelector(store => store.orderHistory);
+  const {orderData} = useSelector(store => store.orderHistory);
   const dispatch = useDispatch();
 
   const deleteOrderHandle = (e, date) => {
@@ -17,7 +16,7 @@ const OrderHistory = () => {
 
   const totalQuantity = index => {
     let total = 0;
-    for (let value of orderHistory[index].orderDetail) {
+    for (let value of orderData[index].orderDetail) {
       total += value.quantity;
     }
     return total;
@@ -25,7 +24,7 @@ const OrderHistory = () => {
 
   const totalPrice = index => {
     let total = 0;
-    for (let value of orderHistory[index].orderDetail) {
+    for (let value of orderData[index].orderDetail) {
       total += value.quantity * value.price;
     }
     return total;
@@ -33,9 +32,9 @@ const OrderHistory = () => {
 
   return (
     <>
-    {orderHistory.length === 0 ? "Chưa có lịch sử mua hàng!" :
+    {orderData.length === 0 ? "Chưa có lịch sử mua hàng!" :
       <ul>
-        {orderHistory.map((item, index) => {
+        {orderData?.map((item, index) => {
           return (
             <li key={index}>
               <div>
@@ -82,7 +81,7 @@ const OrderHistory = () => {
                 })}
               </ul>
               <div>
-                Tổng cộng ({totalQuantity(index)} sản phẩm): 
+                Tổng cộng ( {totalQuantity(index)} sản phẩm): 
               </div>
               <div>
                 <i className="fa-solid fa-tags"></i>

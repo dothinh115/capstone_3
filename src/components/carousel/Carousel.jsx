@@ -1,21 +1,20 @@
 import React from 'react'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "../assets/css/carousel.css";
+import "../../assets/css/carousel.css";
 import Slider from 'react-slick';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../redux/actions/dataActions';
-import useToken from '../Hooks/useToken';
+import useToken from '../../hooks/useToken';
+import { addToCart } from '../../redux/reducers/cartReducer';
 
 const Carousel = () => {
-  const indexData = useSelector(store => store.data);
+  const {productData} = useSelector(store => store.product);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = useToken();
 
   const addToCartHandle = item => {
-    
     const payload = {
       ...item,
       quantity: 1,
@@ -34,7 +33,7 @@ const Carousel = () => {
   };
   return (
     <Slider {...settings}>
-      {indexData.length !== 0 && indexData?.map((item, index) => {
+      {productData.length !== 0 && productData?.map((item, index) => {
         return (
           <div key={index} className="slider-item">
             <div className="slider-item-left">

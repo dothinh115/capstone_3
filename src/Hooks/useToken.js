@@ -1,7 +1,8 @@
+import { getLocalStorage } from "../function";
+
 const useToken = () => {
-  let token = localStorage.getItem("loginInfo");
-  if (token) {
-    token = JSON.parse(token);
+  let token = getLocalStorage("loginInfo");
+  if(token) {
     return token.accessToken;
   }
   return false;

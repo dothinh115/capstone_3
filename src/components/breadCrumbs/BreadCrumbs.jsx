@@ -1,11 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
-import '../assets/css/breadcrumbs.css'
 
 const Breadcrumbs = () => {
-    const { productId, category } = useParams();
-    const productData = useSelector(store => store.data);
+    const { productId } = useParams();
+    const { productData } = useSelector(store => store.product);
     const find = productData.find(item => item.id == productId);
     const navigate = useNavigate();
 
@@ -13,7 +12,7 @@ const Breadcrumbs = () => {
         e.preventDefault();
         navigate(`/search/?keywords=${JSON.parse(find?.categories)[0].category}`)
     }
-    
+
     return (
         <div className="main-container" style={{ marginBottom: "20px" }}>
             <div className="page-header">

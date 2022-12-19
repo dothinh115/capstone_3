@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import useToken from '../Hooks/useToken'
-import useCheckToken from '../Hooks/useCheckToken';
-import { deleteCartItem, quantityUpdate, setAll, setChecked, updateOrderHistory } from '../redux/actions/dataActions';
+import useToken from '../../hooks/useToken'
+import useCheckToken from '../../hooks/useCheckToken';
+import { checkAll, checkItem, deleteCartItem, quantityUpdate } from '../../redux/reducers/cartReducer';
+import { updateOrder } from '../../redux/reducers/orderReducer';
 
 const Cart = () => {
   const token = useToken();
   const navigate = useNavigate();
   const dispatch = useDispatch()
-  const cartData = useSelector(store => store.cart);
+  const { cartData } = useSelector(store => store.cart);
   const [checkoutRes, setCheckoutRes] = useState(false);
   const [error, setError] = useState("");
   const checkToken = useCheckToken();
@@ -29,7 +30,7 @@ const Cart = () => {
   }
 
   const checkboxHandle = id => {
-    const action = setChecked(id);
+    const action = checkItem(id);
     dispatch(action);
   }
 
@@ -50,15 +51,15 @@ const Cart = () => {
   }
 
   const checkAllHandle = e => {
-    const {checked} = e.target;
-    const action = setAll(checked);
+    const { checked } = e.target;
+    const action = checkAll(checked);
     dispatch(action);
   }
 
   const findIfCheckAll = () => {
     let result = true;
     for (let value of cartData) {
-      if(!value.checked) result &= false;
+      if (!value.checked) result &= false;
     }
     return result;
   }
@@ -66,11 +67,11 @@ const Cart = () => {
   const checkOutHandle = e => {
     e.preventDefault();
     let checkedItem = [];
-    for(let value of cartData) {
-      if(value.checked) checkedItem = [...checkedItem, value];
+    for (let value of cartData) {
+      if (value.checked) checkedItem = [...checkedItem, value];
     }
-    if(checkedItem.length !== 0) {
-      const action = updateOrderHistory(checkedItem);
+    if (checkedItem.length !== 0) {
+      const action = updateOrder(checkedItem);
       dispatch(action);
       for (let value of checkedItem) {
         const action = deleteCartItem(value.id);
@@ -78,7 +79,7 @@ const Cart = () => {
       }
       setCheckoutRes(true);
       setError("");
-    } 
+    }
     else {
       setCheckoutRes(true);
       setError("Chọn sản phẩm trước khi đặt hàng");
@@ -88,7 +89,7 @@ const Cart = () => {
   const checkIfAnyChecked = () => {
     let res = false;
     for (let value of cartData) {
-      if(value.checked) res = true;
+      if (value.checked) res = true;
     }
     return res;
   }
@@ -107,15 +108,15 @@ const Cart = () => {
   }, []);
   return (
     <>
-      {checkoutRes && <div className="main-container" style={{marginBottom: "20px"}}>
+      {checkoutRes && <div className="main-container" style={{ marginBottom: "20px" }}>
         <div className="page-header">
-          {error ? error : 
-          <>
-            Đặt hàng thành công, <Link className="alert-link" to="/profile">xem lịch sử đặt hàng</Link>.
-          </>}
+          {error ? error :
+            <>
+              Đặt hàng thành công, <Link className="alert-link" to="/profile">xem lịch sử đặt hàng</Link>.
+            </>}
         </div>
       </div>}
-      
+
       <div className="main-container cart">
         <div className="page-header">
           <h1>

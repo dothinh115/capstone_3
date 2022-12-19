@@ -1,16 +1,15 @@
 import './assets/css/style.css';
 import 'animate.css';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import Homtemplate from './templates/Homtemplate';
-import Index from './components/Index';
-import Register from './components/Register';
-import Login from './components/Login';
-import Detail from './components/Detail';
-import Search from './components/Search';
-import Profile from './components/Profile';
-import Edit from './components/Edit';
-import Cart from './components/Cart';
-
+import Homtemplate from './templates/homeTemplate/Homtemplate';
+import Index from './components/index/Index';
+import Register from './components/register/Register';
+import Login from './components/login/Login';
+import Detail from './components/detail/Detail';
+import Search from './components/search/Search';
+import Cart from './components/cart/Cart';
+import Profile from './components/profile/Profile';
+import Edit from './components/profile/Edit';
 function App() {
   return (
     <BrowserRouter>

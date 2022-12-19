@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, Outlet, useNavigate, useOutlet } from 'react-router-dom';
 import axios from 'axios';
-import useToken from '../Hooks/useToken';
+import useToken from '../../hooks/useToken';
 import OrderHistory from './OrderHistory';
-import useCheckToken from '../Hooks/useCheckToken';
+import useCheckToken from '../../hooks/useCheckToken';
 
 const Profile = () => {
   const token = useToken();
-  const userData = useSelector(store => store.userData);
+  const {userData} = useSelector(store => store.userData);
   const navigate = useNavigate();
   const [productFavorite, setProductFavorite] = useState([]);
   const outlet = useOutlet();

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios'
-import Item from './Item';
-import useToken from '../Hooks/useToken';
-import { addToCart } from '../redux/actions/dataActions';
+import Item from '../item/Item';
+import useToken from '../../hooks/useToken';
 import { useDispatch } from 'react-redux';
-import useCheckToken from '../Hooks/useCheckToken';
+import useCheckToken from '../../hooks/useCheckToken';
+import { addToCart } from '../../redux/reducers/cartReducer';
 
 const Detail = () => {
   const [productInfo, setProductInfo] = useState({});

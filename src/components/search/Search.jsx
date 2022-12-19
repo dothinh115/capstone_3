@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
-import Item from './Item';
-import useCheckToken from '../Hooks/useCheckToken';
+import Item from '../item/Item';
+import useCheckToken from '../../hooks/useCheckToken';
 
 const Search = () => {
   const searchValue = useRef("");

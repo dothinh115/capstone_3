@@ -2,8 +2,8 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { memo } from 'react'
 import { useDispatch } from 'react-redux';
-import { addToCart } from '../redux/actions/dataActions';
-import useToken from '../Hooks/useToken';
+import useToken from '../../hooks/useToken';
+import { addToCart } from '../../redux/reducers/cartReducer';
 
 const Item = ({ item }) => {
     const navigate = useNavigate();

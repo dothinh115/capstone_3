@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
-import Carousel from './Carousel'
-import Item from './Item';
+import Carousel from '../carousel/Carousel'
+import Item from '../item/Item';
 import { useSelector } from 'react-redux';
-import useCheckToken from '../Hooks/useCheckToken';
+import useCheckToken from '../../hooks/useCheckToken';
 
 const Index = () => {
-  const indexData = useSelector(store => store.data);
+  const { productData } = useSelector(store => store.product);
   const checkToken = useCheckToken();
   useEffect(() => {
     checkToken();
@@ -14,7 +14,7 @@ const Index = () => {
     <>
       <div className="index-carousel main-container">
         <div className="page-header">
-          <h1>
+          <h1> 
             CÓ THỂ BẠN THÍCH
           </h1>
         </div>
@@ -29,7 +29,7 @@ const Index = () => {
         </div>
         <div className="index-body main-body">
           <div className="card">
-            {indexData?.map((item, index) => {
+            {productData?.map((item, index) => {
               return <Item item={item} key={index} />
             })}
           </div>

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { userDataUpdate } from '../redux/actions/userActions';
+import { updateUserReducer } from '../redux/reducers/userReducer';
 import useToken from './useToken';
 
 const useUpdateUser = () => {
@@ -18,7 +18,7 @@ const useUpdateUser = () => {
               "Authorization": `Bearer ${token}`
             }
           });
-          const action = userDataUpdate(fetch.data.content);
+          const action = updateUserReducer(fetch.data.content);
           dispatch(action);
         } catch (error) {
           localStorage.removeItem("loginInfo");

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import dataConfig from '../templates/dataConfig';
-import useToken from '../Hooks/useToken';
+import dataConfig from '../../templates/dataConfig';
+import useToken from '../../hooks/useToken';
 
 const Register = () => {
   const token = useToken()

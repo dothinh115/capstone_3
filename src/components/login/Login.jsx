@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import useToken from '../Hooks/useToken';
+import useToken from '../../hooks/useToken';
 
 const Login = () => {
   const token = useToken();

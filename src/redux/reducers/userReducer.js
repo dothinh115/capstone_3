@@ -1,15 +1,19 @@
-export const userData = (state = {}, action) => {
-    switch(action.type) {
-        case "UPDATE_USER_DATA": {
-            let newState = {...state};
-            for (let key in action.payload) {
-                newState = {
-                    ...newState,
-                    [key]: action.payload[key]
-                }
-            }
-            return newState;
-        }
-        default: return state;
-    }
+import { createSlice } from '@reduxjs/toolkit'
+
+const initialState = {
+    userData: {}
 }
+
+const userReducer = createSlice({
+  name: "userReducer",
+  initialState,
+  reducers: {
+    updateUserReducer: (state, action) => {
+        state.userData = action.payload
+    }
+  }
+});
+
+export const {updateUserReducer} = userReducer.actions
+
+export default userReducer.reducer

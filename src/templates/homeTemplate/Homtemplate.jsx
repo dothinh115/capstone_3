@@ -1,19 +1,21 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, Outlet } from 'react-router-dom'
-import Footer from '../components/Footer'
-import Header from '../components/Header'
+import Footer from '../../components/footer/Footer'
+import Header from '../../components/header/Header'
 import axios from 'axios'
-import Breadcrumbs from '../components/Breadcrumbs'
-import { loadCartData, loadOrderHistory, updateData } from '../redux/actions/dataActions'
-import useCurrentUserEmail from '../Hooks/useCurrentUserEmail'
-import useUpdateUser from '../Hooks/useUpdateUser'
-import { getLocalStorage, saveLocalStorage, totalCount } from '../function'
+import Breadcrumbs from '../../components/breadCrumbs/BreadCrumbs'
+import useCurrentUserEmail from '../../hooks/useCurrentUserEmail'
+import useUpdateUser from '../../hooks/useUpdateUser'
+import { getLocalStorage, saveLocalStorage, totalCount } from '../../function'
+import { updateProductReducer } from '../../redux/reducers/productReducer'
+import { loadCartData } from '../../redux/reducers/cartReducer'
+import { loadOrder } from '../../redux/reducers/orderReducer'
 
 const Homtemplate = () => {
   const dispatch = useDispatch();
-  const cartData = useSelector(store => store.cart);
-  const orderHistoryData = useSelector(store => store.orderHistory);
+  const {cartData} = useSelector(store => store.cart);
+  const {orderData} = useSelector(store => store.orderHistory);
   const currentEmail = useCurrentUserEmail();
   const updateUser = useUpdateUser();
 
@@ -24,7 +26,7 @@ const Homtemplate = () => {
         method: "GET",
         dataType: "application/json"
       });
-      const action = updateData(fetch.data.content);
+      const action = updateProductReducer(fetch.data.content);
       dispatch(action);
     }
     catch (error) {
@@ -33,16 +35,17 @@ const Homtemplate = () => {
   }
 
   const saveOrderHistoryData = () => {
-    if (currentEmail && orderHistoryData) {
-      let data = orderHistoryData;
+    if (currentEmail && orderData) {
+      let data = orderData;
       saveLocalStorage(`orderHistoryData.${currentEmail}`, data);
     }
   }
 
   const getOrderHistoryData = () => {
-    const data = getLocalStorage(`orderHistoryData.${currentEmail}`);
+    let data = getLocalStorage(`orderHistoryData.${currentEmail}`);
     if (data) {
-      const action = loadOrderHistory(data);
+      data = Object.values(data);
+      const action = loadOrder(data);
       dispatch(action);
     }
   }
@@ -75,7 +78,7 @@ const Homtemplate = () => {
 
   useEffect(() => {
     saveOrderHistoryData();
-  }, [orderHistoryData])
+  }, [orderData])
 
   return (
     <div className="container main-contain">

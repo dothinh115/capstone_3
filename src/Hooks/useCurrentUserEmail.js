@@ -1,12 +1,11 @@
-const useCurrentUserEmail = () => {
-    const getEmail = () => {
-        let data = localStorage.getItem("loginInfo");
-        if (data) {
-            data = JSON.parse(data);
-            return data.email;
-        }
-    }
-    return getEmail();
+import { getLocalStorage } from "../function";
+
+const useToken = () => {
+  let token = getLocalStorage("loginInfo");
+  if(token) {
+    return token.email;
+  }
+  return false;
 }
 
-export default useCurrentUserEmail
+export default useToken

@@ -2,15 +2,15 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
-import dataConfig from '../templates/dataConfig';
-import useToken from '../Hooks/useToken';
-import useUpdateUser from '../Hooks/useUpdateUser';
-import useCheckToken from '../Hooks/useCheckToken';
+import dataConfig from '../../templates/dataConfig';
+import useToken from '../../hooks/useToken';
+import useUpdateUser from '../../hooks/useUpdateUser';
+import useCheckToken from '../../hooks/useCheckToken';
 
 const Edit = () => {
   const token = useToken();
   const updateUser = useUpdateUser();
-  const userInfo = useSelector(store => store.userData);
+  const {userData} = useSelector(store => store.userData);
   const navigate = useNavigate();
   const checkToken = useCheckToken();
 
@@ -107,12 +107,12 @@ const Edit = () => {
     // }
     setDataValue({
       ...dataValue,
-      name: userInfo.name,
-      gender: userInfo.gender,
-      email: userInfo.email,
-      phone: userInfo.phone
+      name: userData.name,
+      gender: userData.gender,
+      email: userData.email,
+      phone: userData.phone
     })
-  }, [userInfo]);
+  }, [userData]);
 
   useEffect(() => {
     setValid(checkValid());
@@ -128,7 +128,7 @@ const Edit = () => {
       <div className="main-container">
         <div className="page-header">
           <h1>
-            Chỉnh sửa thông tin cá nhân - {userInfo.name}
+            Chỉnh sửa thông tin cá nhân - {userData.name}
           </h1>
         </div>
         <div className="main-body edit-container">
