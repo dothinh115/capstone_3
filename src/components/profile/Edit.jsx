@@ -5,6 +5,7 @@ import dataConfig from '../../templates/dataConfig';
 import useToken from '../../hooks/useToken';
 import useCheckToken from '../../hooks/useCheckToken';
 import { getProfileApi, updateProfileApi } from '../../redux/reducers/userReducer';
+import { sendAxios } from '../../function';
 
 const Edit = () => {
   const token = useToken();
@@ -80,10 +81,9 @@ const Edit = () => {
   }
 
   const sendData = async () => {
-    const action = await updateProfileApi(token, dataValue);
+    await sendAxios("https://shop.cyberlearn.vn/api/Users/updateProfile", token, dataValue)();
+    const action = await getProfileApi(token);
     await dispatch(action);
-    const action_2 = await getProfileApi(token);
-    await dispatch(action_2);
     await navigate("/profile");
   }
 

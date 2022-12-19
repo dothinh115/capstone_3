@@ -39,21 +39,3 @@ export const getProfileApi = token => {
     }
   }
 }
-
-export const updateProfileApi = (token, data) => {
-  return async () => {
-    try {
-      await axios({
-        url: "https://shop.cyberlearn.vn/api/Users/updateProfile",
-        method: "POST",
-        dataType: "application/json",
-        data,
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-}
