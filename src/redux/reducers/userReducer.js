@@ -31,8 +31,8 @@ export const getProfileApi = token => {
           "Authorization": `Bearer ${token}`
         }
       });
-      const action = updateUserReducer(fetch.data.content);
-      dispatch(action);
+      const action = await updateUserReducer(fetch.data.content);
+      await dispatch(action);
     } catch (error) {
       localStorage.removeItem("loginInfo");
       window.location.reload();

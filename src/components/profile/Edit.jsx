@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import dataConfig from '../../templates/dataConfig';
 import useToken from '../../hooks/useToken';
 import useCheckToken from '../../hooks/useCheckToken';
-import { getProfileApi, updateProfileApi } from '../../redux/reducers/userReducer';
+import { getProfileApi } from '../../redux/reducers/userReducer';
 import { sendAxios } from '../../function';
 
 const Edit = () => {

@@ -3,24 +3,22 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useToken from '../../hooks/useToken';
 import { saveLocalStorage } from '../../function';
+import { getProfileApi } from '../../redux/reducers/userReducer';
+import { useDispatch } from 'react-redux';
 
 const Login = () => {
   const token = useToken();
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [loginValue, setLoginValue] = useState({
     email: "",
     password: ""
   });
-
   const [error, setError] = useState({
     email: "",
     password: ""
   });
-
   const [valid, setValid] = useState(false);
-
   const [result, setResult] = useState("");
 
   const checkValid = () => {
@@ -64,8 +62,11 @@ const Login = () => {
         dataType: "application/json",
         data: loginValue
       });
-      saveLocalStorage("loginInfo", fetch.data.content);
-      window.location.reload(false);
+      await saveLocalStorage("loginInfo", fetch.data.content);
+      const action = await getProfileApi(fetch.data.content.accessToken);
+      await dispatch(action);
+      await navigate(-1);
+      console.log(fetch.data.content.accessToken);
     } catch (err) {
       setResult(err.response.data.message);
     }

@@ -1,18 +1,17 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import useToken from '../../hooks/useToken'
+import { updateUserReducer } from '../../redux/reducers/userReducer'
 const Header = () => {
   const {userData} = useSelector(store => store.userData);
+  const dispatch = useDispatch();
   const token = useToken();
   const logoutHandle = e => {
     e.preventDefault();
-    setLocalStorage();
-    window.location.reload(false);
-  }
-
-  const setLocalStorage = () => {
     localStorage.removeItem("loginInfo");
+    const action = updateUserReducer({});
+    dispatch(action);
   }
 
   return (
