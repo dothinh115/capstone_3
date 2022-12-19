@@ -24,6 +24,25 @@ const Carousel = () => {
     if(token) dispatch(action);
   }
 
+  const suffleArray = arr => {
+    //copy từ redux ra mảng mới
+    arr = [...arr];
+    let randomIndex;
+    //currentIndex = phần tử cuối cùng của mảng
+    let currentIndex = arr.length;
+    //trong khi vẫn còn phần tử trong mảng, chạy vòng lặp
+    while (currentIndex !== 0) {
+      //chọn randomIndex từ 0 - 2, ví dụ randomIndex = 1
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      //trừ số phần tử đi 1
+      currentIndex--;
+      //tiến hành đảo phần tử cuối với phần tử random, ví dụ là arr[1]
+      [arr[currentIndex], arr[randomIndex]] = [arr[randomIndex], arr[currentIndex]];
+    }
+    return arr;
+  }
+
+
   const settings = {
     dots: true,
     infinite: true,
@@ -33,7 +52,7 @@ const Carousel = () => {
   };
   return (
     <Slider {...settings}>
-      {productData.length !== 0 && productData?.map((item, index) => {
+      {productData.length !== 0 && suffleArray(productData).slice(0, 5)?.map((item, index) => {
         return (
           <div key={index} className="slider-item">
             <div className="slider-item-left">
