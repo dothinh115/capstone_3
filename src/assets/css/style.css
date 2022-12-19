@@ -671,6 +671,11 @@ i {
   font-size: 16px;
   margin: unset;
 }
+@media (max-width: 600px) {
+  .order-history ul > li > ul > li {
+    padding: 5px 0;
+  }
+}
 .order-history ul > li > ul > li > div:nth-of-type(1) {
   width: 70%;
 }
