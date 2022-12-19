@@ -5,6 +5,7 @@ import useToken from '../../hooks/useToken'
 import useCheckToken from '../../hooks/useCheckToken';
 import { checkAll, checkItem, deleteCartItem, quantityUpdate } from '../../redux/reducers/cartReducer';
 import { updateOrder } from '../../redux/reducers/orderReducer';
+import OrderHistory from '../profile/OrderHistory';
 
 const Cart = () => {
   const token = useToken();
@@ -112,7 +113,7 @@ const Cart = () => {
         <div className="page-header">
           {error ? error :
             <>
-              Đặt hàng thành công, <Link className="alert-link" to="/profile">xem lịch sử đặt hàng</Link>.
+              Đặt hàng thành công.
             </>}
         </div>
       </div>}
@@ -191,6 +192,17 @@ const Cart = () => {
               Chưa có sản phẩm trong giỏ hàng
             </>}
 
+        </div>
+      </div>
+
+      <div className="main-container order-history" style={{marginTop: "20px"}}>
+        <div className="page-header">
+          <h1>
+            LỊCH SỬ MUA HÀNG
+          </h1>
+        </div>
+        <div className="main-body">
+          <OrderHistory />
         </div>
       </div>
     </>
