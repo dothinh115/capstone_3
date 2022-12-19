@@ -35,7 +35,6 @@ const orderReducer = createSlice({
                 }
             }
             state.orderData = orderData;
-            console.log(state.orderData);
         },
         loadOrder: (state, action) => {
             state.orderData = action.payload;
