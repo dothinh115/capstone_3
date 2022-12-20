@@ -1,6 +1,7 @@
 import axios from "axios";
 import { history } from "../App";
 import { getLocalStorage } from "../function";
+import { isExpired, decodeToken } from "react-jwt";
 
 const token = () => {
     const token = getLocalStorage("loginInfo");
@@ -31,10 +32,13 @@ http.interceptors.request.use(config => {
 http.interceptors.response.use(res => {
     return res;
 }, err => {
-    //bắt lỗi 400 hoặc 404
+    //check Token
+    if(isExpired) {
+        localStorage.removeItem("loginInfo");
+        window.location.reload();
+    }
     if (err.response?.status === 401 || err.response?.status === 403) {
         //chưa đăng nhập
-        localStorage.removeItem("loginInfo");
         history.push("/login");
     }
     return Promise.reject(err);
