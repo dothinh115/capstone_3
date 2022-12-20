@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
+import { http } from '../../util/config';
 import Item from '../item/Item';
 
 const Search = () => {
@@ -15,11 +16,7 @@ const Search = () => {
 
   const sendData = async (value) => {
     try {
-      const fetch = await axios({
-        url: `https://shop.cyberlearn.vn/api/Product?keyword=${value}`,
-        method: "GET",
-        dataType: "application/json",
-      });
+      const fetch = await http.get(`/api/Product?keyword=${value}`);
       const sort = params.get("sortby");
       if(sort) {
         sortBy(sort, fetch.data.content);
