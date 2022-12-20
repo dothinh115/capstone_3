@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
-import axios from 'axios';
+import { http } from '../../util/config';
 
 const initialState = {
-    userData: {}
+  userData: null
 }
 
 const userReducer = createSlice({
@@ -10,32 +10,18 @@ const userReducer = createSlice({
   initialState,
   reducers: {
     updateUserReducer: (state, action) => {
-        state.userData = action.payload
+      state.userData = action.payload
     }
   }
 });
 
-export const {updateUserReducer} = userReducer.actions
+export const { updateUserReducer } = userReducer.actions
 
 export default userReducer.reducer
 
 /****************** async dispatch ******************/
-export const getProfileApi = token => {
-  return async (dispatch) => {
-    try {
-      const fetch = await axios({
-        url: "https://shop.cyberlearn.vn/api/Users/getProfile",
-        method: "POST",
-        dataType: "application/json",
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
-      });
-      const action = await updateUserReducer(fetch.data.content);
-      await dispatch(action);
-    } catch (error) {
-      localStorage.removeItem("loginInfo");
-      window.location.reload();
-    }
-  }
+export const getProfileApi = async (dispatch) => {
+  const fetch = await http.post("/api/Users/getProfile");
+  const action = updateUserReducer(fetch.data.content);
+  dispatch(action);
 }

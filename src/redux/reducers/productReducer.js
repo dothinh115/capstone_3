@@ -1,5 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
-import axios from 'axios';
+import { http } from '../../util/config';
+import { getLocalStorage } from '../../function';
+const token = () => {
+    let token = getLocalStorage("loginInfo");
+    if(token) {
+        return token.accessToken;
+    }
+    return null;
+}
 
 const initialState = {
   productData: [],
@@ -22,16 +30,17 @@ const productReducer = createSlice({
       state.ifProductLiked = action.payload;
     },
     updateProductFavorite: (state, action) => {
+      if(!token()) return;
       state.productFavorite = action.payload;
     }
   }
 });
 
-export const { 
-  updateProductReducer, 
-  updateProductDetail, 
-  updateProductLike, 
-  updateProductFavorite 
+export const {
+  updateProductReducer,
+  updateProductDetail,
+  updateProductLike,
+  updateProductFavorite
 } = productReducer.actions;
 
 export default productReducer.reducer;
@@ -39,96 +48,40 @@ export default productReducer.reducer;
 
 /***************** async action *****************/
 export const getAllProductApi = async (dispatch) => {
-  try {
-    const fetch = await axios({
-      url: "https://shop.cyberlearn.vn/api/Product",
-      method: "GET",
-      dataType: "application/json"
-    });
-    const action = updateProductReducer(fetch.data.content);
-    dispatch(action);
-  }
-  catch (error) {
-    console.log(error);
-  }
+  const fetch = await http.get("https://shop.cyberlearn.vn/api/Product");
+  const action = updateProductReducer(fetch.data.content);
+  dispatch(action);
 }
 
 export const getProductByIdApi = productId => {
   return async (dispatch) => {
-    try {
-      const fetch = await axios({
-        url: `https://shop.cyberlearn.vn/api/Product/getbyid?id=${productId}`,
-        method: "GET",
-        dataType: "application/json"
-      });
-      const action = updateProductDetail(fetch.data.content);
-      dispatch(action)
-    } catch (error) {
-      console.log(error);
-    }
+    const fetch = await http.get(`https://shop.cyberlearn.vn/api/Product/getbyid?id=${productId}`);
+    const action = updateProductDetail(fetch.data.content);
+    dispatch(action)
   }
 }
 
-export const setLikeByIdApi = (bool, token, productId) => {
+export const setLikeByIdApi = (bool, productId) => {
   return async (dispatch) => {
-    try {
-      await axios({
-        url: `https://shop.cyberlearn.vn/api/Users/${bool ? "" : "un"}like?productId=${productId}`,
-        method: "GET",
-        dataType: "application/json",
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
-      });
-      const action = updateProductLike(bool);
-      dispatch(action);
-    } catch (error) {
-      console.log(error);
-    }
+    await http.get(`https://shop.cyberlearn.vn/api/Users/${bool ? "" : "un"}like?productId=${productId}`);
+    const action = updateProductLike(bool);
+    dispatch(action);
   }
 }
 
-export const findIfLikeApi = (token, productId) => {
+export const findIfLikeApi = (productId) => {
   return async (dispatch) => {
-    try {
-      const fetch = await axios({
-        url: "https://shop.cyberlearn.vn/api/Users/getproductfavorite",
-        method: "GET",
-        dataType: "application/json",
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
-      });
-      const find = Object.values(fetch.data.content.productsFavorite).find(item => item.id == productId);
-      if(find) {
-        const action = updateProductLike(true);
-        dispatch(action);
-      }
-      else {
-        const action = updateProductLike(false);
-        dispatch(action);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    let res = false;
+    const fetch = await http.get("https://shop.cyberlearn.vn/api/Users/getproductfavorite");
+    const find = Object.values(fetch.data.content.productsFavorite).find(item => item.id == productId);
+    if (find) res = true;
+    const action = updateProductLike(res);
+    dispatch(action);
   }
 }
 
-export const getProductFavoriteApi = (token) => {
-  return async (dispatch) => {
-    try {
-      const fetch = await axios({
-        url: "https://shop.cyberlearn.vn/api/Users/getproductfavorite",
-        method: "GET",
-        dataType: "application/json",
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
-      });
-      const action = updateProductFavorite(fetch.data.content.productsFavorite);
-      dispatch(action);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+export const getProductFavoriteApi = async (dispatch) => {
+  const fetch = await http.get("https://shop.cyberlearn.vn/api/Users/getproductfavorite");
+  const action = updateProductFavorite(fetch.data.content.productsFavorite);
+  dispatch(action);
 }

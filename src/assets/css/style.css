@@ -279,7 +279,6 @@ i {
 .card {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
 }
 .card-item {
   width: 33%;

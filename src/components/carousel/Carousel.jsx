@@ -5,14 +5,12 @@ import "../../assets/css/carousel.css";
 import Slider from 'react-slick';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import useToken from '../../hooks/useToken';
 import { addToCart } from '../../redux/reducers/cartReducer';
 
 const Carousel = () => {
   const {productData} = useSelector(store => store.product);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token = useToken();
 
   const addToCartHandle = item => {
     const payload = {
@@ -21,7 +19,7 @@ const Carousel = () => {
       checked: false
     }
     const action = addToCart(payload);
-    if(token) dispatch(action);
+    dispatch(action);
   }
 
   const suffleArray = (arr, number) => {

@@ -1,10 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import useToken from '../../hooks/useToken'
 const Header = () => {
   const { userData } = useSelector(store => store.userData);
-  const token = useToken();
   const logoutHandle = e => {
     e.preventDefault();
     localStorage.removeItem("loginInfo");
@@ -18,7 +16,7 @@ const Header = () => {
       </div>
       <div className="header-menu">
         <ul>
-          {token ?
+          {userData ?
             <>
               <li>
                 <NavLink to="/profile">

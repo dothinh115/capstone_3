@@ -1,21 +1,20 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import useCurrentUserEmail from '../../hooks/useCurrentUserEmail';
-import useToken from '../../hooks/useToken'
 import { checkAll, checkItem, deleteCartItem, quantityUpdate } from '../../redux/reducers/cartReducer';
 import { getProfileApi } from '../../redux/reducers/userReducer';
+import { http } from '../../util/config';
 import OrderHistory from '../profile/OrderHistory';
 
 const Cart = () => {
-  const token = useToken();
-  const navigate = useNavigate();
   const dispatch = useDispatch()
   const currentEmail = useCurrentUserEmail();
   const { cartData } = useSelector(store => store.cart);
   const [checkoutRes, setCheckoutRes] = useState(false);
   const [error, setError] = useState("");
+  const {userData} = useSelector(store => store.userData);
+  const navigate = useNavigate();
 
   const quantityUpdateHandle = (id, value) => {
     const payload = {
@@ -67,18 +66,9 @@ const Cart = () => {
   }
 
   const sendCheckoutHandle = async (data) => {
-    try {
-      await axios({
-        url: "https://shop.cyberlearn.vn/api/Users/order",
-        method: "POST",
-        dataType: "application/json",
-        data,
-      });
-      const action = await getProfileApi(token);
-      await dispatch(action);
-    } catch (error) {
-      console.log(error);
-    }
+    await http.post("https://shop.cyberlearn.vn/api/Users/order", data);
+    const action = await getProfileApi;
+    await dispatch(action);
   }
 
   const checkOutHandle = e => {
@@ -133,8 +123,9 @@ const Cart = () => {
   }
 
   useEffect(() => {
-    !token && navigate("/login");
+    if(!userData) navigate("/login");
   }, []);
+
   return (
     <>
       {checkoutRes && <div className="main-container" style={{ marginBottom: "20px" }}>

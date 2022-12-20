@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import dataConfig from '../../templates/dataConfig';
-import useToken from '../../hooks/useToken';
+import { useSelector } from 'react-redux';
+import { http } from '../../util/config';
 
 const Register = () => {
-  const token = useToken()
-
   const navigate = useNavigate();
-
+  const { userData } = useSelector(store => store.userData);
   const [dataValue, setDataValue] = useState({
     email: "",
     password: "",
@@ -34,7 +32,7 @@ const Register = () => {
 
   const checkValid = () => {
     for (let key in dataValue) {
-      if(dataValue[key] === "" || error[key] !== "") return false;
+      if (dataValue[key] === "" || error[key] !== "") return false;
     }
     return true;
   }
@@ -70,19 +68,15 @@ const Register = () => {
 
   const sendData = async () => {
     try {
-      const fetch = await axios({
-        url: "https://shop.cyberlearn.vn/api/Users/signup",
-        method: "POST",
-        data: dataValue
-      });
+      const fetch = await http.post("/api/Users/signup", dataValue);
       setResult({
         result: true,
-        message: fetch.data.message
+        message: fetch.data?.message
       });
     } catch (error) {
       setResult({
         result: false,
-        message: error.response.data.message
+        message: error.response?.data?.message
       });
     }
   }
@@ -130,8 +124,8 @@ const Register = () => {
   }
 
   useEffect(() => {
-    token && navigate("/");
-  }, []);
+    if (userData) navigate("/");
+  }, [userData]);
 
   useEffect(() => {
     setValid(checkValid());
@@ -139,7 +133,7 @@ const Register = () => {
 
   return (
     <>
-      <div className="main-container" style={{marginBottom: "20px"}}>
+      <div className="main-container" style={{ marginBottom: "20px" }}>
         <div className="page-header">
           <p>
             <i className="fa-solid fa-arrow-right"></i>
@@ -182,7 +176,7 @@ const Register = () => {
                           <option value="false">
                             Nữ
                           </option>
-                        </select> : <input data-id={item} type={item === "password" ? "password" : "text"} value={dataValue[item]} onChange={e => inputChangeHandle(e)} className={error[item] && "invalid"} />}
+                        </select> : <input data-id={item} type={item === "password" ? "password" : "text"} onChange={e => inputChangeHandle(e)} className={error[item] && "invalid"} />}
                         {error[item] && <div className="form-error">
                           {error[item]}
                         </div>}

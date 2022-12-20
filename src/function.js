@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export const { getLocalStorage, saveLocalStorage, totalCount } = {
     getLocalStorage(name) {
         let data = localStorage.getItem(name);
@@ -19,5 +17,5 @@ export const { getLocalStorage, saveLocalStorage, totalCount } = {
             total += arr[key][option];
         }
         return total;
-    },
+    }
 }

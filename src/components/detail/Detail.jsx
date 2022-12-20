@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Item from '../item/Item';
-import useToken from '../../hooks/useToken';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/reducers/cartReducer';
 import { findIfLikeApi, getProductByIdApi, setLikeByIdApi } from '../../redux/reducers/productReducer';
+import { getProfileApi } from '../../redux/reducers/userReducer';
 
 const Detail = () => {
-  const {productDetail, ifProductLiked} = useSelector(store => store.product);
+  const { productDetail, ifProductLiked } = useSelector(store => store.product);
+  const {userData} = useSelector(store => store.userData);
   const dispatch = useDispatch();
-  const token = useToken();
   const { productId } = useParams();
   const [number, setNumber] = useState(1);
-  const navigate = useNavigate();
   const [addResult, setAddResult] = useState(false);
 
   const getProductById = async () => {
@@ -20,18 +19,14 @@ const Detail = () => {
     dispatch(action);
   }
 
-  const setLike = async (bool) => {
-    const action = setLikeByIdApi(bool, token, productId);
-    dispatch(action);
-  }
-
   const findIfLike = () => {
-    const action = findIfLikeApi(token, productId);
+    const action = findIfLikeApi(productId);
     dispatch(action);
   }
 
   const likeHandle = e => {
-    token ? setLike(!ifProductLiked) : navigate("/login");
+    const action = setLikeByIdApi(!ifProductLiked, productId);
+    dispatch(action);
   }
 
   const addToCartHandle = () => {
@@ -40,23 +35,21 @@ const Detail = () => {
       quantity: number,
       checked: false
     }
-    const action = addToCart(payload);
-    if (token) {
-      dispatch(action);
-      setAddResult(true);
-    }
-    else {
-      navigate("/login");
-    }
+    const addToCartAction = addToCart(payload);
+    dispatch(addToCartAction);
+    const getProfileAction = getProfileApi;
+    dispatch(getProfileAction);
+    setAddResult(true);
   }
+
   useEffect(() => {
-    if(token ) findIfLike();
-  }, []);
+    if (userData) findIfLike();
+  }, [userData]);
 
   useEffect(() => {
     getProductById();
     setNumber(1);
-    if(token) findIfLike();
+    if (userData) findIfLike();
   }, [productId]);
 
   return (

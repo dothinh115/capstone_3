@@ -1,4 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
+import { getLocalStorage } from '../../function';
+const token = () => {
+    let token = getLocalStorage("loginInfo");
+    if(token) {
+        return token.accessToken;
+    }
+    return null;
+}
 
 const initialState = {
     cartData: []
@@ -9,6 +17,7 @@ const cartReducer = createSlice({
     initialState,
     reducers: {
         addToCart: (state, action) => {
+            if(!token()) return;
             let { cartData } = state;
             const { payload } = action;
             const index = cartData.findIndex(item => item.id === payload.id);

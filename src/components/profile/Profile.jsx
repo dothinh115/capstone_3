@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Outlet, useNavigate, useOutlet } from 'react-router-dom';
-import useToken from '../../hooks/useToken';
 import OrderHistory from './OrderHistory';
 import { getProductFavoriteApi, setLikeByIdApi } from '../../redux/reducers/productReducer';
 
 const Profile = () => {
-  const token = useToken();
   const dispatch = useDispatch();
   const {userData} = useSelector(store => store.userData);
   const {productFavorite} = useSelector(store => store.product);
@@ -14,18 +12,18 @@ const Profile = () => {
   const outlet = useOutlet();
 
   const getProductFavorite = () => {
-    const action = getProductFavoriteApi(token);
+    const action = getProductFavoriteApi;
     dispatch(action);
   }
 
   const sendUnLike = async (productId) => {
-    const action = await setLikeByIdApi(false, token, productId);
+    const action = await setLikeByIdApi(false, productId);
     await dispatch(action);
     await getProductFavorite();
   } 
 
   useEffect(() => {
-    token ? getProductFavorite() : navigate("/login");
+    userData ? getProductFavorite() : navigate("/login");
   }, []);
   return (
     <>
@@ -40,23 +38,23 @@ const Profile = () => {
           <div className="main-body profile-body">
             <div className="main-body-inner">
               <div className="main-body-inner-left">
-                <img src={userData.avatar} alt="" />
+                <img src={userData?.avatar} alt="" />
               </div>
               <div className="main-body-inner-right">
                 <div className="item">
                   <div className="inner-left">
-                    Email: {userData.email}
+                    Email: {userData?.email}
                   </div>
                   <div className="inner-right">
-                    Họ tên: {userData.name}
+                    Họ tên: {userData?.name}
                   </div>
                 </div>
                 <div className="item">
                   <div className="inner-left">
-                    Giới tính: <i className={`fa-solid fa-${userData.gender ? "mars" : "venus"}`}></i>
+                    Giới tính: <i className={`fa-solid fa-${userData?.gender ? "mars" : "venus"}`}></i>
                   </div>
                   <div className="inner-right">
-                    Điện thoại: {userData.phone}
+                    Điện thoại: {userData?.phone}
                   </div>
                 </div>
                 <div className="item">

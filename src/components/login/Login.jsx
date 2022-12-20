@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import useToken from '../../hooks/useToken';
+import { http } from '../../util/config';
+import { useSelector } from 'react-redux';
 import { saveLocalStorage } from '../../function';
 
 const Login = () => {
-  const token = useToken();
   const navigate = useNavigate();
+  const {userData} = useSelector(store => store.userData);
   const [loginValue, setLoginValue] = useState({
     email: "",
     password: ""
@@ -53,16 +53,11 @@ const Login = () => {
 
   const sendData = async () => {
     try {
-      const fetch = await axios({
-        url: "https://shop.cyberlearn.vn/api/Users/signin",
-        method: "POST",
-        dataType: "application/json",
-        data: loginValue
-      });
-      await saveLocalStorage("loginInfo", fetch.data.content);
+      const fetch = await http.post("https://shop.cyberlearn.vn/api/Users/signin", loginValue);
+      saveLocalStorage("loginInfo", fetch.data.content);
       window.location.reload();
-    } catch (err) {
-      setResult(err.response.data.message);
+    } catch (error) {
+      setResult(error.response?.data.message);
     }
   }
 
@@ -72,8 +67,8 @@ const Login = () => {
   }
 
   useEffect(() => {
-    token && navigate("/");
-  }, []);
+    if(userData) navigate("/");
+  }, [userData]);
 
   return (
     <>
@@ -114,6 +109,7 @@ const Login = () => {
                   Email
                 </div>
                 <div className="item-right">
+                  {/* just for test  */}
                   <input type="text" data-id="email" onChange={e => inputChangeHandle(e)} className={error.email && "invalid"} />
                   {error.email && <div className="form-error">{error.email}</div>}
                 </div>

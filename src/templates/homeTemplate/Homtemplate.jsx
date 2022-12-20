@@ -9,11 +9,9 @@ import { getAllProductApi } from '../../redux/reducers/productReducer'
 import { loadCartData } from '../../redux/reducers/cartReducer'
 import useCurrentUserEmail from '../../hooks/useCurrentUserEmail'
 import { getProfileApi } from '../../redux/reducers/userReducer'
-import useToken from '../../hooks/useToken'
 
 const Homtemplate = () => {
   const dispatch = useDispatch();
-  const token = useToken();
   const {cartData} = useSelector(store => store.cart);
   const currentEmail = useCurrentUserEmail();
 
@@ -38,18 +36,21 @@ const Homtemplate = () => {
   }
 
   const getProfile = () => {
-    const action = getProfileApi(token);
+    const action = getProfileApi;
     dispatch(action);
+  }
+
+  const token = () => {
+    const token = getLocalStorage("loginInfo");
+    if(token) return token.accessToken;
+    return null;
   }
 
   useEffect(() => {
     getAllProduct();
     getCartData();
+    if(token()) getProfile();
   }, []);
-
-  useEffect(() => {
-    if(token) getProfile();
-  }, [token]);
 
   useEffect(() => {
     saveCartData();

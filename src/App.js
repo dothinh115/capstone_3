@@ -1,6 +1,6 @@
 import './assets/css/style.css';
 import 'animate.css';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes, unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 import Homtemplate from './templates/homeTemplate/Homtemplate';
 import Index from './components/index/Index';
 import Register from './components/register/Register';
@@ -10,9 +10,14 @@ import Search from './components/search/Search';
 import Cart from './components/cart/Cart';
 import Profile from './components/profile/Profile';
 import Edit from './components/profile/Edit';
+import { createBrowserHistory } from 'history';
+
+//npm i history => chuyển hướng trang ở file ko phải component
+export const history = createBrowserHistory();
+
 function App() {
   return (
-    <BrowserRouter>
+    <HistoryRouter history={history}>
       <Routes>
         <Route path='/' element={<Homtemplate />} >
           <Route index element={<Index />} />
@@ -27,7 +32,7 @@ function App() {
           <Route path='*' element={<Navigate to='/' /> } />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 

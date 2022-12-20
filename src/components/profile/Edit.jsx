@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import dataConfig from '../../templates/dataConfig';
-import useToken from '../../hooks/useToken';
 import { getProfileApi } from '../../redux/reducers/userReducer';
-import axios from 'axios';
+import { http } from '../../util/config';
 
 const Edit = () => {
-  const token = useToken();
   const dispatch = useDispatch()
   const { userData } = useSelector(store => store.userData);
   const navigate = useNavigate();
@@ -79,22 +77,10 @@ const Edit = () => {
   }
 
   const sendData = async () => {
-    try {
-      await axios({
-        url: "https://shop.cyberlearn.vn/api/Users/updateProfile",
-        method: "POST",
-        dataType: "application/json",
-        data: dataValue,
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
-      });
-      const action = await getProfileApi(token);
-      await dispatch(action);
-      await navigate("/profile");
-    } catch (error) {
-      console.log(error);
-    }
+    await http.post("https://shop.cyberlearn.vn/api/Users/updateProfile", dataValue);
+    const action = await getProfileApi;
+    await dispatch(action);
+    await navigate("/profile");
   }
 
   useEffect(() => {
@@ -106,10 +92,10 @@ const Edit = () => {
     // }
     setDataValue({
       ...dataValue,
-      name: userData.name,
-      gender: userData.gender,
-      email: userData.email,
-      phone: userData.phone
+      name: userData?.name,
+      gender: userData?.gender,
+      email: userData?.email,
+      phone: userData?.phone
     })
   }, [userData]);
 
@@ -118,7 +104,7 @@ const Edit = () => {
   }, [dataValue]);
 
   useEffect(() => {
-    !token && navigate("/login");
+    if(!userData) navigate("/login");
   }, [])
 
   return (
@@ -126,7 +112,7 @@ const Edit = () => {
       <div className="main-container">
         <div className="page-header">
           <h1>
-            Chỉnh sửa thông tin cá nhân - {userData.name}
+            Chỉnh sửa thông tin cá nhân - {userData?.name}
           </h1>
         </div>
         <div className="main-body edit-container">
