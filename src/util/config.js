@@ -34,6 +34,7 @@ http.interceptors.response.use(res => {
     //bắt lỗi 400 hoặc 404
     if (err.response?.status === 401 || err.response?.status === 403) {
         //chưa đăng nhập
+        localStorage.removeItem("loginInfo");
         history.push("/login");
     }
     return Promise.reject(err);

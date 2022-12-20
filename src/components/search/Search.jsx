@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import { http } from '../../util/config';
@@ -18,12 +17,7 @@ const Search = () => {
     try {
       const fetch = await http.get(`/api/Product?keyword=${value}`);
       const sort = params.get("sortby");
-      if(sort) {
-        sortBy(sort, fetch.data.content);
-      }
-      else {
-        setSearchResult(fetch.data.content);
-      }
+      sort ? sortBy(sort, fetch.data.content) : setSearchResult(fetch.data.content);
     } catch (error) {
       console.log(error);
     }
@@ -67,11 +61,7 @@ const Search = () => {
 
   useEffect(() => {
     const keywords = params.get("keywords");
-    if (keywords) {
-      setSearchValue(keywords);
-      sendData(keywords);
-    }
-    
+    if (keywords) setSearchValue(keywords); sendData(keywords);
   }, [params.get("keywords")]);
   
   return (
