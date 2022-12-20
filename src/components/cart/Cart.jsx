@@ -207,8 +207,9 @@ const Cart = () => {
 
       {checkoutRes && <div className="main-container" style={{ margin: "20px 0" }}>
         <div className="page-header">
-          {error ? error :
+          {error ? <><i className="fa-solid fa-circle-exclamation" style={{ color: "red" }}></i> {error}</> :
             <>
+              <i className="fa-solid fa-check" style={{ color: "green" }}></i>
               Đặt hàng thành công.
             </>}
         </div>
