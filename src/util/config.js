@@ -1,7 +1,7 @@
 import axios from "axios";
 import { history } from "../App";
 import { getLocalStorage } from "../function";
-import { isExpired, decodeToken } from "react-jwt";
+import { isExpired } from "react-jwt";
 
 const token = () => {
     const token = getLocalStorage("loginInfo");
@@ -33,7 +33,8 @@ http.interceptors.response.use(res => {
     return res;
 }, err => {
     //check Token
-    if(isExpired) {
+    const ifTokenExpired = isExpired(token);
+    if(ifTokenExpired) {
         localStorage.removeItem("loginInfo");
         window.location.reload();
     }

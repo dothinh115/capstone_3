@@ -12,8 +12,9 @@ import { getProfileApi } from '../../redux/reducers/userReducer'
 
 const Homtemplate = () => {
   const dispatch = useDispatch();
-  const {cartData} = useSelector(store => store.cart);
+  const { cartData } = useSelector(store => store.cart);
   const currentEmail = useCurrentUserEmail();
+  const { tokenExpired } = useSelector(store => store.userData);
 
   const getAllProduct = () => {
     const action = getAllProductApi;
@@ -42,14 +43,14 @@ const Homtemplate = () => {
 
   const token = () => {
     const token = getLocalStorage("loginInfo");
-    if(token) return token.accessToken;
+    if (token) return token.accessToken;
     return null;
   }
 
   useEffect(() => {
     getAllProduct();
     getCartData();
-    if(token()) getProfile();
+    if (token()) getProfile();
   }, []);
 
   useEffect(() => {

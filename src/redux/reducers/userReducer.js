@@ -10,7 +10,10 @@ const userReducer = createSlice({
   initialState,
   reducers: {
     updateUserReducer: (state, action) => {
-      state.userData = action.payload
+      state.userData = action.payload;
+    },
+    updateTokenExpired: (state, action) => {
+      state.tokenExpired = action.payload;
     }
   }
 });
@@ -25,3 +28,4 @@ export const getProfileApi = async (dispatch) => {
   const action = updateUserReducer(fetch.data.content);
   dispatch(action);
 }
+
