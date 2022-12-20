@@ -128,15 +128,6 @@ const Cart = () => {
 
   return (
     <>
-      {checkoutRes && <div className="main-container" style={{ marginBottom: "20px" }}>
-        <div className="page-header">
-          {error ? error :
-            <>
-              Đặt hàng thành công.
-            </>}
-        </div>
-      </div>}
-
       <div className="main-container cart">
         <div className="page-header">
           <h1>
@@ -213,6 +204,15 @@ const Cart = () => {
 
         </div>
       </div>
+
+      {checkoutRes && <div className="main-container" style={{ margin: "20px 0" }}>
+        <div className="page-header">
+          {error ? error :
+            <>
+              Đặt hàng thành công.
+            </>}
+        </div>
+      </div>}
 
       <div className="main-container order-history" style={{ marginTop: "20px" }}>
         <div className="page-header">

@@ -54,11 +54,6 @@ const Detail = () => {
 
   return (
     <>
-      {addResult && <div className="main-container" style={{ marginBottom: "20px" }}>
-        <div className="page-header">
-          Thêm giỏ hàng thành công, <Link to="/cart" className="alert-link">xem giỏ hàng</Link>.
-        </div>
-      </div>}
       <div className="detail-container main-container">
         <div className="page-header">
           <h1>
@@ -121,6 +116,12 @@ const Detail = () => {
           </div>
         </div>
       </div>
+
+      {addResult && <div className="main-container" style={{ margin: "20px 0" }}>
+        <div className="page-header">
+          Thêm giỏ hàng thành công, <Link to="/cart" className="alert-link">xem giỏ hàng</Link>.
+        </div>
+      </div>}
 
       <div className="related-product main-container">
         <div className="page-header">
