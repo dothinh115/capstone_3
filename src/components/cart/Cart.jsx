@@ -1,15 +1,18 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import useCurrentUserEmail from '../../hooks/useCurrentUserEmail';
 import useToken from '../../hooks/useToken'
 import { checkAll, checkItem, deleteCartItem, quantityUpdate } from '../../redux/reducers/cartReducer';
-import { updateOrder } from '../../redux/reducers/orderReducer';
+import { getProfileApi } from '../../redux/reducers/userReducer';
 import OrderHistory from '../profile/OrderHistory';
 
 const Cart = () => {
   const token = useToken();
   const navigate = useNavigate();
   const dispatch = useDispatch()
+  const currentEmail = useCurrentUserEmail();
   const { cartData } = useSelector(store => store.cart);
   const [checkoutRes, setCheckoutRes] = useState(false);
   const [error, setError] = useState("");
@@ -63,25 +66,53 @@ const Cart = () => {
     return result;
   }
 
+  const sendCheckoutHandle = async (data) => {
+    try {
+      await axios({
+        url: "https://shop.cyberlearn.vn/api/Users/order",
+        method: "POST",
+        dataType: "application/json",
+        data,
+      });
+      const action = await getProfileApi(token);
+      await dispatch(action);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const checkOutHandle = e => {
     e.preventDefault();
     let checkedItem = [];
+    let deleteItems = [];
     for (let value of cartData) {
-      if (value.checked) checkedItem = [...checkedItem, value];
+      if (value.checked) {
+        let item = {
+          orderDetail: [
+            {
+              productId: value.id,
+              quantity: value.quantity
+            }
+          ],
+          email: currentEmail
+        };
+        checkedItem = [...checkedItem, item];
+        deleteItems = [...deleteItems, value.id];
+      }
     }
     if (checkedItem.length !== 0) {
-      const action = updateOrder(checkedItem);
-      dispatch(action);
       for (let value of checkedItem) {
-        const action = deleteCartItem(value.id);
-        dispatch(action);
+        sendCheckoutHandle(value);
+      }
+      for (let value of deleteItems) {
+        deleteHandle(value);
       }
       setCheckoutRes(true);
       setError("");
     }
     else {
       setCheckoutRes(true);
-      setError("Chọn sản phẩm trước khi đặt hàng");
+      setError("Chọn sản phẩm trước khi đặt hàng!");
     }
   }
 
@@ -192,7 +223,7 @@ const Cart = () => {
         </div>
       </div>
 
-      <div className="main-container order-history" style={{marginTop: "20px"}}>
+      <div className="main-container order-history" style={{ marginTop: "20px" }}>
         <div className="page-header">
           <h1>
             LỊCH SỬ MUA HÀNG

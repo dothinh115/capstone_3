@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const { getLocalStorage, saveLocalStorage, totalCount, sendAxios } = {
+export const { getLocalStorage, saveLocalStorage, totalCount } = {
     getLocalStorage(name) {
         let data = localStorage.getItem(name);
         if (data) {
@@ -20,14 +20,4 @@ export const { getLocalStorage, saveLocalStorage, totalCount, sendAxios } = {
         }
         return total;
     },
-    sendAxios(option) {
-        return async () => {
-            try {
-                await axios(option);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-       
-    }
 }

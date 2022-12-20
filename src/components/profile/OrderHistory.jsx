@@ -1,92 +1,82 @@
+import axios from 'axios';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { deleteOrder } from '../../redux/reducers/orderReducer';
+import useToken from '../../hooks/useToken';
+import { getProfileApi } from '../../redux/reducers/userReducer';
 
 const OrderHistory = () => {
-  const {orderData} = useSelector(store => store.orderHistory);
+  const {userData : {ordersHistory}} = useSelector(store => store.userData);
+  const token = useToken();
   const dispatch = useDispatch();
 
-  const deleteOrderHandle = (e, date) => {
-    e.preventDefault();
-    const action = deleteOrder(date);
-    dispatch(action);
-  }
-
-  const totalQuantity = index => {
-    let total = 0;
-    for (let value of orderData[index].orderDetail) {
-      total += value.quantity;
+  const deleteOrderHandle = async (e, id) => {
+    try {
+      await axios({
+        url: "https://shop.cyberlearn.vn/api/Users/deleteOrder",
+        method: "POST",
+        dataType: "application/json",
+        data: {
+          "orderId": id
+        },
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+      const action = await getProfileApi(token);
+      await dispatch(action);
+    } catch (error) {
+      console.log(error);
     }
-    return total;
-  }
-
-  const totalPrice = index => {
-    let total = 0;
-    for (let value of orderData[index].orderDetail) {
-      total += value.quantity * value.price;
-    }
-    return total;
   }
 
   return (
     <>
-    {orderData.length === 0 ? "Chưa có lịch sử mua hàng!" :
+    {ordersHistory?.length === 0 ? "Chưa có lịch sử mua hàng!" :
       <ul>
-        {orderData?.map((item, index) => {
+        {ordersHistory?.map((item, index) => {
           return (
             <li key={index}>
               <div>
                 <span>
-                  <i className="fa-solid fa-calendar-days"></i>
-                  {item.date} :
+                <i className="fa-solid fa-turn-down-right"></i>
+                  #{item.id}
                 </span>
               </div>
               <div>
-                <button className="btn btn-red" onClick={e => deleteOrderHandle(e, item.date)}>
+                <button className="btn btn-red" onClick={e => deleteOrderHandle(e, item.id)}>
                   <i className="fa-solid fa-trash"></i>
                 </button>
               </div>
               <ul>
                 <li>
                   <div>
+                    
+                  </div>
+                  <div>
                     Tên sản phẩm
                   </div>
                   <div>
-                    Số lượng
-                  </div>
-                  <div>
-                    Tổng cộng
+                    Đơn giá
                   </div>
                 </li>
                 {item.orderDetail?.map((value, key) => {
                   return (
                     <li key={key}>
                       <div>
-                        <i className="fa-solid fa-arrow-right"></i>
-                        <Link to={`/detail/${value.id}`}>
-                          {value.name}
-                        </Link>
+                        <img src={value.image} alt="" />
                       </div>
                       <div>
-                        {value.quantity}
+                        {value.name}
                       </div>
                       <div>
                       <i className="fa-solid fa-tag"></i>
-                        {value.quantity * value.price}
+                        {value.price}
                       </div>
                     </li>
                   )
                 })}
               </ul>
-              <div>
-                Tổng cộng ( {totalQuantity(index)} sản phẩm): 
-              </div>
-              <div>
-                <i className="fa-solid fa-tags"></i>
-                {totalPrice(index)}
-              </div>
             </li>
           )
         })}

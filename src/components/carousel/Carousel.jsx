@@ -32,7 +32,7 @@ const Carousel = () => {
     let currentIndex = arr.length;
     //trong khi vẫn còn phần tử trong mảng, chạy vòng lặp
     while (currentIndex !== 0) {
-      //chọn randomIndex từ 0 - 2, ví dụ randomIndex = 1
+      //chọn random vị trí 1 phần tử trong mảng, ví dụ randomIndex = 1
       randomIndex = Math.floor(Math.random() * currentIndex);
       //trừ số phần tử đi 1
       currentIndex--;

@@ -7,7 +7,6 @@ import Breadcrumbs from '../../components/breadCrumbs/BreadCrumbs'
 import { getLocalStorage, saveLocalStorage, totalCount } from '../../function'
 import { getAllProductApi } from '../../redux/reducers/productReducer'
 import { loadCartData } from '../../redux/reducers/cartReducer'
-import { loadOrder } from '../../redux/reducers/orderReducer'
 import useCurrentUserEmail from '../../hooks/useCurrentUserEmail'
 import { getProfileApi } from '../../redux/reducers/userReducer'
 import useToken from '../../hooks/useToken'
@@ -16,28 +15,11 @@ const Homtemplate = () => {
   const dispatch = useDispatch();
   const token = useToken();
   const {cartData} = useSelector(store => store.cart);
-  const {orderData} = useSelector(store => store.orderHistory);
   const currentEmail = useCurrentUserEmail();
 
   const getAllProduct = () => {
     const action = getAllProductApi;
     dispatch(action);
-  }
-
-  const saveOrderHistoryData = () => {
-    if (currentEmail && orderData) {
-      let data = orderData;
-      saveLocalStorage(`orderHistoryData.${currentEmail}`, data);
-    }
-  }
-
-  const getOrderHistoryData = () => {
-    let data = getLocalStorage(`orderHistoryData.${currentEmail}`);
-    if (data) {
-      data = Object.values(data);
-      const action = loadOrder(data);
-      dispatch(action);
-    }
   }
 
   const saveCartData = () => {
@@ -63,7 +45,6 @@ const Homtemplate = () => {
   useEffect(() => {
     getAllProduct();
     getCartData();
-    getOrderHistoryData();
   }, []);
 
   useEffect(() => {
@@ -73,10 +54,6 @@ const Homtemplate = () => {
   useEffect(() => {
     saveCartData();
   }, [cartData]);
-
-  useEffect(() => {
-    saveOrderHistoryData();
-  }, [orderData])
 
   return (
     <div className="container main-contain">

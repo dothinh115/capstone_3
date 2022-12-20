@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import dataConfig from '../../templates/dataConfig';
 import useToken from '../../hooks/useToken';
 import { getProfileApi } from '../../redux/reducers/userReducer';
-import { sendAxios } from '../../function';
+import axios from 'axios';
 
 const Edit = () => {
   const token = useToken();
@@ -79,18 +79,22 @@ const Edit = () => {
   }
 
   const sendData = async () => {
-    await sendAxios({
-      url: "https://shop.cyberlearn.vn/api/Users/updateProfile",
-      method: "POST",
-      dataType: "application/json",
-      data: dataValue,
-      headers: {
-        "Authorization": `Bearer ${token}`
-      }
-    });
-    const action = await getProfileApi(token);
-    await dispatch(action);
-    await navigate("/profile");
+    try {
+      await axios({
+        url: "https://shop.cyberlearn.vn/api/Users/updateProfile",
+        method: "POST",
+        dataType: "application/json",
+        data: dataValue,
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+      const action = await getProfileApi(token);
+      await dispatch(action);
+      await navigate("/profile");
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {

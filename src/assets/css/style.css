@@ -678,15 +678,18 @@ i {
   }
 }
 .order-history ul > li > ul > li > div:nth-of-type(1) {
-  width: 70%;
+  width: 5%;
+}
+.order-history ul > li > ul > li > div:nth-of-type(1) img {
+  width: 100%;
 }
 .order-history ul > li > ul > li > div:nth-of-type(2) {
-  width: 15%;
-  text-align: center;
+  width: 75%;
+  text-align: left;
 }
 .order-history ul > li > ul > li > div:nth-of-type(3) {
   width: 15%;
-  text-align: center;
+  text-align: right;
 }
 
 .search {
