@@ -25,7 +25,7 @@
   content: "";
 }
 .index-carousel .slick-dots {
-  bottom: 20px;
+  bottom: 10px;
 }
 @media (max-width: 768px) {
   .index-carousel .slick-dots {
