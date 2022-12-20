@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import useToken from '../../hooks/useToken'
-import useCheckToken from '../../hooks/useCheckToken';
 import { checkAll, checkItem, deleteCartItem, quantityUpdate } from '../../redux/reducers/cartReducer';
 import { updateOrder } from '../../redux/reducers/orderReducer';
 import OrderHistory from '../profile/OrderHistory';
@@ -14,7 +13,6 @@ const Cart = () => {
   const { cartData } = useSelector(store => store.cart);
   const [checkoutRes, setCheckoutRes] = useState(false);
   const [error, setError] = useState("");
-  const checkToken = useCheckToken();
 
   const quantityUpdateHandle = (id, value) => {
     const payload = {
@@ -105,7 +103,6 @@ const Cart = () => {
 
   useEffect(() => {
     !token && navigate("/login");
-    checkToken();
   }, []);
   return (
     <>

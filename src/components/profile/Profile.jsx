@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, Outlet, useNavigate, useOutlet } from 'react-router-dom';
 import useToken from '../../hooks/useToken';
 import OrderHistory from './OrderHistory';
-import useCheckToken from '../../hooks/useCheckToken';
 import { getProductFavoriteApi, setLikeByIdApi } from '../../redux/reducers/productReducer';
 
 const Profile = () => {
@@ -13,7 +12,6 @@ const Profile = () => {
   const {productFavorite} = useSelector(store => store.product);
   const navigate = useNavigate();
   const outlet = useOutlet();
-  const checkToken = useCheckToken();
 
   const getProductFavorite = () => {
     const action = getProductFavoriteApi(token);
@@ -28,7 +26,6 @@ const Profile = () => {
 
   useEffect(() => {
     token ? getProductFavorite() : navigate("/login");
-    checkToken();
   }, []);
   return (
     <>

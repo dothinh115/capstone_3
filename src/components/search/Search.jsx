@@ -2,13 +2,11 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import Item from '../item/Item';
-import useCheckToken from '../../hooks/useCheckToken';
 
 const Search = () => {
   const [searchValue, setSearchValue] = useState(null);
   const [searchResult, setSearchResult] = useState([]);
   const [params, setParams] = useSearchParams();
-  const checkToken = useCheckToken();
 
   const inputChangeHandle = e => {
     const {value} = e.target;
@@ -71,17 +69,14 @@ const Search = () => {
   }
 
   useEffect(() => {
-    checkToken();
-  }, []);
-  
-  useEffect(() => {
     const keywords = params.get("keywords");
     if (keywords) {
       setSearchValue(keywords);
       sendData(keywords);
     }
+    
   }, [params.get("keywords")]);
-
+  
   return (
     <>
       <div className="main-container">
@@ -111,7 +106,7 @@ const Search = () => {
           <h1 style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
             <span>KẾT QUẢ</span>
             <select onChange={e => {sortHandle(e)}} defaultValue={params.get("sortby")}>
-              <option value="">Lọc</option>
+              <option value={null}>Lọc</option>
               <option value="priceUp">Giá giảm dần</option>
               <option value="priceDown">Giá tăng dần</option>
             </select>

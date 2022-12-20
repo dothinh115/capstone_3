@@ -20,21 +20,14 @@ export const { getLocalStorage, saveLocalStorage, totalCount, sendAxios } = {
         }
         return total;
     },
-    sendAxios(url, token, data = {}) {
+    sendAxios(option) {
         return async () => {
             try {
-                await axios({
-                    url,
-                    method: "POST",
-                    dataType: "application/json",
-                    data,
-                    headers: {
-                        "Authorization": `Bearer ${token}`
-                    }
-                });
+                await axios(option);
             } catch (error) {
                 console.log(error);
             }
         }
+       
     }
 }

@@ -3,16 +3,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import dataConfig from '../../templates/dataConfig';
 import useToken from '../../hooks/useToken';
-import useCheckToken from '../../hooks/useCheckToken';
 import { getProfileApi } from '../../redux/reducers/userReducer';
 import { sendAxios } from '../../function';
 
 const Edit = () => {
   const token = useToken();
   const dispatch = useDispatch()
-  const {userData} = useSelector(store => store.userData);
+  const { userData } = useSelector(store => store.userData);
   const navigate = useNavigate();
-  const checkToken = useCheckToken();
 
   const [dataValue, setDataValue] = useState({
     email: "",
@@ -34,10 +32,10 @@ const Edit = () => {
 
   const checkValid = () => {
     for (let key in dataValue) {
-      if(key === "gender"){
+      if (key === "gender") {
         continue;
       }
-      if(dataValue[key] == "" || error[key] != ""){
+      if (dataValue[key] == "" || error[key] != "") {
         return false;
       }
     }
@@ -45,17 +43,17 @@ const Edit = () => {
   }
 
   const inputChangeHandle = e => {
-    const {value} = e.target;
+    const { value } = e.target;
     const id = e.target.getAttribute("data-id");
     let errMess = "";
-    if(value.trim() === "") {
+    if (value.trim() === "") {
       errMess = "Không được để trống!";
     }
     else {
       for (let key in dataConfig.id) {
         switch (id) {
           case dataConfig.id[key]: {
-            if(!value.match(dataConfig.reg[key])){
+            if (!value.match(dataConfig.reg[key])) {
               errMess = dataConfig.errorMessage[key];
             }
           }
@@ -75,13 +73,21 @@ const Edit = () => {
 
   const submitHandle = e => {
     e.preventDefault();
-    if(checkValid()) {
+    if (checkValid()) {
       sendData();
     }
   }
 
   const sendData = async () => {
-    await sendAxios("https://shop.cyberlearn.vn/api/Users/updateProfile", token, dataValue)();
+    await sendAxios({
+      url: "https://shop.cyberlearn.vn/api/Users/updateProfile",
+      method: "POST",
+      dataType: "application/json",
+      data: dataValue,
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
     const action = await getProfileApi(token);
     await dispatch(action);
     await navigate("/profile");
@@ -109,7 +115,6 @@ const Edit = () => {
 
   useEffect(() => {
     !token && navigate("/login");
-    checkToken();
   }, [])
 
   return (
@@ -137,10 +142,10 @@ const Edit = () => {
                       <option value="false">
                         Nữ
                       </option>
-                      </select> : <input data-id={item} type={item === "password" ? "password" : "text"} defaultValue={dataValue[item]} onChange={e => inputChangeHandle(e)} onBlur={e => setValid(checkValid())} />}
-                      {error[item] && <div className="form-error">
-                        {error[item]}
-                      </div>}
+                    </select> : <input data-id={item} type={item === "password" ? "password" : "text"} defaultValue={dataValue[item]} onChange={e => inputChangeHandle(e)} onBlur={e => setValid(checkValid())} />}
+                    {error[item] && <div className="form-error">
+                      {error[item]}
+                    </div>}
                   </div>
                 </div>
               )

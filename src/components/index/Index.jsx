@@ -1,15 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Carousel from '../carousel/Carousel'
 import Item from '../item/Item';
 import { useSelector } from 'react-redux';
-import useCheckToken from '../../hooks/useCheckToken';
 
 const Index = () => {
   const { productData } = useSelector(store => store.product);
-  const checkToken = useCheckToken();
-  useEffect(() => {
-    checkToken();
-  }, []);
+  
   return (
     <>
       <div className="index-carousel main-container">

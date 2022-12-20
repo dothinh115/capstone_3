@@ -3,7 +3,6 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import Item from '../item/Item';
 import useToken from '../../hooks/useToken';
 import { useDispatch, useSelector } from 'react-redux';
-import useCheckToken from '../../hooks/useCheckToken';
 import { addToCart } from '../../redux/reducers/cartReducer';
 import { findIfLikeApi, getProductByIdApi, setLikeByIdApi } from '../../redux/reducers/productReducer';
 
@@ -15,7 +14,6 @@ const Detail = () => {
   const [number, setNumber] = useState(1);
   const navigate = useNavigate();
   const [addResult, setAddResult] = useState(false);
-  const checkToken = useCheckToken();
 
   const getProductById = async () => {
     const action = getProductByIdApi(productId);
@@ -53,7 +51,6 @@ const Detail = () => {
   }
   useEffect(() => {
     if(token ) findIfLike();
-    checkToken();
   }, []);
 
   useEffect(() => {

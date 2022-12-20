@@ -27,7 +27,12 @@ const productReducer = createSlice({
   }
 });
 
-export const { updateProductReducer, updateProductDetail, updateProductLike, updateProductFavorite } = productReducer.actions;
+export const { 
+  updateProductReducer, 
+  updateProductDetail, 
+  updateProductLike, 
+  updateProductFavorite 
+} = productReducer.actions;
 
 export default productReducer.reducer;
 
