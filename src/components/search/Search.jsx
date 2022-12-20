@@ -61,7 +61,7 @@ const Search = () => {
 
   useEffect(() => {
     const keywords = params.get("keywords");
-    if (keywords) setSearchValue(keywords); sendData(keywords);
+    if (keywords !== null) setSearchValue(keywords); sendData(keywords);
   }, [params.get("keywords")]);
   
   return (
