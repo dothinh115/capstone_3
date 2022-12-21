@@ -90,7 +90,6 @@ const Cart = () => {
     }
     if (checkedItem.orderDetail.length !== 0) {
       sendCheckoutHandle(checkedItem);
-      console.log(checkedItem);
       for (let value of deleteItems) {
         deleteHandle(value);
       }
