@@ -3,7 +3,7 @@ import { Navigate, Outlet } from 'react-router-dom'
 
 const LoggedInRoute = ({ loggedIn }) => {
     if (loggedIn) {
-        return <Navigate to="/" />
+        return <Navigate to="/" replace />
     }
 
     return <Outlet />

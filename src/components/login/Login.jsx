@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { http } from '../../util/config';
 import { saveLocalStorage } from '../../util/function';
 
 const Login = () => {
+  const { state } = useLocation();
   const [loginValue, setLoginValue] = useState({
     email: "",
     password: ""
@@ -65,6 +66,17 @@ const Login = () => {
 
   return (
     <>
+      {state?.needLoginMessage &&
+        <div className="main-container" style={{ marginBottom: "20px" }}>
+          <div className="page-header">
+            <p>
+              <i className="fa-solid fa-circle-exclamation" style={{ color: "red" }}></i>
+              Bạn cần đăng nhập để truy cập trang này
+            </p>
+          </div>
+        </div>
+      }
+
       <div className="main-container" style={{ marginBottom: "20px" }}>
         <div className="page-header">
           <p>
