@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getProfileApi } from '../../redux/reducers/userReducer';
@@ -7,6 +7,7 @@ import { http } from '../../util/config';
 const OrderHistory = () => {
   const { userData } = useSelector(store => store.userData);
   const dispatch = useDispatch();
+  const [seeAll, setSeeAll] = useState(3);
 
   const deleteOrderHandle = async (e, id) => {
     await http.post("https://shop.cyberlearn.vn/api/Users/deleteOrder", {"orderId": id});
@@ -14,11 +15,16 @@ const OrderHistory = () => {
     await dispatch(getProfileAction);
   }
 
+  const seeAllHandle = e => {
+    e.preventDefault();
+    setSeeAll(userData?.ordersHistory.length);
+  }
+
   return (
     <>
       {userData?.ordersHistory.length === 0 ? "Chưa có lịch sử mua hàng!" :
         <ul>
-          {userData?.ordersHistory.map((item, index) => {
+          {userData?.ordersHistory.slice(0, seeAll).map((item, index) => {
             return (
               <li key={index}>
                 <div>
@@ -64,7 +70,18 @@ const OrderHistory = () => {
               </li>
             )
           })}
-        </ul>}
+        </ul>
+        }
+        {(userData?.ordersHistory.length - seeAll > 0) && 
+        <>
+          <div className="order-history-footer">
+            <p>Còn lại <b>{userData?.ordersHistory.length - seeAll}</b> đơn hàng</p>
+            <button className="btn" onClick={e => seeAllHandle(e)}>
+              Xem tất cả
+            </button>
+          </div>
+        </>}
+        
     </>
   )
 }

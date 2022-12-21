@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, Outlet, useNavigate, useOutlet } from 'react-router-dom';
 import OrderHistory from './OrderHistory';
 import { getProductFavoriteApi, setLikeByIdApi } from '../../redux/reducers/productReducer';
+import { getLocalStorage } from '../../function';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const Profile = () => {
   } 
 
   useEffect(() => {
-    userData ? getProductFavorite() : navigate("/login");
+    (!userData  && !getLocalStorage("loginInfo").accessToken) ? navigate("/login") : getProductFavorite();
   }, []);
   return (
     <>

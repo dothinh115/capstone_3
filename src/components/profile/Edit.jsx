@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import dataConfig from '../../templates/dataConfig';
 import { getProfileApi } from '../../redux/reducers/userReducer';
 import { http } from '../../util/config';
+import { getLocalStorage } from '../../function';
 
 const Edit = () => {
   const dispatch = useDispatch()
@@ -104,7 +105,7 @@ const Edit = () => {
   }, [dataValue]);
 
   useEffect(() => {
-    if(!userData) navigate("/login");
+    if(!userData && !getLocalStorage("loginInfo").accessToken) navigate("/login");
   }, [])
 
   return (

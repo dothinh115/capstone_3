@@ -690,6 +690,14 @@ i {
   width: 15%;
   text-align: right;
 }
+.order-history ul > li:last-of-type {
+  margin-bottom: unset;
+}
+.order-history-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 .search {
   display: flex;

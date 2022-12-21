@@ -61,4 +61,12 @@
 .order-history ul > li > ul > li > div:nth-of-type(3) {
   width: 15%;
   text-align: right;
+}
+.order-history ul > li:last-of-type {
+  margin-bottom: unset;
+}
+.order-history-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }/*# sourceMappingURL=orderHistory.css.map */
