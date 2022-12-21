@@ -12,13 +12,13 @@ const Profile = () => {
   const outlet = useOutlet();
 
   const getProductFavorite = () => {
-    const action = getProductFavoriteApi;
-    dispatch(action);
+    const getProductFavoriteAction = getProductFavoriteApi;
+    dispatch(getProductFavoriteAction);
   }
 
   const sendUnLike = async (productId) => {
-    const action = await setLikeByIdApi(false, productId);
-    await dispatch(action);
+    const setLikeByIdAction = await setLikeByIdApi(false, productId);
+    await dispatch(setLikeByIdAction);
     await getProductFavorite();
   } 
 

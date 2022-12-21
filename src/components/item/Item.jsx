@@ -14,8 +14,8 @@ const Item = ({ item }) => {
             quantity: 1,
             checked: false
         }
-        const action = addToCart(payload);
-        dispatch(action);
+        const addToCartAction = addToCart(payload);
+        dispatch(addToCartAction);
     }
     return (
         <div className="card-item">

@@ -78,8 +78,8 @@ const Edit = () => {
 
   const sendData = async () => {
     await http.post("https://shop.cyberlearn.vn/api/Users/updateProfile", dataValue);
-    const action = await getProfileApi;
-    await dispatch(action);
+    const getProfileAction = await getProfileApi;
+    await dispatch(getProfileAction);
     await navigate("/profile");
   }
 

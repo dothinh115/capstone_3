@@ -8,34 +8,31 @@ import { getProfileApi } from '../../redux/reducers/userReducer';
 
 const Detail = () => {
   const { productDetail, ifProductLiked } = useSelector(store => store.product);
-  const {userData} = useSelector(store => store.userData);
+  const { userData } = useSelector(store => store.userData);
   const dispatch = useDispatch();
   const { productId } = useParams();
   const [number, setNumber] = useState(1);
   const [addResult, setAddResult] = useState(false);
   const navigate = useNavigate();
 
-  const getProductById = async () => {
-    const action = getProductByIdApi(productId);
-    dispatch(action);
+  const getProductById = () => {
+    const getProductByIdAction = getProductByIdApi(productId);
+    dispatch(getProductByIdAction);
   }
 
   const findIfLike = () => {
-    const action = findIfLikeApi(productId);
-    dispatch(action);
+    const findIflikedAction = findIfLikeApi(productId);
+    dispatch(findIflikedAction);
   }
 
   const likeHandle = e => {
-    if(userData) {
-      const action = setLikeByIdApi(!ifProductLiked, productId);
-      dispatch(action);
-    }
-    else {
-      navigate("/login");
-    }
+    if (!userData) navigate("/login");
+    const setLikeByIdAction = setLikeByIdApi(!ifProductLiked, productId);
+    dispatch(setLikeByIdAction);
   }
 
   const addToCartHandle = () => {
+    if (!userData) navigate("/login");
     const payload = {
       ...productDetail,
       quantity: number,

@@ -16,8 +16,8 @@ const Homtemplate = () => {
   const currentEmail = useCurrentUserEmail();
 
   const getAllProduct = () => {
-    const action = getAllProductApi;
-    dispatch(action);
+    const getAllProductAction = getAllProductApi;
+    dispatch(getAllProductAction);
   }
 
   const saveCartData = () => {
@@ -30,14 +30,14 @@ const Homtemplate = () => {
   const getCartData = () => {
     const data = getLocalStorage(`cartData.${currentEmail}`);
     if (data) {
-      const action = loadCartData(data);
-      dispatch(action);
+      const loadCartDataAction = loadCartData(data);
+      dispatch(loadCartDataAction);
     }
   }
 
   const getProfile = () => {
-    const action = getProfileApi;
-    dispatch(action);
+    const getProfileAction = getProfileApi;
+    dispatch(getProfileAction);
   }
 
   const token = () => {

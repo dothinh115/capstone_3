@@ -18,8 +18,8 @@ const Carousel = () => {
       quantity: 1,
       checked: false
     }
-    const action = addToCart(payload);
-    dispatch(action);
+    const addToCartAction = addToCart(payload);
+    dispatch(addToCartAction);
   }
 
   const suffleArray = (arr, number) => {

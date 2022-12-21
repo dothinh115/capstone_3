@@ -11,9 +11,6 @@ const userReducer = createSlice({
   reducers: {
     updateUserReducer: (state, action) => {
       state.userData = action.payload;
-    },
-    updateTokenExpired: (state, action) => {
-      state.tokenExpired = action.payload;
     }
   }
 });

@@ -21,18 +21,18 @@ const Cart = () => {
       id,
       value
     }
-    const action = quantityUpdate(payload);
-    dispatch(action);
+    const quantityUpdateAction = quantityUpdate(payload);
+    dispatch(quantityUpdateAction);
   }
 
   const deleteHandle = id => {
-    const action = deleteCartItem(id);
-    dispatch(action);
+    const deleteCartItemAction = deleteCartItem(id);
+    dispatch(deleteCartItemAction);
   }
 
   const checkboxHandle = id => {
-    const action = checkItem(id);
-    dispatch(action);
+    const checkItemAction = checkItem(id);
+    dispatch(checkItemAction);
   }
 
   const totalCounting = () => {
@@ -53,8 +53,8 @@ const Cart = () => {
 
   const checkAllHandle = e => {
     const { checked } = e.target;
-    const action = checkAll(checked);
-    dispatch(action);
+    const checkAllAction = checkAll(checked);
+    dispatch(checkAllAction);
   }
 
   const findIfCheckAll = () => {
@@ -67,8 +67,8 @@ const Cart = () => {
 
   const sendCheckoutHandle = async (data) => {
     await http.post("https://shop.cyberlearn.vn/api/Users/order", data);
-    const action = await getProfileApi;
-    await dispatch(action);
+    const getProfileAction = await getProfileApi;
+    await dispatch(getProfileAction);
   }
 
   const checkOutHandle = e => {
