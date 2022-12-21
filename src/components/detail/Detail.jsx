@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Item from '../item/Item';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/reducers/cartReducer';
@@ -13,6 +13,7 @@ const Detail = () => {
   const { productId } = useParams();
   const [number, setNumber] = useState(1);
   const [addResult, setAddResult] = useState(false);
+  const navigate = useNavigate();
 
   const getProductById = async () => {
     const action = getProductByIdApi(productId);
@@ -25,8 +26,13 @@ const Detail = () => {
   }
 
   const likeHandle = e => {
-    const action = setLikeByIdApi(!ifProductLiked, productId);
-    dispatch(action);
+    if(userData) {
+      const action = setLikeByIdApi(!ifProductLiked, productId);
+      dispatch(action);
+    }
+    else {
+      navigate("/login");
+    }
   }
 
   const addToCartHandle = () => {

@@ -14,7 +14,6 @@ const Homtemplate = () => {
   const dispatch = useDispatch();
   const { cartData } = useSelector(store => store.cart);
   const currentEmail = useCurrentUserEmail();
-  const { tokenExpired } = useSelector(store => store.userData);
 
   const getAllProduct = () => {
     const action = getAllProductApi;
