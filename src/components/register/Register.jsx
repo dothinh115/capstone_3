@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import dataConfig from '../../templates/dataConfig';
-import { useSelector } from 'react-redux';
 import { http } from '../../util/config';
 
 const Register = () => {
-  const navigate = useNavigate();
-  const { userData } = useSelector(store => store.userData);
   const [dataValue, setDataValue] = useState({
     email: "",
     password: "",
@@ -122,10 +119,6 @@ const Register = () => {
   const regButtonHandle = e => {
     checkValid() && sendData();
   }
-
-  useEffect(() => {
-    if (userData) navigate("/");
-  }, [userData]);
 
   useEffect(() => {
     setValid(checkValid());

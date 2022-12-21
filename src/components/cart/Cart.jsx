@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { getToken } from '../../util/function';
 import useCurrentUserEmail from '../../hooks/useCurrentUserEmail';
 import { checkAll, checkItem, deleteCartItem, quantityUpdate } from '../../redux/reducers/cartReducer';
 import { getProfileApi } from '../../redux/reducers/userReducer';
 import { http } from '../../util/config';
 import OrderHistory from '../profile/OrderHistory';
-import useGetProfile from '../../hooks/useGetProfile';
 
 const Cart = () => {
   const dispatch = useDispatch()
@@ -17,7 +15,6 @@ const Cart = () => {
   const [error, setError] = useState("");
   const { userData } = useSelector(store => store.userData);
   const navigate = useNavigate();
-  const getProfile = useGetProfile();
 
   const quantityUpdateHandle = (id, value) => {
     const payload = {
@@ -121,10 +118,6 @@ const Cart = () => {
       deleteHandle(value.id);
     }
   }
-
-  useEffect(() => {
-    (userData && getToken()) ? getProfile() : navigate("/login");
-  }, [userData]);
 
   return (
     <>

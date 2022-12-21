@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, Outlet, useNavigate, useOutlet } from 'react-router-dom';
 import OrderHistory from './OrderHistory';
 import { getProductFavoriteApi, setLikeByIdApi } from '../../redux/reducers/productReducer';
-import { getToken } from '../../util/function';
 import useGetProfile from '../../hooks/useGetProfile';
 
 const Profile = () => {
@@ -26,13 +25,8 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    if (userData && getToken()) {
-      getProductFavorite();
-      getProfile();
-    }
-    else {
-      navigate("/login")
-    }
+    getProductFavorite();
+    getProfile();
   }, []);
   return (
     <>

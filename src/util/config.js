@@ -1,15 +1,7 @@
 import axios from "axios";
 import { history } from "../App";
-import { getLocalStorage } from "./function";
+import { getToken } from "./function";
 import { isExpired } from "react-jwt";
-
-const token = () => {
-    const token = getLocalStorage("loginInfo");
-    if (token) {
-        return token.accessToken;
-    }
-    return null;
-}
 //tạo 1 api mới
 export const http = axios.create({
     baseURL: "https://shop.cyberlearn.vn",
@@ -20,7 +12,7 @@ export const http = axios.create({
 http.interceptors.request.use(config => {
     config.headers = {
         ...config.headers,
-        "Authorization": `Bearer ${token()}`
+        "Authorization": `Bearer ${getToken()}`
     }
     return config;
 }, err => {
@@ -33,7 +25,7 @@ http.interceptors.response.use(res => {
     return res;
 }, err => {
     //check Token
-    const ifTokenExpired = isExpired(token());
+    const ifTokenExpired = isExpired(getToken());
     if (ifTokenExpired) {
         localStorage.removeItem("loginInfo");
         window.location.reload();

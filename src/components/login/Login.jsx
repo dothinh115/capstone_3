@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 import { http } from '../../util/config';
-import { useSelector } from 'react-redux';
 import { saveLocalStorage } from '../../util/function';
 
 const Login = () => {
-  const navigate = useNavigate();
-  const {userData} = useSelector(store => store.userData);
   const [loginValue, setLoginValue] = useState({
     email: "",
     password: ""
@@ -65,10 +62,6 @@ const Login = () => {
     e.preventDefault();
     checkValid() && sendData();
   }
-
-  useEffect(() => {
-    if(userData) navigate("/");
-  }, [userData]);
 
   return (
     <>
