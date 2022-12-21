@@ -33,8 +33,8 @@ http.interceptors.response.use(res => {
     return res;
 }, err => {
     //check Token
-    const ifTokenExpired = isExpired(token);
-    if(ifTokenExpired) {
+    const ifTokenExpired = isExpired(token());
+    if (ifTokenExpired) {
         localStorage.removeItem("loginInfo");
         window.location.reload();
     }
