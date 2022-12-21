@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, Outlet, useNavigate, useOutlet } from 'react-router-dom';
+import { Link, Outlet, useOutlet } from 'react-router-dom';
 import OrderHistory from './OrderHistory';
 import { getProductFavoriteApi, setLikeByIdApi } from '../../redux/reducers/productReducer';
 import useGetProfile from '../../hooks/useGetProfile';
@@ -9,7 +9,6 @@ const Profile = () => {
   const dispatch = useDispatch();
   const { userData } = useSelector(store => store.userData);
   const { productFavorite } = useSelector(store => store.product);
-  const navigate = useNavigate();
   const outlet = useOutlet();
   const getProfile = useGetProfile();
 

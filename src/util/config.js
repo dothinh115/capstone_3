@@ -25,10 +25,16 @@ http.interceptors.response.use(res => {
     return res;
 }, err => {
     //check Token
-    const ifTokenExpired = isExpired(getToken());
-    if (ifTokenExpired) {
-        localStorage.removeItem("loginInfo");
-        window.location.reload();
+    if(getToken()) {
+        const ifTokenExpired = isExpired(getToken());
+        if (ifTokenExpired) {
+            localStorage.removeItem("loginInfo");
+            window.location.reload();
+        }
+    }
+    if (err.response?.status === 400) {
+        //lỗi ko hợp lệ, ví dụ: sai id sản phẩm
+        history.push("/");
     }
     if (err.response?.status === 401 || err.response?.status === 403) {
         //chưa đăng nhập

@@ -4,13 +4,13 @@ import { NavLink, Outlet } from 'react-router-dom'
 import Footer from '../../components/footer/Footer'
 import Header from '../../components/header/Header'
 import Breadcrumbs from '../../components/breadCrumbs/BreadCrumbs'
-import { getToken, saveLocalStorage, totalCount } from '../../util/function'
+import { saveLocalStorage, totalCount } from '../../util/function'
 import useCurrentUserEmail from '../../hooks/useCurrentUserEmail'
 import useGetAllProduct from '../../hooks/useGetAllProduct'
 import useGetCartData from '../../hooks/useGetCartData'
 import useGetProfile from '../../hooks/useGetProfile'
 
-const Homtemplate = () => {
+const Homtemplate = ({loggedIn}) => {
   const { cartData } = useSelector(store => store.cart);
   const currentEmail = useCurrentUserEmail();
   const getAllProduct = useGetAllProduct();
@@ -27,7 +27,7 @@ const Homtemplate = () => {
   useEffect(() => {
     getAllProduct();
     getCartData(currentEmail);
-    if (getToken()) getProfile();
+    if (loggedIn) getProfile();
   }, []);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const Homtemplate = () => {
   return (
     <div className="container main-contain">
       <div className="contain-header">
-        <Header />
+        <Header loggedIn={loggedIn} />
       </div>
       <div className="contain-body">
         <div className="body-left">

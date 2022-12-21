@@ -1,7 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-const Header = () => {
+
+const Header = ({loggedIn}) => {
   const { userData } = useSelector(store => store.userData);
   const logoutHandle = e => {
     e.preventDefault();
@@ -16,12 +17,12 @@ const Header = () => {
       </div>
       <div className="header-menu">
         <ul>
-          {userData ?
+          {loggedIn ?
             <>
               <li>
                 <NavLink to="/profile">
                   <i className="fa-solid fa-user"></i>
-                  {userData.name}
+                  {userData?.name}
                 </NavLink>
               </li>
               <li>
@@ -45,7 +46,6 @@ const Header = () => {
                   Đăng ký
                 </NavLink>
               </li></>}
-
         </ul>
       </div>
     </div>
