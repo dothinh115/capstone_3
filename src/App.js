@@ -13,8 +13,8 @@ import Edit from './components/profile/Edit';
 import { createBrowserHistory } from 'history';
 import { getToken } from './util/function';
 import { isExpired } from 'react-jwt';
-import LoggedInRoute from './components/hoc/LoggedInRoute';
-import NotLoggedInRoute from './components/hoc/NotLoggedInRoute';
+import LoggedInRoute from './components/hoc/NotLoggedInRoute';
+import NotLoggedInRoute from './components/hoc/LoggedInRoute';
 
 //npm i history => chuyển hướng trang ở file ko phải component
 export const history = createBrowserHistory();
@@ -33,11 +33,11 @@ function App() {
           <Route index element={<Index />} />
           <Route path='/search' element={<Search />} />
           <Route path='/detail/:productId' element={<Detail />} />
-          <Route element={<LoggedInRoute loggedIn={loggedIn} />} >
+          <Route element={<NotLoggedInRoute loggedIn={loggedIn} />} >
             <Route path="/register" element={<Register />} />
             <Route path='/login' element={<Login />} />
           </Route>
-          <Route element={<NotLoggedInRoute loggedIn={loggedIn} />}>
+          <Route element={<LoggedInRoute loggedIn={loggedIn} />}>
             <Route path='/cart' element={<Cart />} />
             <Route path='/profile' element={<Profile />}>
               <Route path='/profile/edit' element={<Edit />} />
