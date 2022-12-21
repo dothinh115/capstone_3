@@ -37,7 +37,7 @@
                 margin: 10px 0;
                 &>li {
                     display: flex;
-                    padding: 5px 0 5px 20px;
+                    padding: 5px 0 5px 0;
                     font-size: 16px;
                     margin: unset;
                     @media (max-width:600px) {
@@ -48,6 +48,8 @@
                             width: 5%;
                             img {
                                 width: 100%;
+                                border-radius: 5px;
+                                background-color: rgba(teal, .35);
                             }
                         }
                         &:nth-of-type(2) {

@@ -7,7 +7,7 @@ import { http } from '../../util/config';
 const OrderHistory = () => {
   const { userData } = useSelector(store => store.userData);
   const dispatch = useDispatch();
-  const [seeAll, setSeeAll] = useState(3);
+  const [seeAll, setSeeAll] = useState(2);
 
   const deleteOrderHandle = async (e, id) => {
     await http.post("https://shop.cyberlearn.vn/api/Users/deleteOrder", {"orderId": id});

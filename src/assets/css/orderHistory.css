@@ -39,7 +39,7 @@
 }
 .order-history ul > li > ul > li {
   display: flex;
-  padding: 5px 0 5px 20px;
+  padding: 5px 0 5px 0;
   font-size: 16px;
   margin: unset;
 }
@@ -53,6 +53,8 @@
 }
 .order-history ul > li > ul > li > div:nth-of-type(1) img {
   width: 100%;
+  border-radius: 5px;
+  background-color: rgba(0, 128, 128, 0.35);
 }
 .order-history ul > li > ul > li > div:nth-of-type(2) {
   width: 75%;

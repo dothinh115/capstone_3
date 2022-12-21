@@ -93,7 +93,7 @@ const Profile = () => {
             <div className="table">
               <div className="thead">
                 <div className="tr">
-                  <div className="th">Hình ảnh</div>
+                  <div className="th"></div>
                   <div className="th">Tên sản phẩm</div>
                   <div className="th">Thao tác</div>
                 </div>
