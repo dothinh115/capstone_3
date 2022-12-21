@@ -1,4 +1,4 @@
-import { getLocalStorage } from "../function";
+import { getLocalStorage } from "../util/function";
 
 const useCurrentUserEmail = () => {
   let email = getLocalStorage("loginInfo");

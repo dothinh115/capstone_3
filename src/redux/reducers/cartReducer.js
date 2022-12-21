@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getLocalStorage } from '../../function';
+import { getLocalStorage } from '../../util/function';
 const token = () => {
     let token = getLocalStorage("loginInfo");
     if(token) {

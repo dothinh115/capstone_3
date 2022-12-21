@@ -1,6 +1,6 @@
 import axios from "axios";
 import { history } from "../App";
-import { getLocalStorage } from "../function";
+import { getLocalStorage } from "./function";
 import { isExpired } from "react-jwt";
 
 const token = () => {

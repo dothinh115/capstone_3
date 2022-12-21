@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { http } from '../../util/config';
 import { useSelector } from 'react-redux';
-import { saveLocalStorage } from '../../function';
+import { saveLocalStorage } from '../../util/function';
 
 const Login = () => {
   const navigate = useNavigate();
