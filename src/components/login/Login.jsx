@@ -54,7 +54,7 @@ const Login = () => {
   const sendData = async () => {
     try {
       const fetch = await http.post("https://shop.cyberlearn.vn/api/Users/signin", loginValue);
-      saveLocalStorage("loginInfo", fetch.data.content);
+      await saveLocalStorage("loginInfo", fetch.data.content);
       window.location.reload();
     } catch (error) {
       setResult(error.response?.data.message);

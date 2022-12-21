@@ -179,7 +179,9 @@ a:hover {
   font-size: 20px;
 }
 
-input:not(input[type=checkbox]), input:focus, input:focus-visible {
+input:not(input[type=checkbox]),
+input:focus,
+input:focus-visible {
   width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.05);
   border-radius: 5px;
@@ -249,8 +251,10 @@ i {
 }
 
 .loader {
-  border: 10px solid #f3f3f3; /* Light grey */
-  border-top: 10px solid #3498db; /* Blue */
+  border: 10px solid #f3f3f3;
+  /* Light grey */
+  border-top: 10px solid #3498db;
+  /* Blue */
   border-radius: 50%;
   width: 20px;
   height: 20px;

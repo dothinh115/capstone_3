@@ -101,6 +101,9 @@
   width: 50%;
   text-align: right;
 }
+.detail-container .detail-body-sold {
+  opacity: 0.6;
+}
 
 .related-product {
   margin-top: 20px;

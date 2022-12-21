@@ -1,24 +1,21 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { NavLink, Outlet } from 'react-router-dom'
 import Footer from '../../components/footer/Footer'
 import Header from '../../components/header/Header'
 import Breadcrumbs from '../../components/breadCrumbs/BreadCrumbs'
-import { getLocalStorage, saveLocalStorage, totalCount } from '../../util/function'
-import { getAllProductApi } from '../../redux/reducers/productReducer'
-import { loadCartData } from '../../redux/reducers/cartReducer'
+import { getToken, saveLocalStorage, totalCount } from '../../util/function'
 import useCurrentUserEmail from '../../hooks/useCurrentUserEmail'
-import { getProfileApi } from '../../redux/reducers/userReducer'
+import useGetAllProduct from '../../hooks/useGetAllProduct'
+import useGetCartData from '../../hooks/useGetCartData'
+import useGetProfile from '../../hooks/useGetProfile'
 
 const Homtemplate = () => {
-  const dispatch = useDispatch();
   const { cartData } = useSelector(store => store.cart);
   const currentEmail = useCurrentUserEmail();
-
-  const getAllProduct = () => {
-    const getAllProductAction = getAllProductApi;
-    dispatch(getAllProductAction);
-  }
+  const getAllProduct = useGetAllProduct();
+  const getCartData = useGetCartData();
+  const getProfile = useGetProfile();
 
   const saveCartData = () => {
     if (currentEmail && cartData) {
@@ -27,29 +24,10 @@ const Homtemplate = () => {
     }
   }
 
-  const getCartData = () => {
-    const data = getLocalStorage(`cartData.${currentEmail}`);
-    if (data) {
-      const loadCartDataAction = loadCartData(data);
-      dispatch(loadCartDataAction);
-    }
-  }
-
-  const getProfile = () => {
-    const getProfileAction = getProfileApi;
-    dispatch(getProfileAction);
-  }
-
-  const token = () => {
-    const token = getLocalStorage("loginInfo");
-    if (token) return token.accessToken;
-    return null;
-  }
-
   useEffect(() => {
     getAllProduct();
-    getCartData();
-    if (token()) getProfile();
+    getCartData(currentEmail);
+    if (getToken()) getProfile();
   }, []);
 
   useEffect(() => {

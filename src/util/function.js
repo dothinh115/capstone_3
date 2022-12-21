@@ -20,7 +20,7 @@ export const { getLocalStorage, saveLocalStorage, totalCount, getToken } = {
     },
     getToken() {
         const token = getLocalStorage("loginInfo");
-        if(token) return token.accessToken;
+        if (token) return token.accessToken;
         return null;
-      }
+    }
 }

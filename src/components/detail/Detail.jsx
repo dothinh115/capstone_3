@@ -116,6 +116,9 @@ const Detail = () => {
                 </button>
               </div>
             </div>
+            <div className="detail-body-sold">
+              Đã bán: <b>{productDetail.quantity}</b>
+            </div>
           </div>
         </div>
       </div>
