@@ -24,22 +24,21 @@ http.interceptors.request.use(config => {
 http.interceptors.response.use(res => {
     return res;
 }, err => {
+    //check Token
+    if (getToken()) {
+        const ifTokenExpired = isExpired(getToken());
+        if (ifTokenExpired) {
+            localStorage.removeItem("loginInfo");
+            window.location.reload();
+        }
+    }
+    
     if (err.response?.status === 400) {
         //lỗi ko hợp lệ, ví dụ: sai id sản phẩm
         history.push("/");
     }
-
     //lỗi unauthorized
     if (err.response?.status === 401 || err.response?.status === 403) {
-        //check Token
-        if (getToken()) {
-            const ifTokenExpired = isExpired(getToken());
-            if (ifTokenExpired) {
-                localStorage.removeItem("loginInfo");
-                window.location.reload();
-            }
-        }
-
         //chưa đăng nhập
         history.push("/login");
     }

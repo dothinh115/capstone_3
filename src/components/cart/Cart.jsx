@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import useCurrentUserEmail from '../../hooks/useCurrentUserEmail';
 import { checkAll, checkItem, deleteCartItem, quantityUpdate } from '../../redux/reducers/cartReducer';
 import { getProfileApi } from '../../redux/reducers/userReducer';
@@ -13,8 +13,6 @@ const Cart = () => {
   const { cartData } = useSelector(store => store.cart);
   const [checkoutRes, setCheckoutRes] = useState(false);
   const [error, setError] = useState("");
-  const { userData } = useSelector(store => store.userData);
-  const navigate = useNavigate();
 
   const quantityUpdateHandle = (id, value) => {
     const payload = {

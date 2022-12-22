@@ -26,13 +26,19 @@ const Detail = () => {
   }
 
   const likeHandle = e => {
-    if (!userData) navigate("/login");
+    if (!userData) {
+      navigate("/login", {state: {needLoginMessage: "Bạn cần đăng nhập để sử dụng chức năng này!", page: window.location.pathname}});
+      return
+    }
     const setLikeByIdAction = setLikeByIdApi(!ifProductLiked, productId);
     dispatch(setLikeByIdAction);
   }
 
   const addToCartHandle = () => {
-    if (!userData) navigate("/login");
+    if (!userData) {
+      navigate("/login", {state: {needLoginMessage: "Bạn cần đăng nhập để sử dụng chức năng này!", page: window.location.pathname}});
+      return
+    }
     const payload = {
       ...productDetail,
       quantity: number,
