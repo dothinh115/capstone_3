@@ -285,7 +285,7 @@ i {
   flex-wrap: wrap;
 }
 .card-item {
-  width: 33%;
+  width: 33.3333333333%;
   padding: 10px;
 }
 @media (max-width: 600px) {
@@ -300,7 +300,7 @@ i {
 }
 @media (min-width: 768px) {
   .card-item {
-    width: 33%;
+    width: 33.3333333333%;
   }
 }
 .card-item-inner {

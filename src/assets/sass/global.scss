@@ -298,9 +298,8 @@ i {
 .card {
     display: flex;
     flex-wrap: wrap;
-
     &-item {
-        width: 33%;
+        width: calc(100%/3);
         padding: 10px;
 
         @media (max-width:600px) {
@@ -312,7 +311,7 @@ i {
         }
 
         @media (min-width:768px) {
-            width: 33%;
+            width: calc(100%/3);
         }
 
         &-inner {
