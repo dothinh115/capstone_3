@@ -1,4 +1,4 @@
-export const { getLocalStorage, saveLocalStorage, totalCount, getToken } = {
+export const { getLocalStorage, saveLocalStorage, totalCount, getToken, getEmail } = {
     getLocalStorage(name) {
         let data = localStorage.getItem(name);
         if (data) {
@@ -22,5 +22,10 @@ export const { getLocalStorage, saveLocalStorage, totalCount, getToken } = {
         const token = getLocalStorage("loginInfo");
         if (token) return token.accessToken;
         return null;
+    },
+    getEmail() {
+        const email = getLocalStorage("loginInfo");
+        if(email) return email.email;
+        return null
     }
 }

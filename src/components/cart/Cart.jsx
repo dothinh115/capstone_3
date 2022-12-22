@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import useCurrentUserEmail from '../../hooks/useCurrentUserEmail';
 import { checkAll, checkItem, deleteCartItem, quantityUpdate } from '../../redux/reducers/cartReducer';
 import { getProfileApi } from '../../redux/reducers/userReducer';
 import { http } from '../../util/config';
+import { getEmail } from '../../util/function';
 import OrderHistory from '../profile/OrderHistory';
 
 const Cart = () => {
   const dispatch = useDispatch()
-  const currentEmail = useCurrentUserEmail();
   const { cartData } = useSelector(store => store.cart);
   const [checkoutRes, setCheckoutRes] = useState(false);
   const [error, setError] = useState("");
@@ -73,7 +72,7 @@ const Cart = () => {
     e.preventDefault();
     let checkedItem = {
       orderDetail: [],
-      email: currentEmail
+      email: getEmail()
     }
     let deleteItems = [];
     for (let value of cartData) {

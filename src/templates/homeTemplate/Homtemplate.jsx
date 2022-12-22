@@ -4,29 +4,27 @@ import { NavLink, Outlet } from 'react-router-dom'
 import Footer from '../../components/footer/Footer'
 import Header from '../../components/header/Header'
 import Breadcrumbs from '../../components/breadCrumbs/BreadCrumbs'
-import { saveLocalStorage, totalCount } from '../../util/function'
-import useCurrentUserEmail from '../../hooks/useCurrentUserEmail'
+import { getEmail, saveLocalStorage, totalCount } from '../../util/function'
 import useGetAllProduct from '../../hooks/useGetAllProduct'
 import useGetCartData from '../../hooks/useGetCartData'
 import useGetProfile from '../../hooks/useGetProfile'
 
 const Homtemplate = ({loggedIn}) => {
   const { cartData } = useSelector(store => store.cart);
-  const currentEmail = useCurrentUserEmail();
   const getAllProduct = useGetAllProduct();
   const getCartData = useGetCartData();
   const getProfile = useGetProfile();
 
   const saveCartData = () => {
-    if (currentEmail && cartData) {
+    if (getEmail() && cartData) {
       let data = cartData;
-      saveLocalStorage(`cartData.${currentEmail}`, data);
+      saveLocalStorage(`cartData.${getEmail()}`, data);
     }
   }
 
   useEffect(() => {
     getAllProduct();
-    getCartData(currentEmail);
+    getCartData(getEmail());
     if (loggedIn) getProfile();
   }, []);
 
