@@ -32,7 +32,7 @@ http.interceptors.response.use(res => {
             window.location.reload();
         }
     }
-    
+
     if (err.response?.status === 400) {
         //lỗi ko hợp lệ, ví dụ: sai id sản phẩm
         history.push("/");

@@ -9,7 +9,7 @@ import useGetAllProduct from '../../hooks/useGetAllProduct'
 import useGetCartData from '../../hooks/useGetCartData'
 import useGetProfile from '../../hooks/useGetProfile'
 
-const Homtemplate = ({loggedIn}) => {
+const Homtemplate = ({ loggedIn }) => {
   const { cartData } = useSelector(store => store.cart);
   const getAllProduct = useGetAllProduct();
   const getCartData = useGetCartData();
@@ -26,7 +26,7 @@ const Homtemplate = ({loggedIn}) => {
     getAllProduct();
     getCartData(getEmail());
     if (loggedIn) getProfile();
-  }, []);
+  }, [loggedIn]);
 
   useEffect(() => {
     saveCartData();

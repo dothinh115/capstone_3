@@ -45,7 +45,7 @@ const Profile = () => {
                 <div className="main-body-inner-right">
                   <div className="item">
                     <div className="inner-left">
-                      Email: {userData?.email}
+                      Email: {userData?.email.split("@")[0].length > 12 ? userData?.email.split("@")[0].slice(0, 6) + "..." + userData?.email.split("@")[0].slice(9, 12) + "@" + userData?.email.split("@")[1] : userData?.email}
                     </div>
                     <div className="inner-right">
                       Họ tên: {userData?.name}

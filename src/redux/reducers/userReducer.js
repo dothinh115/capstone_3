@@ -10,7 +10,7 @@ const userReducer = createSlice({
   initialState,
   reducers: {
     updateUserReducer: (state, action) => {
-      let {payload} = action;
+      let { payload } = action;
       payload = {
         ...payload,
         ordersHistory: payload.ordersHistory.reverse()

@@ -9,6 +9,7 @@ const Edit = () => {
   const dispatch = useDispatch()
   const { userData } = useSelector(store => store.userData);
   const navigate = useNavigate();
+  const [messErr, setMessErr] = useState(null);
 
   const [dataValue, setDataValue] = useState({
     email: "",
@@ -77,10 +78,14 @@ const Edit = () => {
   }
 
   const sendData = async () => {
-    await http.post("https://shop.cyberlearn.vn/api/Users/updateProfile", dataValue);
-    const getProfileAction = await getProfileApi;
-    await dispatch(getProfileAction);
-    await navigate("/profile");
+    try {
+      await http.post("https://shop.cyberlearn.vn/api/Users/updateProfile", dataValue);
+      const getProfileAction = await getProfileApi;
+      await dispatch(getProfileAction);
+      await navigate("/profile");
+    } catch (error) {
+      setMessErr(error.response.data.content)
+    }
   }
 
   useEffect(() => {
@@ -105,6 +110,15 @@ const Edit = () => {
 
   return (
     <>
+      {messErr && 
+      <>
+        <div className="main-container" style={{marginBottom: "20px"}}>
+          <div className="page-header">
+            <i className="fa-solid fa-circle-exclamation" style={{ color: "red" }}></i>
+            {messErr}
+          </div>
+        </div>
+      </>}
       <div className="main-container">
         <div className="page-header">
           <h1>
@@ -128,7 +142,7 @@ const Edit = () => {
                       <option value="false">
                         Nữ
                       </option>
-                    </select> : <input data-id={item} type={item === "password" ? "password" : "text"} defaultValue={dataValue[item]} onChange={e => inputChangeHandle(e)} onBlur={e => setValid(checkValid())} />}
+                    </select> : <input disabled={item === "email" ? true : false} data-id={item} type={item === "password" ? "password" : "text"} defaultValue={dataValue[item]} onChange={e => inputChangeHandle(e)} onBlur={e => setValid(checkValid())} />}
                     {error[item] && <div className="form-error">
                       {error[item]}
                     </div>}

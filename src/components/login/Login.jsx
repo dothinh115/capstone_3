@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import ReactFacebookLogin from 'react-facebook-login';
 import { Link, useLocation } from 'react-router-dom';
 import { http } from '../../util/config';
 import { saveLocalStorage } from '../../util/function';
@@ -53,12 +54,12 @@ const Login = () => {
     try {
       const fetch = await http.post("https://shop.cyberlearn.vn/api/Users/signin", loginValue);
       await saveLocalStorage("loginInfo", fetch.data.content);
-      if(state?.page) {
+      if (state?.page) {
         window.location.href = state.page;
-       }
-       else {
+      }
+      else {
         window.location.reload();
-       } 
+      }
     } catch (error) {
       setResult(error.response?.data.message);
     }
@@ -67,6 +68,24 @@ const Login = () => {
   const submitHandle = e => {
     e.preventDefault();
     checkValid() && sendData();
+  }
+
+  const responseFacebook = async response => {
+    try {
+      const data = {
+        facebookToken: response.accessToken
+      }
+      const fetch = await http.post("/api/Users/facebooklogin", data);
+      await saveLocalStorage("loginInfo", fetch.data.content);
+      if (state?.page) {
+        window.location.href = state.page;
+      }
+      else {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -142,6 +161,26 @@ const Login = () => {
                   <button className="btn" disabled={valid ? false : true}>
                     Đăng nhập
                   </button>
+                </div>
+              </div>
+              <div className="item">
+                <div className="item-left">
+
+                </div>
+                <div className="item-right">
+                  <span className="login-or">
+                    Hoặc
+                  </span>
+                  <div>
+                    <ReactFacebookLogin
+                      appId="3435564930010422"
+                      autoLoad={false}
+                      fields="name,email,picture"
+                      callback={responseFacebook}
+                      cssClass="my-fb-login-btn btn"
+                      textButton="Đăng nhập bằng Facebook"
+                      icon="fa-brands fa-facebook" />
+                  </div>
                 </div>
               </div>
             </div>

@@ -30,4 +30,41 @@
   .login-container .form-main .item-right {
     width: 70%;
   }
+}
+.login-container .form-main .item:last-of-type .item-right {
+  position: relative;
+}
+.login-container .form-main .item:last-of-type .item-right > div {
+  text-align: center;
+}
+.login-container .form-main .item:last-of-type .item-right::after {
+  position: absolute;
+  display: block;
+  content: "";
+  top: 9.5px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+  z-index: 0;
+}
+.login-container .my-fb-login-btn {
+  text-align: center;
+  margin: auto;
+}
+.login-container .my-fb-login-btn i {
+  margin-right: 10px;
+  color: #1877f2;
+}
+.login-container .login-or {
+  z-index: 999;
+  position: relative;
+  padding: 5px 30px;
+  display: block;
+  width: 120px;
+  text-align: center;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.9);
+  margin: auto;
 }/*# sourceMappingURL=login.css.map */
