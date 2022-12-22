@@ -825,11 +825,21 @@ i {
     width: 70%;
   }
 }
+@media (max-width: 768px) {
+  .login-container .form-main .item:last-of-type .item-left {
+    display: none;
+  }
+}
 .login-container .form-main .item:last-of-type .item-right {
   position: relative;
 }
 .login-container .form-main .item:last-of-type .item-right > div {
   text-align: center;
+}
+@media (max-width: 768px) {
+  .login-container .form-main .item:last-of-type .item-right {
+    width: 100%;
+  }
 }
 .login-container .form-main .item:last-of-type .item-right::after {
   position: absolute;
@@ -859,7 +869,7 @@ i {
   text-align: center;
   border: 1px solid #eee;
   border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.95);
   margin: auto;
 }
 
