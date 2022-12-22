@@ -30,21 +30,11 @@
                 }
             }
             &:last-of-type {
-                .item-left {
-                    @media (max-width:768px) {
-                        display: none;
-                    }
-                }
-                .item-right {
-                    position: relative;
-                    &>div {
-                        text-align: center;
-                    }
-                    @media (max-width:768px) {
-                        width: 100%;
-                    }
-                }
-                .item-right::after {
+                position: relative;
+                display: block;
+                text-align: center;
+                margin: 15px 0;
+                &::after {
                     position: absolute;
                     display: block;
                     content: "";
@@ -61,7 +51,7 @@
 
     .my-fb-login-btn {
         text-align: center;
-        margin: auto;
+        margin: 15px auto;
         i {
             margin-right: 10px;
             color: #1877f2;

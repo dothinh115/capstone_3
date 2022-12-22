@@ -825,23 +825,13 @@ i {
     width: 70%;
   }
 }
-@media (max-width: 768px) {
-  .login-container .form-main .item:last-of-type .item-left {
-    display: none;
-  }
-}
-.login-container .form-main .item:last-of-type .item-right {
+.login-container .form-main .item:last-of-type {
   position: relative;
-}
-.login-container .form-main .item:last-of-type .item-right > div {
+  display: block;
   text-align: center;
+  margin: 15px 0;
 }
-@media (max-width: 768px) {
-  .login-container .form-main .item:last-of-type .item-right {
-    width: 100%;
-  }
-}
-.login-container .form-main .item:last-of-type .item-right::after {
+.login-container .form-main .item:last-of-type::after {
   position: absolute;
   display: block;
   content: "";
@@ -854,7 +844,7 @@ i {
 }
 .login-container .my-fb-login-btn {
   text-align: center;
-  margin: auto;
+  margin: 15px auto;
 }
 .login-container .my-fb-login-btn i {
   margin-right: 10px;

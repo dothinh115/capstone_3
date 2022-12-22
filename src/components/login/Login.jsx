@@ -164,23 +164,18 @@ const Login = () => {
                 </div>
               </div>
               <div className="item">
-                <div className="item-left">
-
-                </div>
-                <div className="item-right">
-                  <span className="login-or">
-                    Hoặc
-                  </span>
-                  <div>
-                    <ReactFacebookLogin
-                      appId="3435564930010422"
-                      autoLoad={false}
-                      fields="name,email,picture"
-                      callback={responseFacebook}
-                      cssClass="my-fb-login-btn btn"
-                      textButton="Đăng nhập bằng Facebook"
-                      icon="fa-brands fa-facebook" />
-                  </div>
+                <span className="login-or">
+                  Hoặc
+                </span>
+                <div>
+                  <ReactFacebookLogin
+                    appId="3435564930010422"
+                    autoLoad={false}
+                    fields="name,email,picture"
+                    callback={responseFacebook}
+                    cssClass="my-fb-login-btn btn"
+                    textButton="Đăng nhập bằng Facebook"
+                    icon="fa-brands fa-facebook" />
                 </div>
               </div>
             </div>
