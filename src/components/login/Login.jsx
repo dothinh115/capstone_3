@@ -5,7 +5,6 @@ import { saveLocalStorage } from '../../util/function';
 
 const Login = () => {
   const { state } = useLocation();
-  console.log(state);
   const [loginValue, setLoginValue] = useState({
     email: "",
     password: ""
@@ -54,7 +53,12 @@ const Login = () => {
     try {
       const fetch = await http.post("https://shop.cyberlearn.vn/api/Users/signin", loginValue);
       await saveLocalStorage("loginInfo", fetch.data.content);
-      state.page ? window.location.href = state.page : window.location.reload();
+      if(state?.page) {
+        window.location.href = state.page;
+       }
+       else {
+        window.location.reload();
+       } 
     } catch (error) {
       setResult(error.response?.data.message);
     }

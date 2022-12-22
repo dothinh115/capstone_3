@@ -15,7 +15,6 @@ const userReducer = createSlice({
         ...payload,
         ordersHistory: payload.ordersHistory.reverse()
       }
-      console.log(payload);
       state.userData = payload;
     }
   }
