@@ -45,9 +45,7 @@ const Register = () => {
       for (let key in dataConfig.id) {
         switch (id) {
           case dataConfig.id[key]: {
-            if (!value.match(dataConfig.reg[key])) {
-              errMess = dataConfig.errorMessage[key];
-            }
+            if (!value.match(dataConfig.reg[key])) errMess = dataConfig.errorMessage[key];
           }
         }
       }
@@ -79,22 +77,6 @@ const Register = () => {
 
   const submitHandle = e => {
     e.preventDefault();
-  }
-
-  const showResult = res => {
-    if (res) {
-      return (
-        <>
-          <i className="fa-solid fa-check" style={{ color: "green" }}></i>Đăng ký thành công, {<Link className="alert-link" to="/login"><i className="fa-solid fa-arrow-right"></i>bấm vào đây</Link>} để đăng nhập!!
-        </>
-      )
-    }
-    return (
-      <>
-        <i className="fa-solid fa-circle-exclamation" style={{ color: "red" }}></i>
-        {result.message}
-      </>
-    )
   }
 
   const resetButtonHandle = e => {
@@ -140,7 +122,10 @@ const Register = () => {
           </h1>
         </div>
         <div className="main-body">
-          {showResult(result.result)}
+          {result.result 
+          ? <><i className="fa-solid fa-check" style={{ color: "green" }}></i>Đăng ký thành công, {<Link className="alert-link" to="/login"><i className="fa-solid fa-arrow-right"></i>bấm vào đây</Link>} để đăng nhập!!</>
+          : <><i className="fa-solid fa-circle-exclamation" style={{ color: "red" }}></i> {result.message}</>
+          }
         </div>
       </div>}
       <div className="main-container" style={{ marginTop: result.message && "20px" }}>

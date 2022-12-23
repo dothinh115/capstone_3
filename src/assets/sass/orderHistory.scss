@@ -63,15 +63,15 @@
                     }
                 }
             }
+            &:last-of-type {
+                ul {
+                    border-bottom: unset;
+                }
+            }
         }
         &>li:last-of-type {
             margin-bottom: unset;
         }
-    }
-    &-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
     }
 }
 

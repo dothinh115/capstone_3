@@ -74,11 +74,15 @@ const OrderHistory = () => {
         }
         {(userData?.ordersHistory.length - seeAll > 0) && 
         <>
-          <div className="order-history-footer">
-            <p>Còn lại <b>{userData?.ordersHistory.length - seeAll}</b> đơn hàng</p>
-            <button className="btn" onClick={e => seeAllHandle(e)}>
-              Xem tất cả
-            </button>
+          <div className="footer-hr-span">
+            <span>
+              Còn lại <b>{userData?.ordersHistory.length - seeAll}</b> đơn hàng
+            </span>
+            <div>
+              <button className="btn" onClick={e => seeAllHandle(e)}>
+                Xem tất cả
+              </button>
+            </div>
           </div>
         </>}
         

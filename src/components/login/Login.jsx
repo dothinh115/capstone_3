@@ -28,14 +28,10 @@ const Login = () => {
     const { value } = e.target;
     const id = e.target.getAttribute("data-id");
     let errMess = "";
-    if (value.trim() === "") {
-      errMess = "Không được để trống!";
-    }
+    if (value.trim() === "") errMess = "Không được để trống!";
     else {
       const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      if (!value.match(reg) && id === "email") {
-        errMess = "Email phải đúng định dạng!";
-      }
+      if (!value.match(reg) && id === "email") errMess = "Email phải đúng định dạng!";
     }
 
     setLoginValue({
@@ -50,16 +46,13 @@ const Login = () => {
     setValid(checkValid());
   }
 
+  const windowNavigate = page => page ? window.location.href = page : window.location.reload();
+
   const sendData = async () => {
     try {
       const fetch = await http.post("https://shop.cyberlearn.vn/api/Users/signin", loginValue);
       await saveLocalStorage("loginInfo", fetch.data.content);
-      if (state?.page) {
-        window.location.href = state.page;
-      }
-      else {
-        window.location.reload();
-      }
+      windowNavigate(state?.page);
     } catch (error) {
       setResult(error.response?.data.message);
     }
@@ -77,12 +70,7 @@ const Login = () => {
       }
       const fetch = await http.post("/api/Users/facebooklogin", data);
       await saveLocalStorage("loginInfo", fetch.data.content);
-      if (state?.page) {
-        window.location.href = state.page;
-      }
-      else {
-        window.location.reload();
-      }
+      windowNavigate(state?.page);
     } catch (error) {
       console.log(error);
     }
@@ -167,8 +155,10 @@ const Login = () => {
                   </button>
                 </div>
               </div>
-              <div className="item">
-                <span className="login-or">
+            </div>
+          </form>
+          <div className="footer-hr-span">
+                <span>
                   Hoặc
                 </span>
                 <div>
@@ -182,8 +172,6 @@ const Login = () => {
                     icon="fa-brands fa-facebook" />
                 </div>
               </div>
-            </div>
-          </form>
         </div>
       </div>
     </>

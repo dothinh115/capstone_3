@@ -23,17 +23,9 @@ const Homtemplate = ({ loggedIn }) => {
     }
   }
 
-  const setHeight = () => {
-    setPageYOffset(window.pageYOffset);
-  }
+  const setHeight = () => setPageYOffset(window.pageYOffset);
 
-  const scrollHandle = () => {
-    window.addEventListener("scroll", setHeight);
-  }
-
-  const backToTopHandle = () => {
-    window.scrollTo({top: 0,behavior: "smooth"});
-  }
+  const backToTopHandle = () => window.scrollTo({top: 0,behavior: "smooth"});
 
   useEffect(() => {
     getAllProduct();
@@ -46,10 +38,8 @@ const Homtemplate = ({ loggedIn }) => {
   }, [cartData]);
 
   useEffect(() => {
-    scrollHandle();
-    return () => {
-      window.removeEventListener("scroll", setHeight);
-    }
+    window.addEventListener("scroll", setHeight);
+    return () => window.removeEventListener("scroll", setHeight);
   }, []);
 
   return (

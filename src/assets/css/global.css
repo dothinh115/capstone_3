@@ -348,6 +348,39 @@ i {
   color: #fff;
 }
 
+.footer-hr-span {
+  position: relative;
+  text-align: center;
+  margin-top: 20px 0;
+}
+.footer-hr-span::after {
+  position: absolute;
+  display: block;
+  content: "";
+  top: 15.5px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+  z-index: 0;
+}
+.footer-hr-span > span {
+  z-index: 999;
+  position: relative;
+  padding: 5px 30px;
+  min-width: 120px;
+  text-align: center;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.95);
+  margin: auto;
+  height: 31px;
+  display: inline-block;
+}
+.footer-hr-span > div {
+  margin-top: 10px;
+}
+
 .back-to-top-button {
   position: fixed;
   right: -80px;
@@ -360,7 +393,6 @@ i {
   border-radius: 50%;
   cursor: pointer;
   font-size: 25px;
-  visibility: hidden;
   transition: all ease 0.5s;
   opacity: 0.5;
 }
@@ -369,7 +401,6 @@ i {
 }
 
 .showBackToTop {
-  visibility: visible;
   right: 40px;
 }
 
