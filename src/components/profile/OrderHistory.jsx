@@ -79,9 +79,7 @@ const OrderHistory = () => {
               Còn lại <b>{userData?.ordersHistory.length - seeAll}</b> đơn hàng
             </span>
             <div>
-              <button className="btn" onClick={e => seeAllHandle(e)}>
-                Xem tất cả
-              </button>
+              <i className="fa-solid fa-arrow-down" onClick={e => seeAllHandle(e)}></i>
             </div>
           </div>
         </>}
