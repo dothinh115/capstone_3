@@ -1,5 +1,4 @@
 import './assets/css/style.css';
-import 'animate.css';
 import { BrowserRouter, Navigate, Route, Routes, unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 import Homtemplate from './templates/homeTemplate/Homtemplate';
 import Index from './components/index/Index';
