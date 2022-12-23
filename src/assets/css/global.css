@@ -380,7 +380,7 @@ i {
 .footer-hr-span > div {
   margin-top: 10px;
 }
-.footer-hr-span > div i {
+.footer-hr-span > div > i {
   width: 30px;
   height: 30px;
   line-height: 30px;
@@ -390,7 +390,7 @@ i {
   cursor: pointer;
   transition: all ease 0.5s;
 }
-.footer-hr-span > div i:hover {
+.footer-hr-span > div > i:hover {
   background-color: #a52a2a;
 }
 
