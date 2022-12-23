@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { NavLink, Outlet } from 'react-router-dom'
 import Footer from '../../components/footer/Footer'
@@ -14,12 +14,25 @@ const Homtemplate = ({ loggedIn }) => {
   const getAllProduct = useGetAllProduct();
   const getCartData = useGetCartData();
   const getProfile = useGetProfile();
+  const [pageYOffset, setPageYOffset] = useState(0);
 
   const saveCartData = () => {
     if (getEmail() && cartData) {
       let data = cartData;
       saveLocalStorage(`cartData.${getEmail()}`, data);
     }
+  }
+
+  const setHeight = () => {
+    setPageYOffset(window.pageYOffset);
+  }
+
+  const scrollHandle = () => {
+    window.addEventListener("scroll", setHeight);
+  }
+
+  const backToTopHandle = () => {
+    window.scrollTo({top: 0,behavior: "smooth"});
   }
 
   useEffect(() => {
@@ -32,8 +45,15 @@ const Homtemplate = ({ loggedIn }) => {
     saveCartData();
   }, [cartData]);
 
+  useEffect(() => {
+    scrollHandle();
+    return () => {
+      window.removeEventListener("scroll", setHeight);
+    }
+  }, []);
+
   return (
-    <div className="container main-contain">
+    <div className="container main-contain" >
       <div className="contain-header">
         <Header loggedIn={loggedIn} />
       </div>
@@ -68,6 +88,8 @@ const Homtemplate = ({ loggedIn }) => {
       <div className="contain-footer">
         <Footer />
       </div>
+
+      <i className={`fa-sharp fa-solid fa-arrow-up back-to-top-button ${pageYOffset >= 300 && "showBackToTop" }`} onClick={() => backToTopHandle()}></i>
     </div>
   )
 }
