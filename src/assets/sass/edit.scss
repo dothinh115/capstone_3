@@ -21,6 +21,11 @@
             @media (max-width:768px) {
                 width: 70%;
             }
+            .form-button {
+                button {
+                    margin-right: 10px;
+                }
+            }
         }
     }
 }

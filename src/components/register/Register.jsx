@@ -55,8 +55,7 @@ const Register = () => {
     setError({
       ...error,
       [id]: errMess
-    });
-
+    });  
     setDataValue({
       ...dataValue,
       [id]: value
@@ -122,7 +121,7 @@ const Register = () => {
 
   useEffect(() => {
     setValid(checkValid());
-  }, [dataValue])
+  }, [dataValue]);
 
   return (
     <>
@@ -169,12 +168,13 @@ const Register = () => {
                           <option value="false">
                             Nữ
                           </option>
-                        </select> : <input 
-                        data-id={item} 
-                        type={item === "password" ? "password" : "text"} 
-                        onChange={e => inputChangeHandle(e)} 
-                        className={`${error[item] && "isInvalid"} ${!error[item] && dataValue[item] && "isValid"}`}
-                        placeholder={dataConfig.placeHolder[index]}
+                        </select> : <input
+                          data-id={item}
+                          type={item === "password" ? "password" : "text"}
+                          onChange={e => inputChangeHandle(e)}
+                          className={`${error[item] && "isInvalid"} ${!error[item] && dataValue[item] && "isValid"}`}
+                          placeholder={dataConfig.placeHolder[index]}
+                          defaultValue={dataValue[item]}
                         />}
                         {error[item] && <div className="form-error">
                           <i className="fa-solid fa-circle-exclamation" style={{ color: "red" }}></i>
@@ -190,7 +190,7 @@ const Register = () => {
                   </div>
                   <div className="item-right">
                     <div className="form-button">
-                      <button className="btn" onClick={e => resetButtonHandle(e)}>
+                      <button type="button" className="btn" onClick={e => resetButtonHandle(e)}>
                         Reset
                       </button>
                       <button className="btn" disabled={valid ? false : true} onClick={e => regButtonHandle(e)}>

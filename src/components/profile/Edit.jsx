@@ -159,6 +159,9 @@ const Edit = () => {
                   <button className="btn" disabled={valid ? false : true}>
                     Sửa
                   </button>
+                  <button type="button" className="btn btn-red" onClick={() => navigate("/profile")}>
+                    Hủy
+                  </button>
                 </div>
               </div>
             </div>

@@ -798,6 +798,9 @@ i {
     width: 70%;
   }
 }
+.edit-container .item-right .form-button button {
+  margin-right: 10px;
+}
 
 .login-container .form-main {
   width: 80%;

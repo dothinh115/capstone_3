@@ -27,4 +27,7 @@
   .edit-container .item-right {
     width: 70%;
   }
+}
+.edit-container .item-right .form-button button {
+  margin-right: 10px;
 }/*# sourceMappingURL=edit.css.map */
