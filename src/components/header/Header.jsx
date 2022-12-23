@@ -1,10 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 
 const Header = ({ loggedIn }) => {
   const { userData } = useSelector(store => store.userData);
   const navigate = useNavigate();
+  const location = useLocation();
   const logoutHandle = e => {
     e.preventDefault();
     localStorage.removeItem("loginInfo");
@@ -13,7 +14,7 @@ const Header = ({ loggedIn }) => {
 
   const loginClickHandle = e => {
     e.preventDefault();
-    navigate("/login", { state: { page: window.location.pathname } });
+    navigate("/login", { state: { page: location.pathname } });
   }
 
   return (

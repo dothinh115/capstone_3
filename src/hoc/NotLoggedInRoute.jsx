@@ -1,9 +1,9 @@
 import React from 'react'
-import { Navigate, Outlet } from 'react-router-dom'
+import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
 const NotLoggedInRoute = ({ loggedIn }) => {
-  if (!loggedIn) return <Navigate to="/login" state={{needLoginMessage: "Bạn cần đăng nhập để truy cập trang này!", page: window.location.pathname}} />
-
+  const location = useLocation();
+  if (!loggedIn) return <Navigate to="/login" state={{needLoginMessage: "Bạn cần đăng nhập để truy cập trang này!", page: location.pathname}} />
   return <Outlet />
 }
 
