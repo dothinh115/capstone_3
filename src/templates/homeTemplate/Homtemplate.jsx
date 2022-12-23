@@ -5,38 +5,21 @@ import Footer from '../../components/footer/Footer'
 import Header from '../../components/header/Header'
 import Breadcrumbs from '../../components/breadCrumbs/BreadCrumbs'
 import { getEmail, saveLocalStorage, totalCount } from '../../util/function'
-import useGetAllProduct from '../../hooks/useGetAllProduct'
-import useGetCartData from '../../hooks/useGetCartData'
-import useGetProfile from '../../hooks/useGetProfile'
 
 const Homtemplate = ({ loggedIn }) => {
   const { cartData } = useSelector(store => store.cart);
-  const getAllProduct = useGetAllProduct();
-  const getCartData = useGetCartData();
-  const getProfile = useGetProfile();
   const [pageYOffset, setPageYOffset] = useState(0);
-
   const saveCartData = () => {
     if (getEmail() && cartData) {
       let data = cartData;
       saveLocalStorage(`cartData.${getEmail()}`, data);
     }
   }
-
   const setHeight = () => setPageYOffset(window.pageYOffset);
-
   const backToTopHandle = () => window.scrollTo({top: 0,behavior: "smooth"});
-
-  useEffect(() => {
-    getAllProduct();
-    getCartData(getEmail());
-    if (loggedIn) getProfile();
-  }, [loggedIn]);
-
   useEffect(() => {
     saveCartData();
   }, [cartData]);
-
   useEffect(() => {
     window.addEventListener("scroll", setHeight);
     return () => window.removeEventListener("scroll", setHeight);

@@ -79,24 +79,6 @@ const Register = () => {
     e.preventDefault();
   }
 
-  const resetButtonHandle = e => {
-    e.preventDefault();
-    setDataValue({
-      email: "",
-      password: "",
-      name: "",
-      gender: true,
-      phone: ""
-    });
-    setError({
-      email: "",
-      password: "",
-      name: "",
-      gender: "",
-      phone: ""
-    });
-  }
-
   const regButtonHandle = e => {
     checkValid() && sendData();
   }
@@ -175,9 +157,6 @@ const Register = () => {
                   </div>
                   <div className="item-right">
                     <div className="form-button">
-                      <button type="button" className="btn" onClick={e => resetButtonHandle(e)}>
-                        Reset
-                      </button>
                       <button className="btn" disabled={valid ? false : true} onClick={e => regButtonHandle(e)}>
                         Đăng ký
                       </button>
