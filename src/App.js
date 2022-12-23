@@ -13,8 +13,8 @@ import Edit from './components/profile/Edit';
 import { createBrowserHistory } from 'history';
 import { getToken } from './util/function';
 import { isExpired } from 'react-jwt';
-import LoggedInRoute from './components/hoc/NotLoggedInRoute';
-import NotLoggedInRoute from './components/hoc/LoggedInRoute';
+import LoggedInRoute from './hoc/NotLoggedInRoute';
+import NotLoggedInRoute from './hoc/LoggedInRoute';
 
 //npm i history => chuyển hướng trang ở file ko phải component
 export const history = createBrowserHistory();
