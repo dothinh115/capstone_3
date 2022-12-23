@@ -142,7 +142,12 @@ const Edit = () => {
                       <option value="false">
                         Nữ
                       </option>
-                    </select> : <input disabled={item === "email" ? true : false} data-id={item} type={item === "password" ? "password" : "text"} defaultValue={dataValue[item]} onChange={e => inputChangeHandle(e)} onBlur={e => setValid(checkValid())} />}
+                    </select> : <input 
+                    disabled={item === "email" ? true : false} 
+                    data-id={item} 
+                    type={item === "password" ? "password" : "text"} 
+                    defaultValue={dataValue[item]} onChange={e => inputChangeHandle(e)} 
+                    className={`${error[item] && "isInvalid"} ${!error[item] && dataValue[item] && "isValid"}`} />}
                     {error[item] && <div className="form-error">
                       {error[item]}
                     </div>}

@@ -196,35 +196,30 @@ a:hover {
     font-size: 20px;
 }
 
-input:not(input[type="checkbox"]),
-input:focus,
-input:focus-visible {
-    width: 100%;
-    border: 1px solid rgba(black, 0.05);
-    border-radius: 5px;
-    padding: 10px;
-    outline: none;
+input {
+    &:not(input[type="checkbox"]), &:focus, &:focus-visible {
+        width: 100%;
+        border: 1px solid rgba(black, 0.05);
+        border-radius: 5px;
+        padding: 10px;
+        outline: none;
+    }
+    &:disabled {
+        cursor: not-allowed;
+    }
+    &.isInvalid {
+        border-color: rgba(red, .35) !important;
+    }
+    &.isValid {
+        border-color: rgba(green, .35) !important;
+    }
 }
 
 select {
     border: 1px solid rgba(black, 0.05);
     border-radius: 5px;
-    padding: 10px;
-    outline: none;
-}
-
-input.isInvalid {
-    border-color: rgba(red, .35) !important;
-}
-
-input.isValid {
-    border-color: rgba(green, .35) !important;
-}
-
-select {
     padding: 5px;
-    border-radius: 5px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    outline: none;
 }
 
 .main-container {

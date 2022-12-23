@@ -179,35 +179,28 @@ a:hover {
   font-size: 20px;
 }
 
-input:not(input[type=checkbox]),
-input:focus,
-input:focus-visible {
+input:not(input[type=checkbox]), input:focus, input:focus-visible {
   width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.05);
   border-radius: 5px;
   padding: 10px;
   outline: none;
 }
-
-select {
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: 5px;
-  padding: 10px;
-  outline: none;
+input:disabled {
+  cursor: not-allowed;
 }
-
 input.isInvalid {
   border-color: rgba(255, 0, 0, 0.35) !important;
 }
-
 input.isValid {
   border-color: rgba(0, 128, 0, 0.35) !important;
 }
 
 select {
-  padding: 5px;
-  border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
+  padding: 5px;
+  outline: none;
 }
 
 .main-container {
