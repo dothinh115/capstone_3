@@ -207,6 +207,8 @@ select {
   width: 100%;
   background-color: rgba(255, 255, 255, 0.65);
   border-radius: 5px;
+  -webkit-animation: fadeIn 0.5s;
+          animation: fadeIn 0.5s;
 }
 
 .main-body {
@@ -345,6 +347,23 @@ i {
   color: #fff;
 }
 
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 .header {
   padding: 10px;
   display: flex;
