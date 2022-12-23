@@ -10,37 +10,17 @@ import Cart from './components/cart/Cart';
 import Profile from './components/profile/Profile';
 import Edit from './components/profile/Edit';
 import { createBrowserHistory } from 'history';
-import { getEmail, getToken } from './util/function';
-import { isExpired } from 'react-jwt';
+import { getToken } from './util/function';
 import LoggedInRoute from './hoc/NotLoggedInRoute';
 import NotLoggedInRoute from './hoc/LoggedInRoute';
-import useGetProfile from './hooks/useGetProfile';
-import useGetCartData from './hooks/useGetCartData';
-import useGetAllProduct from './hooks/useGetAllProduct';
-import { useEffect, useState } from 'react';
 
 //npm i history => chuyển hướng trang ở file ko phải component
 export const history = createBrowserHistory();
 
 function App() {
-  const getProfile = useGetProfile();
-  const getCartData = useGetCartData();
-  const getAllProduct = useGetAllProduct();
   const token = getToken();
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  useEffect(() => {
-    if (token) {
-      const isTokenExpired = isExpired(token);
-      if (!isTokenExpired) setLoggedIn(true);
-    }
-  }, [token]);
-
-  useEffect(() => {
-    getAllProduct();
-    getCartData(getEmail());
-    if (loggedIn) getProfile();
-  }, [loggedIn]);
+  let loggedIn = false;
+  if (token) loggedIn = true;
 
   return (
     <HistoryRouter history={history}>
