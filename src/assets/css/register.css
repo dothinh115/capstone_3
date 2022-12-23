@@ -1,6 +1,3 @@
-.register-form div:not(div.item, div.form-error) {
-  margin-top: 10px;
-}
 .register-form-main {
   width: 80%;
   margin: auto;
@@ -14,11 +11,12 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  margin-top: 10px;
 }
 .register-form-main .item-left {
   width: 20%;
   color: rgba(0, 0, 0, 0.65);
+  padding-top: 7px;
 }
 @media (max-width: 768px) {
   .register-form-main .item-left {

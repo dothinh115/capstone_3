@@ -213,8 +213,12 @@ select {
     outline: none;
 }
 
-input.invalid {
-    border-color: rgba(red, .25) !important;
+input.isInvalid {
+    border-color: rgba(red, .35) !important;
+}
+
+input.isValid {
+    border-color: rgba(green, .35) !important;
 }
 
 select {

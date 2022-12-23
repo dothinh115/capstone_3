@@ -3,6 +3,7 @@ import { history } from "../App";
 import { getToken } from "./function";
 import { isExpired } from "react-jwt";
 //tạo 1 api mới
+
 export const http = axios.create({
     baseURL: "https://shop.cyberlearn.vn",
     timeout: 30000
@@ -25,22 +26,15 @@ http.interceptors.response.use(res => {
     return res;
 }, err => {
     //check Token
-    if (getToken()) {
-        const ifTokenExpired = isExpired(getToken());
-        if (ifTokenExpired) {
-            localStorage.removeItem("loginInfo");
-            window.location.reload();
-        }
-    }
-
+    const ifTokenExpired = isExpired(getToken());
     if (err.response?.status === 400) {
         //lỗi ko hợp lệ, ví dụ: sai id sản phẩm
         history.push("/");
     }
     //lỗi unauthorized
-    if (err.response?.status === 401 || err.response?.status === 403) {
-        //chưa đăng nhập
-        history.push("/login");
+    if (err.response?.status === 401 || err.response?.status === 403 || ifTokenExpired || err.code === "ERR_NETWORK") {
+        localStorage.removeItem("loginInfo");
+        window.location.reload();
     }
     return Promise.reject(err);
 });

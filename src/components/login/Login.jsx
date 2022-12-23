@@ -139,8 +139,12 @@ const Login = () => {
                 </div>
                 <div className="item-right">
                   {/* just for test  */}
-                  <input type="text" data-id="email" onChange={e => inputChangeHandle(e)} className={error.email && "invalid"} />
-                  {error.email && <div className="form-error">{error.email}</div>}
+                  <input type="text" data-id="email" onChange={e => inputChangeHandle(e)} className={error.email && "isInvalid"} />
+                  {error.email && 
+                  <div className="form-error">
+                    <i className="fa-solid fa-circle-exclamation" style={{ color: "red" }}></i>
+                    {error.email}
+                  </div>}
                 </div>
               </div>
               <div className="item">
@@ -149,7 +153,7 @@ const Login = () => {
                   Mật khẩu
                 </div>
                 <div className="item-right">
-                  <input type="password" data-id="password" onChange={e => inputChangeHandle(e)} className={error.password && "invalid"} />
+                  <input type="password" data-id="password" onChange={e => inputChangeHandle(e)} className={error.password && "isInvalid"} />
                   {error.password && <div className="form-error">{error.password}</div>}
                 </div>
               </div>

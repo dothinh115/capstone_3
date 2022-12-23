@@ -1,23 +1,17 @@
 .login-container {
     .form-main {
-        & div:not(div.item, div.form-error) {
-            margin-top: 10px;
-        }
-
         width: 80%;
         margin: auto;
-
         @media (max-width:600px) {
             width: 100%;
         }
-
         .item {
             display: flex;
-            align-items: center;
+            margin-top: 10px;
             &-left {
                 width: 20%;
                 color: rgba(#000, .65);
-
+                padding-top: 10px;
                 @media (max-width:768px) {
                     width: 30%;
                 }

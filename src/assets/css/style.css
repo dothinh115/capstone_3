@@ -196,8 +196,12 @@ select {
   outline: none;
 }
 
-input.invalid {
-  border-color: rgba(255, 0, 0, 0.25) !important;
+input.isInvalid {
+  border-color: rgba(255, 0, 0, 0.35) !important;
+}
+
+input.isValid {
+  border-color: rgba(0, 128, 0, 0.35) !important;
 }
 
 select {
@@ -799,9 +803,6 @@ i {
   width: 80%;
   margin: auto;
 }
-.login-container .form-main div:not(div.item, div.form-error) {
-  margin-top: 10px;
-}
 @media (max-width: 600px) {
   .login-container .form-main {
     width: 100%;
@@ -809,11 +810,12 @@ i {
 }
 .login-container .form-main .item {
   display: flex;
-  align-items: center;
+  margin-top: 10px;
 }
 .login-container .form-main .item-left {
   width: 20%;
   color: rgba(0, 0, 0, 0.65);
+  padding-top: 10px;
 }
 @media (max-width: 768px) {
   .login-container .form-main .item-left {
@@ -866,9 +868,6 @@ i {
   margin: auto;
 }
 
-.register-form div:not(div.item, div.form-error) {
-  margin-top: 10px;
-}
 .register-form-main {
   width: 80%;
   margin: auto;
@@ -882,11 +881,12 @@ i {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  margin-top: 10px;
 }
 .register-form-main .item-left {
   width: 20%;
   color: rgba(0, 0, 0, 0.65);
+  padding-top: 7px;
 }
 @media (max-width: 768px) {
   .register-form-main .item-left {

@@ -169,8 +169,15 @@ const Register = () => {
                           <option value="false">
                             Nữ
                           </option>
-                        </select> : <input data-id={item} type={item === "password" ? "password" : "text"} onChange={e => inputChangeHandle(e)} className={error[item] && "invalid"} />}
+                        </select> : <input 
+                        data-id={item} 
+                        type={item === "password" ? "password" : "text"} 
+                        onChange={e => inputChangeHandle(e)} 
+                        className={`${error[item] && "isInvalid"} ${!error[item] && dataValue[item] && "isValid"}`}
+                        placeholder={dataConfig.placeHolder[index]}
+                        />}
                         {error[item] && <div className="form-error">
+                          <i className="fa-solid fa-circle-exclamation" style={{ color: "red" }}></i>
                           {error[item]}
                         </div>}
                       </div>

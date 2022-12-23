@@ -2,9 +2,6 @@
   width: 80%;
   margin: auto;
 }
-.login-container .form-main div:not(div.item, div.form-error) {
-  margin-top: 10px;
-}
 @media (max-width: 600px) {
   .login-container .form-main {
     width: 100%;
@@ -12,11 +9,12 @@
 }
 .login-container .form-main .item {
   display: flex;
-  align-items: center;
+  margin-top: 10px;
 }
 .login-container .form-main .item-left {
   width: 20%;
   color: rgba(0, 0, 0, 0.65);
+  padding-top: 10px;
 }
 @media (max-width: 768px) {
   .login-container .form-main .item-left {

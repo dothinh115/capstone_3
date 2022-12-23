@@ -82,7 +82,7 @@ const Edit = () => {
       await http.post("https://shop.cyberlearn.vn/api/Users/updateProfile", dataValue);
       const getProfileAction = await getProfileApi;
       await dispatch(getProfileAction);
-      await navigate("/profile");
+      await navigate("/profile", { state: { success: true } });
     } catch (error) {
       setMessErr(error.response.data.content)
     }
@@ -110,15 +110,15 @@ const Edit = () => {
 
   return (
     <>
-      {messErr && 
-      <>
-        <div className="main-container" style={{marginBottom: "20px"}}>
-          <div className="page-header">
-            <i className="fa-solid fa-circle-exclamation" style={{ color: "red" }}></i>
-            {messErr}
+      {messErr &&
+        <>
+          <div className="main-container" style={{ marginBottom: "20px" }}>
+            <div className="page-header">
+              <i className="fa-solid fa-circle-exclamation" style={{ color: "red" }}></i>
+              {messErr}
+            </div>
           </div>
-        </div>
-      </>}
+        </>}
       <div className="main-container">
         <div className="page-header">
           <h1>

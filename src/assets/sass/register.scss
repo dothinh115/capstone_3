@@ -1,7 +1,4 @@
 .register-form {
-    & div:not(div.item, div.form-error) {
-        margin-top: 10px;
-    }
     &-main {
         width: 80%;
         margin: auto;
@@ -12,10 +9,11 @@
             width: 100%;
             display: flex;
             flex-wrap: wrap;
-            align-items: center;
+            margin-top: 10px;
             &-left {
                 width: 20%;
                 color: rgba(#000, .65);
+                padding-top: 7px;
                 @media (max-width:768px) {
                     width: 30%;
                 }
