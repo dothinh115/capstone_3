@@ -22,7 +22,7 @@ const Item = ({ item }) => {
             <div className="card-item-inner">
                 <div className="card-img">
                     <Link to={`/detail/${item.id}`}>
-                        <img src={item.image} alt="" />
+                        <img src={item.image} loading="lazy" alt="" />
                     </Link>
                 </div>
                 <div className="card-body">
