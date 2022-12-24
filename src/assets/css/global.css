@@ -313,8 +313,8 @@ i {
 }
 .card-item-inner .card-img img {
   width: 100%;
-  -webkit-animation: fadeIn 0.5s;
-          animation: fadeIn 0.5s;
+  -webkit-animation: fadeIn 1s;
+          animation: fadeIn 1s;
 }
 .card-item-inner .card-body h3 {
   padding: 10px;
