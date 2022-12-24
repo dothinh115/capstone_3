@@ -3,15 +3,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, Outlet, useLocation, useOutlet } from 'react-router-dom';
 import { getProductFavoriteApi, setLikeByIdApi } from '../../redux/reducers/productReducer';
 import useGetProfile from '../../hooks/useGetProfile';
+import OrderHistory from '../profile/OrderHistory';
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const {state} = useLocation();
+  const { state } = useLocation();
   const { userData } = useSelector(store => store.userData);
   const { productFavorite } = useSelector(store => store.product);
   const outlet = useOutlet();
   const getProfile = useGetProfile();
-  const OrderHistory = lazy(() => import("../profile/OrderHistory"));
 
   const getProductFavorite = () => {
     const getProductFavoriteAction = getProductFavoriteApi;
@@ -30,15 +30,15 @@ const Profile = () => {
   }, []);
   return (
     <>
-      {state?.success && 
-      <>
-        <div className="main-container" style={{marginBottom: "20px"}}>
-          <div className="page-header">
-            <i className="fa-solid fa-check" style={{ color: "green" }}></i>
-            Chỉnh sửa thông tin thành công
+      {state?.success &&
+        <>
+          <div className="main-container" style={{ marginBottom: "20px" }}>
+            <div className="page-header">
+              <i className="fa-solid fa-check" style={{ color: "green" }}></i>
+              Chỉnh sửa thông tin thành công
+            </div>
           </div>
-        </div>
-      </>}
+        </>}
       {outlet ? <Outlet /> :
         <>
           <div className="main-container">
@@ -88,9 +88,7 @@ const Profile = () => {
           </h1>
         </div>
         <div className="main-body">
-        <Suspense fallback={<div>Loading...</div>}>
-            <OrderHistory />
-          </Suspense>
+          <OrderHistory />
         </div>
       </div>
 

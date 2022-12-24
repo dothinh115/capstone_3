@@ -29,44 +29,44 @@ function App() {
       <Routes>
         <Route path='/' element={<Homtemplate loggedIn={loggedIn} />} >
           <Route index element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<div className="loader"></div>}>
               <Index />
             </Suspense>} />
           <Route path='/search' element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<div className="loader"></div>}>
               <Search />
             </Suspense>
           } />
           <Route path='/detail/:productId' element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<div className="loader"></div>}>
               <Detail />
             </Suspense>
           } />
           <Route element={<NotLoggedInRoute loggedIn={loggedIn} />} >
             <Route path="/register" element={
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<div className="loader"></div>}>
                 <Register />
               </Suspense>
             } />
             <Route path='/login' element={
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<div className="loader"></div>}>
                 <Login />
               </Suspense>
             } />
           </Route>
           <Route element={<LoggedInRoute loggedIn={loggedIn} />}>
             <Route path='/cart' element={
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<div className="loader"></div>}>
                 <Cart />
               </Suspense>
             } />
             <Route path='/profile' element={
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<div className="loader"></div>}>
                 <Profile />
               </Suspense>
             }>
               <Route path='/profile/edit' element={
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<div className="loader"></div>}>
                   <Edit />
                 </Suspense>
               } />

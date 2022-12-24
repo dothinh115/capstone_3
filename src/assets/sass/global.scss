@@ -198,19 +198,25 @@ a:hover {
 }
 
 input {
-    &:not(input[type="checkbox"]), &:focus, &:focus-visible {
+
+    &:not(input[type="checkbox"]),
+    &:focus,
+    &:focus-visible {
         width: 100%;
         border: 1px solid rgba(black, 0.05);
         border-radius: 5px;
         padding: 10px;
         outline: none;
     }
+
     &:disabled {
         cursor: not-allowed;
     }
+
     &.isInvalid {
         border-color: rgba(red, .35) !important;
     }
+
     &.isValid {
         border-color: rgba(green, .35) !important;
     }
@@ -299,6 +305,7 @@ i {
 .card {
     display: flex;
     flex-wrap: wrap;
+
     &-item {
         width: calc(100%/3);
         padding: 10px;
@@ -375,6 +382,7 @@ i {
     position: relative;
     text-align: center;
     margin-top: 20px 0;
+
     &::after {
         position: absolute;
         display: block;
@@ -386,6 +394,7 @@ i {
         background-color: #ccc;
         z-index: 0;
     }
+
     &>span {
         z-index: 999;
         position: relative;
@@ -399,8 +408,10 @@ i {
         height: 31px;
         display: inline-block;
     }
+
     &>div {
         margin-top: 10px;
+
         &>i {
             width: 30px;
             height: 30px;
@@ -410,6 +421,7 @@ i {
             color: #fff;
             cursor: pointer;
             transition: all ease .5s;
+
             &:hover {
                 background-color: #a52a2a;
             }
@@ -431,6 +443,7 @@ i {
     font-size: 25px;
     transition: all ease .5s;
     opacity: .5;
+
     &:hover {
         opacity: 1;
     }
@@ -440,7 +453,34 @@ i {
     right: 40px;
 }
 
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    margin: auto;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 @keyframes fadeIn {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
