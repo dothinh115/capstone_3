@@ -27,15 +27,21 @@ http.interceptors.response.use(res => {
 }, err => {
     //check Token
     const ifTokenExpired = isExpired(getToken());
-    if (err.response?.status === 400 ) {
+    if (err.response?.status === 400) {
         //lỗi ko hợp lệ, ví dụ: sai id sản phẩm
         if (window.location.pathname !== "/register") history.push("/");
-        
+
+    }
+    if (window.location.pathname !== "/register" || window.location.pathname !== "/login") {
+        //nếu lỗi ở /login và /register
+        return Promise.reject(err);
     }
     //lỗi unauthorized
     if (err.response?.status === 401 || err.response?.status === 403 || ifTokenExpired || err.code === "ERR_NETWORK") {
+
         localStorage.removeItem("loginInfo");
         window.location.reload();
+
     }
     return Promise.reject(err);
 });
