@@ -26,6 +26,6 @@ export const { getLocalStorage, saveLocalStorage, totalCount, getToken, getEmail
     getEmail() {
         const email = getLocalStorage("loginInfo");
         if(email) return email.email;
-        return null
+        return null;
     }
 }
