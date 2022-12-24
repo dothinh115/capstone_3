@@ -1,17 +1,17 @@
-import React, { useState } from 'react'
+import React, { lazy, Suspense, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { checkAll, checkItem, deleteCartItem, quantityUpdate } from '../../redux/reducers/cartReducer';
 import { getProfileApi } from '../../redux/reducers/userReducer';
 import { http } from '../../util/config';
 import { getEmail } from '../../util/function';
-import OrderHistory from '../profile/OrderHistory';
 
 const Cart = () => {
   const dispatch = useDispatch()
   const { cartData } = useSelector(store => store.cart);
   const [checkoutRes, setCheckoutRes] = useState(false);
   const [error, setError] = useState("");
+  const OrderHistory = lazy(() => import("../profile/OrderHistory"));
 
   const quantityUpdateHandle = (id, value) => {
     const payload = {
@@ -211,7 +211,9 @@ const Cart = () => {
           </h1>
         </div>
         <div className="main-body">
-          <OrderHistory />
+          <Suspense fallback={<div>Loading...</div>}>
+            <OrderHistory />
+          </Suspense>
         </div>
       </div>
     </>

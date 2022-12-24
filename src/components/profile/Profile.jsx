@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { lazy, Suspense, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Outlet, useLocation, useOutlet } from 'react-router-dom';
-import OrderHistory from './OrderHistory';
 import { getProductFavoriteApi, setLikeByIdApi } from '../../redux/reducers/productReducer';
 import useGetProfile from '../../hooks/useGetProfile';
 
@@ -12,6 +11,7 @@ const Profile = () => {
   const { productFavorite } = useSelector(store => store.product);
   const outlet = useOutlet();
   const getProfile = useGetProfile();
+  const OrderHistory = lazy(() => import("../profile/OrderHistory"));
 
   const getProductFavorite = () => {
     const getProductFavoriteAction = getProductFavoriteApi;
@@ -88,7 +88,9 @@ const Profile = () => {
           </h1>
         </div>
         <div className="main-body">
-          <OrderHistory />
+        <Suspense fallback={<div>Loading...</div>}>
+            <OrderHistory />
+          </Suspense>
         </div>
       </div>
 

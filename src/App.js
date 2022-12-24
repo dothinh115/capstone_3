@@ -2,12 +2,6 @@ import './assets/css/style.css';
 import { Navigate, Route, Routes, unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 import Homtemplate from './templates/homeTemplate/Homtemplate';
 import Index from './components/index/Index';
-import Register from './components/register/Register';
-import Login from './components/login/Login';
-import Detail from './components/detail/Detail';
-import Cart from './components/cart/Cart';
-import Profile from './components/profile/Profile';
-import Edit from './components/profile/Edit';
 import { createBrowserHistory } from 'history';
 import { getToken } from './util/function';
 import LoggedInRoute from './hoc/NotLoggedInRoute';
@@ -23,6 +17,12 @@ function App() {
   if (token) loggedIn = true;
 
   const Search = lazy(() => import("./components/search/Search"));
+  const Detail = lazy(() => import("./components/detail/Detail"));
+  const Register = lazy(() => import("./components/register/Register"));
+  const Login = lazy(() => import("./components/login/Login"));
+  const Cart = lazy(() => import("./components/cart/Cart"));
+  const Profile = lazy(() => import("./components/profile/Profile"));
+  const Edit = lazy(() => import("./components/profile/Edit"));
 
   return (
     <HistoryRouter history={history}>
