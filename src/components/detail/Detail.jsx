@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/reducers/cartReducer';
 import { findIfLikeApi, getProductByIdApi, setLikeByIdApi } from '../../redux/reducers/productReducer';
 import { getProfileApi } from '../../redux/reducers/userReducer';
+import LazyloadImg from '../../hoc/LazyloadImg';
 
 const Detail = () => {
   const { productDetail, ifProductLiked } = useSelector(store => store.product);
@@ -71,7 +72,7 @@ const Detail = () => {
         </div>
         <div className="detail-body main-body">
           <div className="detail-body-left">
-            <img src={productDetail?.image} alt="" />
+            <LazyloadImg url={productDetail?.image} />
           </div>
           <div className="detail-body-right">
             <p>
