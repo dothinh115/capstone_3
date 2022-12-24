@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { memo } from 'react'
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../redux/reducers/cartReducer';
+import LazyloadImg from '../../hoc/LazyloadImg';
 
 const Item = ({ item }) => {
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ const Item = ({ item }) => {
             <div className="card-item-inner">
                 <div className="card-img">
                     <Link to={`/detail/${item.id}`}>
-                        <img src={item.image} loading="lazy" alt="" />
+                        <LazyloadImg url={item.image} />
                     </Link>
                 </div>
                 <div className="card-body">

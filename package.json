@@ -13,11 +13,13 @@
     "react-dom": "^18.2.0",
     "react-facebook-login": "^4.1.1",
     "react-jwt": "^1.1.7",
+    "react-lazyload": "^3.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.5",
     "react-scripts": "5.0.1",
     "react-slick": "^0.29.0",
     "slick-carousel": "^1.8.1",
+    "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
