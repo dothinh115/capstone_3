@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { lazy, Suspense, useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import { http } from '../../util/config';
-import Item from '../item/Item';
 
 const Search = () => {
   const [searchValue, setSearchValue] = useState(null);
   const [searchResult, setSearchResult] = useState([]);
   const [params, setParams] = useSearchParams();
+  const Item = lazy(() => import("../item/Item"));
 
   const inputChangeHandle = e => {
-    const {value} = e.target;
+    const { value } = e.target;
     setSearchValue(value.trim());
   }
 
@@ -25,7 +25,7 @@ const Search = () => {
 
   const submitHandle = e => {
     e.preventDefault();
-    if(searchValue) {
+    if (searchValue) {
       setParams({
         keywords: searchValue
       });
@@ -34,7 +34,7 @@ const Search = () => {
   }
 
   const sortBy = (value, arr) => {
-    switch(value) {
+    switch (value) {
       case "priceUp": {
         setSearchResult(arr.sort((a, b) => b.price - a.price));
         break;
@@ -49,8 +49,8 @@ const Search = () => {
 
   const sortHandle = e => {
     e.preventDefault();
-    const {value} = e.target;
-    if(value !== "" && searchValue) {
+    const { value } = e.target;
+    if (value !== "" && searchValue) {
       setParams({
         keywords: searchValue,
         sortby: value
@@ -63,7 +63,7 @@ const Search = () => {
     const keywords = params.get("keywords");
     if (keywords !== null) setSearchValue(keywords); sendData(keywords);
   }, [params.get("keywords")]);
-  
+
   return (
     <>
       <div className="main-container">
@@ -81,7 +81,7 @@ const Search = () => {
             <div className="search-right">
               <input defaultValue={searchValue} type="text" placeholder="Nhập từ khóa!!" onChange={e => inputChangeHandle(e)} />
             </div>
-            <div className="search-button" style={{marginLeft: "20px"}}>
+            <div className="search-button" style={{ marginLeft: "20px" }}>
               <button className="btn">Tìm</button>
             </div>
           </form>
@@ -90,9 +90,9 @@ const Search = () => {
 
       <div className="main-container" style={{ marginTop: "20px" }}>
         <div className="page-header">
-          <h1 style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+          <h1 style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <span>KẾT QUẢ</span>
-            <select onChange={e => {sortHandle(e)}} defaultValue={params.get("sortby")}>
+            <select onChange={e => { sortHandle(e) }} defaultValue={params.get("sortby")}>
               <option value={null}>Lọc</option>
               <option value="priceUp">Giá giảm dần</option>
               <option value="priceDown">Giá tăng dần</option>
@@ -102,11 +102,15 @@ const Search = () => {
         <div className="main-body">
           <div className="card">
             {searchResult?.map((item, index) => {
-              return <Item key={index} item={item} />
+              return (
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Item key={index} item={item} />
+                </Suspense>
+                )
             })}
             {searchResult.length === 0 && "Không có gì ở đây!"}
           </div>
-          
+
         </div>
       </div>
     </>

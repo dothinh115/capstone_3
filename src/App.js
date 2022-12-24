@@ -28,7 +28,10 @@ function App() {
     <HistoryRouter history={history}>
       <Routes>
         <Route path='/' element={<Homtemplate loggedIn={loggedIn} />} >
-          <Route index element={<Index />} />
+          <Route index element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <Index />
+            </Suspense>} />
           <Route path='/search' element={
             <Suspense fallback={<div>Loading...</div>}>
               <Search />
