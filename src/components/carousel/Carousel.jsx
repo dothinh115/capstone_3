@@ -6,6 +6,7 @@ import Slider from 'react-slick';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/reducers/cartReducer';
+import LazyloadImg from '../../hoc/LazyloadImg';
 
 const Carousel = () => {
   const {productData} = useSelector(store => store.product);
@@ -56,7 +57,7 @@ const Carousel = () => {
             <div className="slider-item-left">
               <div className="slider-item-left-inner">
                 <Link to={`/detail/${item.id}`}>
-                  <img src={item.image} alt="" />
+                  <LazyloadImg url={item.image} />
                 </Link>
               </div>
             </div>
