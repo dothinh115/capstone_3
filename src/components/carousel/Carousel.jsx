@@ -9,7 +9,7 @@ import { addToCart } from '../../redux/reducers/cartReducer';
 import LazyloadImg from '../../hoc/LazyloadImg';
 
 const Carousel = () => {
-  const {productData} = useSelector(store => store.product);
+  const { productData } = useSelector(store => store.product);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -80,7 +80,7 @@ const Carousel = () => {
               </ul>
               <button className="btn btn-brown" onClick={async e => {
                 await addToCartHandle(item);
-                navigate("/cart");
+                navigate("/cart", { state: { justAddId: item.id } });
               }}>
                 <i className="fa-solid fa-cart-plus"></i>
                 Thêm vào giỏ hàng

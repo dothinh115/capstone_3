@@ -1,6 +1,6 @@
 import React, { lazy, Suspense, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { checkAll, checkItem, deleteCartItem, quantityUpdate } from '../../redux/reducers/cartReducer';
 import { getProfileApi } from '../../redux/reducers/userReducer';
 import { http } from '../../util/config';
@@ -11,6 +11,7 @@ const Cart = () => {
   const { cartData } = useSelector(store => store.cart);
   const [checkoutRes, setCheckoutRes] = useState(false);
   const [error, setError] = useState("");
+  const { state } = useLocation();
   const OrderHistory = lazy(() => import("../profile/OrderHistory"));
 
   const quantityUpdateHandle = (id, value) => {
@@ -140,7 +141,7 @@ const Cart = () => {
                 </div>
                 <div className="tbody">
                   {Object.values(cartData)?.map((item, index) => {
-                    return (<div key={index} className="tr">
+                    return (<div key={index} className={`tr ${state?.justAddId === item.id ? "active" : ""}`} >
                       <div className="td">
                         <input type="checkbox" onChange={e => checkboxHandle(item.id)} checked={item.checked ? true : false} />
                       </div>

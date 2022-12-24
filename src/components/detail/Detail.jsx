@@ -132,7 +132,7 @@ const Detail = () => {
 
       {addResult && <div className="main-container" style={{ margin: "20px 0" }}>
         <div className="page-header">
-          Thêm giỏ hàng thành công, <Link to="/cart" className="alert-link">xem giỏ hàng</Link>.
+          Thêm giỏ hàng thành công, <Link state={{ justAddId: productDetail.id }} to="/cart" className="alert-link">xem giỏ hàng</Link>.
         </div>
       </div>}
 

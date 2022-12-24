@@ -35,6 +35,9 @@
                         text-align: left;
                     }
                 }
+                &.active {
+                    background-color: rgba(darkseagreen, .35);
+                }
             }
         }
     }

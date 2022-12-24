@@ -866,6 +866,9 @@ i {
 .cart .table .tbody .tr .td:nth-of-type(2) {
   text-align: left;
 }
+.cart .table .tbody .tr.active {
+  background-color: rgba(143, 188, 143, 0.35);
+}
 .cart .cart-button {
   margin: 10px 0px;
   text-align: right;

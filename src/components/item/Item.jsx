@@ -35,17 +35,17 @@ const Item = ({ item }) => {
                     <p>
                         {item.description.length > 90 ? item.description.substr(0, 89) + "..." : item.description}
                     </p>
-                    {item.quantity && 
-                    <>
-                        <p style={{fontSize: "13px", textAlign: "right", padding: "0 10px", opacity: ".8"}}>
-                            Đã bán: {item.quantity}
-                        </p>
-                    </>}
+                    {item.quantity &&
+                        <>
+                            <p style={{ fontSize: "13px", textAlign: "right", padding: "0 10px", opacity: ".8" }}>
+                                Đã bán: {item.quantity}
+                            </p>
+                        </>}
                 </div>
                 <div className="card-footer">
                     <div className="footer-left" onClick={async e => {
                         await addToCartHandle(item);
-                        navigate("/cart");
+                        navigate("/cart", { state: { justAddId: item.id } });
                     }}>
                         <i className="fa-solid fa-cart-shopping"></i>
                         Mua ngay
