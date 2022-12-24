@@ -80,7 +80,6 @@ const Homtemplate = ({ loggedIn }) => {
       <div className="contain-footer">
         <Footer />
       </div>
-
       <i className={`fa-sharp fa-solid fa-arrow-up back-to-top-button ${pageYOffset >= 300 && "showBackToTop" }`} onClick={() => backToTopHandle()}></i>
     </div>
   )

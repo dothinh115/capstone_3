@@ -17,7 +17,7 @@ const OrderHistory = () => {
 
   const seeAllHandle = e => {
     e.preventDefault();
-    setSeeAll(userData?.ordersHistory.length);
+    setSeeAll(seeAll + 3);
   }
 
   return (

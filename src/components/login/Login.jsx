@@ -126,7 +126,6 @@ const Login = () => {
                   Email
                 </div>
                 <div className="item-right">
-                  {/* just for test  */}
                   <input type="text" data-id="email" onChange={e => inputChangeHandle(e)} className={error.email && "isInvalid"} />
                   {error.email && 
                   <div className="form-error">
