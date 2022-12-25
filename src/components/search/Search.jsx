@@ -1,12 +1,13 @@
-import React, { lazy, Suspense, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import { http } from '../../util/config';
+import Item from '../item/Item';
 
 const Search = () => {
   const [searchValue, setSearchValue] = useState(null);
   const [searchResult, setSearchResult] = useState([]);
   const [params, setParams] = useSearchParams();
-  const Item = lazy(() => import("../item/Item"));
+  const [loading, setLoading] = useState(false);
 
   const inputChangeHandle = e => {
     const { value } = e.target;
@@ -14,12 +15,15 @@ const Search = () => {
   }
 
   const sendData = async (value) => {
+    setLoading(true);
     try {
       const fetch = await http.get(`/api/Product?keyword=${value}`);
       const sort = params.get("sortby");
       sort ? sortBy(sort, fetch.data.content) : setSearchResult(fetch.data.content);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -88,31 +92,28 @@ const Search = () => {
         </div>
       </div>
 
-      <div className="main-container" style={{ marginTop: "20px" }}>
-        <div className="page-header">
-          <h1 style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <span>KẾT QUẢ</span>
-            <select onChange={e => { sortHandle(e) }} defaultValue={params.get("sortby")}>
-              <option value={null}>Lọc</option>
-              <option value="priceUp">Giá giảm dần</option>
-              <option value="priceDown">Giá tăng dần</option>
-            </select>
-          </h1>
-        </div>
-        <div className="main-body">
-          <div className="card">
-            {searchResult?.map((item, index) => {
-              return (
-                <Suspense fallback={<div>Loading...</div>}>
-                  <Item key={index} item={item} />
-                </Suspense>
-                )
-            })}
-            {searchResult.length === 0 && "Không có gì ở đây!"}
+      {loading ? <div className="loader"></div> :
+        <div className="main-container" style={{ marginTop: "20px" }}>
+          <div className="page-header">
+            <h1 style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span>KẾT QUẢ</span>
+              <select onChange={e => { sortHandle(e) }} defaultValue={params.get("sortby")}>
+                <option value={null}>Lọc</option>
+                <option value="priceUp">Giá giảm dần</option>
+                <option value="priceDown">Giá tăng dần</option>
+              </select>
+            </h1>
           </div>
-
+          <div className="main-body">
+            <div className="card">
+              {searchResult?.map((item, index) => {
+                return <Item key={index} item={item} />
+              })}
+              {searchResult.length === 0 && "Không có gì ở đây!"}
+            </div>
+          </div>
         </div>
-      </div>
+      }
     </>
   )
 }

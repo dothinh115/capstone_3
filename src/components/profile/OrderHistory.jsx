@@ -91,8 +91,7 @@ const OrderHistory = () => {
               <i className="fa-solid fa-arrow-down" onClick={e => seeAllHandle(e)}></i>
             </div>
           </div>
-        </>}
-        
+        </>}  
     </>
   )
 }
