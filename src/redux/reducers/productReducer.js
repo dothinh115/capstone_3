@@ -70,7 +70,7 @@ export const getProductByIdApi = productId => {
 }
 
 export const setLikeByIdApi = (bool, productId) => {
-  if(!getToken())return  history.push("/login", { needLoginMessage: "Bạn cần đăng nhập để sử dụng chức năng này!", page: window.location.pathname });
+  if (!getToken()) return history.push("/login", { needLoginMessage: "Bạn cần đăng nhập để sử dụng chức năng này!", page: window.location.pathname });
   return async (dispatch) => {
     try {
       await http.get(`https://shop.cyberlearn.vn/api/Users/${bool ? "" : "un"}like?productId=${productId}`);

@@ -8,10 +8,16 @@ const OrderHistory = () => {
   const { userData } = useSelector(store => store.userData);
   const dispatch = useDispatch();
   const [seeAll, setSeeAll] = useState(4);
+  const [deleting, setDeleting] = useState(null);
 
   const deleteOrderHandle = async (e, id) => {
-    await http.post("https://shop.cyberlearn.vn/api/Users/deleteOrder", {"orderId": id});
-    await dispatch(getProfileApi);
+    setDeleting(id);
+    try {
+      await http.post("https://shop.cyberlearn.vn/api/Users/deleteOrder", {"orderId": id});
+      dispatch(getProfileApi);
+    } catch (error) {
+      console(error)
+    }
   }
 
   const seeAllHandle = e => {
@@ -25,7 +31,7 @@ const OrderHistory = () => {
         <ul>
           {userData?.ordersHistory.slice(0, seeAll).map((item, index) => {
             return (
-              <li key={index}>
+              <li key={index} style={{opacity: deleting === item.id && ".3"}}>
                 <div>
                   <span>
                     <i className="fa-solid fa-turn-down-right"></i>

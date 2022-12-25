@@ -114,7 +114,6 @@ const Cart = () => {
 
   useEffect(() => {
     if (state?.justAddId) window.scrollTo({ top: 0, behavior: "smooth" });
-    console.log(state?.justAddId)
   }, [state]);
 
   return (
