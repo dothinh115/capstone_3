@@ -8,7 +8,7 @@ import { getProfileApi } from '../../redux/reducers/userReducer';
 import LazyloadImg from '../../hoc/LazyloadImg';
 
 const Detail = () => {
-  const { productDetail, ifProductLiked } = useSelector(store => store.product);
+  const { productDetail, ifProductLiked, productDetailLoading } = useSelector(store => store.product);
   const { userData } = useSelector(store => store.userData);
   const dispatch = useDispatch();
   const { productId } = useParams();
@@ -57,13 +57,12 @@ const Detail = () => {
   }, [userData]);
 
   useEffect(() => {
-    dispatch(updateProductDetail({}));
     getProductById();
     setNumber(1);
     if (userData) findIfLike();
   }, [productId]);
 
-  return !productDetail ? (<div style={{height: "300px", display: "flex", alignItems: "center"}}><div className="loader"></div></div>) : (
+  return productDetailLoading ? (<div style={{height: "300px", display: "flex", alignItems: "center"}}><div className="loader"></div></div>) : (
     <>
       <div className="detail-container main-container">
         <div className="page-header">

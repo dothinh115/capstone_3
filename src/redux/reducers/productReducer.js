@@ -12,6 +12,7 @@ const token = () => {
 const initialState = {
   productData: [],
   productDetail: {},
+  productDetailLoading: false,
   ifProductLiked: false,
   productFavorite: []
 }
@@ -26,6 +27,9 @@ const productReducer = createSlice({
     updateProductDetail: (state, action) => {
       state.productDetail = action.payload;
     },
+    updateProductDetailLoading: (state, action) => {
+      state.productDetailLoading = action.payload;
+    },
     updateProductLike: (state, action) => {
       state.ifProductLiked = action.payload;
     },
@@ -39,6 +43,7 @@ const productReducer = createSlice({
 export const {
   updateProductReducer,
   updateProductDetail,
+  updateProductDetailLoading,
   updateProductLike,
   updateProductFavorite
 } = productReducer.actions;
@@ -58,14 +63,16 @@ export const getAllProductApi = async (dispatch) => {
 }
 
 export const getProductByIdApi = productId => {
- 
   return async (dispatch) => {
+    updateProductDetailLoading(true);
     try {
       const fetch = await http.get(`https://shop.cyberlearn.vn/api/Product/getbyid?id=${productId}`);
       const action = updateProductDetail(fetch.data.content);
       dispatch(action)
     } catch (error) {
       console.log(error);
+    }finally {
+      updateProductDetailLoading(false);
     }
   }
 }
