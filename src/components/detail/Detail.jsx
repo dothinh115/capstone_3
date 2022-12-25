@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import Item from '../item/Item';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/reducers/cartReducer';
-import { findIfLikeApi, getProductByIdApi, setLikeByIdApi } from '../../redux/reducers/productReducer';
+import { findIfLikeApi, getProductByIdApi, setLikeByIdApi, updateProductDetail } from '../../redux/reducers/productReducer';
 import { getProfileApi } from '../../redux/reducers/userReducer';
 import LazyloadImg from '../../hoc/LazyloadImg';
 
@@ -57,6 +57,7 @@ const Detail = () => {
   }, [userData]);
 
   useEffect(() => {
+    dispatch(updateProductDetail({}));
     getProductById();
     setNumber(1);
     if (userData) findIfLike();
