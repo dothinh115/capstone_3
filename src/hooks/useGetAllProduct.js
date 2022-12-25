@@ -3,10 +3,7 @@ import { getAllProductApi } from "../redux/reducers/productReducer";
 
 const useGetAllProduct = () => {
     const dispatch = useDispatch();
-    return () => {
-        const getAllProductAction = getAllProductApi;
-        dispatch(getAllProductAction);
-    }
+    return () => dispatch(getAllProductApi);
 }
 
 export default useGetAllProduct

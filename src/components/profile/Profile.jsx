@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Outlet, useLocation, useOutlet } from 'react-router-dom';
 import { getProductFavoriteApi, setLikeByIdApi } from '../../redux/reducers/productReducer';
@@ -13,14 +13,10 @@ const Profile = () => {
   const outlet = useOutlet();
   const getProfile = useGetProfile();
 
-  const getProductFavorite = () => {
-    const getProductFavoriteAction = getProductFavoriteApi;
-    dispatch(getProductFavoriteAction);
-  }
+  const getProductFavorite = () => dispatch(getProductFavoriteApi);
 
   const sendUnLike = async (productId) => {
-    const setLikeByIdAction = await setLikeByIdApi(false, productId);
-    await dispatch(setLikeByIdAction);
+    await dispatch(setLikeByIdApi(false, productId));
     await getProductFavorite();
   }
 

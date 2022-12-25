@@ -5,10 +5,7 @@ import { getToken } from "../util/function";
 const useGetProfile = () => {
     const dispatch = useDispatch();
     return () => {
-        if (getToken()) {
-            const getProfileAction = getProfileApi;
-            dispatch(getProfileAction);
-        }
+        if (getToken()) dispatch(getProfileApi);
     }
 }
 

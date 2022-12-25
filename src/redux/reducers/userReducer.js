@@ -28,8 +28,7 @@ export default userReducer.reducer
 export const getProfileApi = async (dispatch) => {
   try {
     const fetch = await http.post("/api/Users/getProfile");
-    const action = updateUserReducer(fetch.data.content);
-    dispatch(action);
+    dispatch(updateUserReducer(fetch.data.content));
   } catch (error) {
     console.log(error);
   }

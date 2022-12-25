@@ -16,23 +16,16 @@ const Detail = () => {
   const [addResult, setAddResult] = useState(false);
   const navigate = useNavigate();
 
-  const getProductById = () => {
-    const getProductByIdAction = getProductByIdApi(productId);
-    dispatch(getProductByIdAction);
-  }
+  const getProductById = () => dispatch(getProductByIdApi(productId));
 
-  const findIfLike = () => {
-    const findIflikedAction = findIfLikeApi(productId);
-    dispatch(findIflikedAction);
-  }
+  const findIfLike = () => dispatch(findIfLikeApi(productId));
 
   const likeHandle = e => {
     if (!userData) {
       navigate("/login", { state: { needLoginMessage: "Bạn cần đăng nhập để sử dụng chức năng này!", page: window.location.pathname } });
       return
     }
-    const setLikeByIdAction = setLikeByIdApi(!ifProductLiked, productId);
-    dispatch(setLikeByIdAction);
+    dispatch(setLikeByIdApi(!ifProductLiked, productId));
   }
 
   const addToCartHandle = () => {
@@ -45,10 +38,8 @@ const Detail = () => {
       quantity: number,
       checked: false
     }
-    const addToCartAction = addToCart(payload);
-    dispatch(addToCartAction);
-    const getProfileAction = getProfileApi;
-    dispatch(getProfileAction);
+    dispatch(addToCart(payload));
+    dispatch(getProfileApi);
     setAddResult(true);
   }
 

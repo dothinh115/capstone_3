@@ -11,8 +11,7 @@ const OrderHistory = () => {
 
   const deleteOrderHandle = async (e, id) => {
     await http.post("https://shop.cyberlearn.vn/api/Users/deleteOrder", {"orderId": id});
-    const getProfileAction = await getProfileApi;
-    await dispatch(getProfileAction);
+    await dispatch(getProfileApi);
   }
 
   const seeAllHandle = e => {

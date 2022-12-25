@@ -1,10 +1,11 @@
-import React, { lazy, Suspense, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { checkAll, checkItem, deleteCartItem, quantityUpdate } from '../../redux/reducers/cartReducer';
 import { getProfileApi } from '../../redux/reducers/userReducer';
 import { http } from '../../util/config';
 import { getEmail } from '../../util/function';
+import OrderHistory from '../profile/OrderHistory';
 
 const Cart = () => {
   const dispatch = useDispatch()
@@ -12,26 +13,18 @@ const Cart = () => {
   const [checkoutRes, setCheckoutRes] = useState(false);
   const [error, setError] = useState("");
   const { state } = useLocation();
-  const OrderHistory = lazy(() => import("../profile/OrderHistory"));
 
   const quantityUpdateHandle = (id, value) => {
     const payload = {
       id,
       value
     }
-    const quantityUpdateAction = quantityUpdate(payload);
-    dispatch(quantityUpdateAction);
+    dispatch(quantityUpdate(payload));
   }
 
-  const deleteHandle = id => {
-    const deleteCartItemAction = deleteCartItem(id);
-    dispatch(deleteCartItemAction);
-  }
+  const deleteHandle = id => dispatch(deleteCartItem(id));
 
-  const checkboxHandle = id => {
-    const checkItemAction = checkItem(id);
-    dispatch(checkItemAction);
-  }
+  const checkboxHandle = id => dispatch(checkItem(id));
 
   const totalCounting = () => {
     let total = 0;
@@ -49,11 +42,7 @@ const Cart = () => {
     return total;
   }
 
-  const checkAllHandle = e => {
-    const { checked } = e.target;
-    const checkAllAction = checkAll(checked);
-    dispatch(checkAllAction);
-  }
+  const checkAllHandle = ({ target: { checked } }) => dispatch(checkAll(checked));
 
   const findIfCheckAll = () => {
     let result = true;
@@ -65,8 +54,7 @@ const Cart = () => {
 
   const sendCheckoutHandle = async (data) => {
     await http.post("https://shop.cyberlearn.vn/api/Users/order", data);
-    const getProfileAction = await getProfileApi;
-    await dispatch(getProfileAction);
+    await dispatch(getProfileApi);
   }
 
   const checkOutHandle = e => {
@@ -212,9 +200,7 @@ const Cart = () => {
           </h1>
         </div>
         <div className="main-body">
-          <Suspense fallback={<div>Loading...</div>}>
-            <OrderHistory />
-          </Suspense>
+          <OrderHistory />
         </div>
       </div>
     </>

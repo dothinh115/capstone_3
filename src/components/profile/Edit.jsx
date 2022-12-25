@@ -80,8 +80,7 @@ const Edit = () => {
   const sendData = async () => {
     try {
       await http.post("https://shop.cyberlearn.vn/api/Users/updateProfile", dataValue);
-      const getProfileAction = await getProfileApi;
-      await dispatch(getProfileAction);
+      await dispatch(getProfileApi);
       await navigate("/profile", { state: { success: true } });
     } catch (error) {
       setMessErr(error.response.data.content)

@@ -55,8 +55,7 @@ export default productReducer.reducer;
 export const getAllProductApi = async (dispatch) => {
   try {
     const fetch = await http.get("https://shop.cyberlearn.vn/api/Product");
-    const action = updateProductReducer(fetch.data.content);
-    dispatch(action);
+    dispatch(updateProductReducer(fetch.data.content));
   } catch (error) {
     console.log(error);
   }
@@ -67,8 +66,7 @@ export const getProductByIdApi = productId => {
     dispatch(updateProductDetailLoading(true));
     try {
       const fetch = await http.get(`https://shop.cyberlearn.vn/api/Product/getbyid?id=${productId}`);
-      const action = updateProductDetail(fetch.data.content);
-      dispatch(action)
+      dispatch(updateProductDetail(fetch.data.content));
     } catch (error) {
       console.log(error);
     }finally {
@@ -81,8 +79,7 @@ export const setLikeByIdApi = (bool, productId) => {
   return async (dispatch) => {
     try {
       await http.get(`https://shop.cyberlearn.vn/api/Users/${bool ? "" : "un"}like?productId=${productId}`);
-      const action = updateProductLike(bool);
-      dispatch(action);
+      dispatch(updateProductLike(bool));
     } catch (error) {
       console.log(error);
     }
@@ -96,8 +93,7 @@ export const findIfLikeApi = (productId) => {
       const fetch = await http.get("https://shop.cyberlearn.vn/api/Users/getproductfavorite");
       const find = Object.values(fetch.data.content.productsFavorite).find(item => item.id == productId);
       if (find) res = true;
-      const action = updateProductLike(res);
-      dispatch(action);
+      dispatch(updateProductLike(res));
     } catch (error) {
       console.log(error);
     }
@@ -107,8 +103,7 @@ export const findIfLikeApi = (productId) => {
 export const getProductFavoriteApi = async (dispatch) => {
   try {
     const fetch = await http.get("https://shop.cyberlearn.vn/api/Users/getproductfavorite");
-    const action = updateProductFavorite(fetch.data.content.productsFavorite);
-    dispatch(action);
+    dispatch(updateProductFavorite(fetch.data.content.productsFavorite));
   } catch (error) {
     console.log(error);
   }
