@@ -20,10 +20,7 @@ const OrderHistory = () => {
     }
   }
 
-  const seeAllHandle = e => {
-    e.preventDefault();
-    setSeeAll(seeAll + 3);
-  }
+  const seeAllHandle = () => setSeeAll(seeAll + 3);
 
   useEffect(() => {
     setDeleting(null);
@@ -88,7 +85,7 @@ const OrderHistory = () => {
               Còn lại <b>{userData?.ordersHistory.length - seeAll}</b> đơn hàng
             </span>
             <div>
-              <i className="fa-solid fa-arrow-down" onClick={e => seeAllHandle(e)}></i>
+              <i className="fa-solid fa-arrow-down" onClick={() => seeAllHandle()}></i>
             </div>
           </div>
         </>}  

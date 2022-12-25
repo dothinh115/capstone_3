@@ -52,9 +52,10 @@ const Login = () => {
     try {
       const fetch = await http.post("https://shop.cyberlearn.vn/api/Users/signin", loginValue);
       await saveLocalStorage("loginInfo", fetch.data.content);
-      windowNavigate(state?.page);
     } catch (error) {
       setResult(error.response?.data.message);
+    } finally {
+      windowNavigate(state?.page);
     }
   }
 
@@ -70,9 +71,10 @@ const Login = () => {
       }
       const fetch = await http.post("/api/Users/facebooklogin", data);
       await saveLocalStorage("loginInfo", fetch.data.content);
-      windowNavigate(state?.page);
     } catch (error) {
       console.log(error);
+    } finally {
+      windowNavigate(state?.page);
     }
   }
 

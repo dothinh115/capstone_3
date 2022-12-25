@@ -31,12 +31,8 @@ const Edit = () => {
 
   const checkValid = () => {
     for (let key in dataValue) {
-      if (key === "gender") {
-        continue;
-      }
-      if (dataValue[key] == "" || error[key] != "") {
-        return false;
-      }
+      if (key === "gender") continue;
+      if (dataValue[key] == "" || error[key] != "") return false;
     }
     return true;
   }
@@ -52,9 +48,7 @@ const Edit = () => {
       for (let key in dataConfig.id) {
         switch (id) {
           case dataConfig.id[key]: {
-            if (!value.match(dataConfig.reg[key])) {
-              errMess = dataConfig.errorMessage[key];
-            }
+            if (!value.match(dataConfig.reg[key])) errMess = dataConfig.errorMessage[key];
           }
         }
       }
@@ -80,10 +74,11 @@ const Edit = () => {
   const sendData = async () => {
     try {
       await http.post("https://shop.cyberlearn.vn/api/Users/updateProfile", dataValue);
-      await dispatch(getProfileApi);
-      await navigate("/profile", { state: { success: true } });
+      dispatch(getProfileApi);
     } catch (error) {
       setMessErr(error.response.data.content)
+    } finally {
+      navigate("/profile", { state: { success: true } });
     }
   }
 
