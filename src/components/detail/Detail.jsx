@@ -62,7 +62,7 @@ const Detail = () => {
     if (userData) findIfLike();
   }, [productId]);
 
-  return (
+  return !productDetail ? (<div style={{height: "300px", display: "flex", alignItems: "center"}}><div className="loader"></div></div>) : (
     <>
       <div className="detail-container main-container">
         <div className="page-header">
