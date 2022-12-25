@@ -64,7 +64,7 @@ export const getAllProductApi = async (dispatch) => {
 
 export const getProductByIdApi = productId => {
   return async (dispatch) => {
-    updateProductDetailLoading(true);
+    dispatch(updateProductDetailLoading(true));
     try {
       const fetch = await http.get(`https://shop.cyberlearn.vn/api/Product/getbyid?id=${productId}`);
       const action = updateProductDetail(fetch.data.content);
@@ -72,7 +72,7 @@ export const getProductByIdApi = productId => {
     } catch (error) {
       console.log(error);
     }finally {
-      updateProductDetailLoading(false);
+      dispatch(updateProductDetailLoading(false));
     }
   }
 }

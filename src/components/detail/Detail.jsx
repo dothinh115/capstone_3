@@ -54,12 +54,11 @@ const Detail = () => {
 
   useEffect(() => {
     if (userData) findIfLike();
-  }, [userData]);
+  });
 
   useEffect(() => {
     getProductById();
     setNumber(1);
-    if (userData) findIfLike();
   }, [productId]);
 
   return productDetailLoading ? (<div style={{height: "300px", display: "flex", alignItems: "center"}}><div className="loader"></div></div>) : (
