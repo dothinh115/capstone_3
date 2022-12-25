@@ -1,12 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getLocalStorage } from '../../util/function';
-const token = () => {
-    let token = getLocalStorage("loginInfo");
-    if (token) {
-        return token.accessToken;
-    }
-    return null;
-}
+import { history } from '../../App';
+import { getToken } from '../../util/function';
 
 const initialState = {
     cartData: []
@@ -17,7 +11,7 @@ const cartReducer = createSlice({
     initialState,
     reducers: {
         addToCart: (state, action) => {
-            if (!token()) return;
+            if (!getToken()) return history.push("/login", { needLoginMessage: "Bạn cần đăng nhập để sử dụng chức năng này!", page: window.location.pathname });
             let { cartData } = state;
             const { payload } = action;
             const index = cartData.findIndex(item => item.id === payload.id);
@@ -34,6 +28,7 @@ const cartReducer = createSlice({
                 ];
             }
             state.cartData = cartData;
+            history.push("/cart", { justAddId: payload.id });
         },
         loadCartData: (state, action) => {
             state.cartData = action.payload

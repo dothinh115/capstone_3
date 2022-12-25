@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Item from '../item/Item';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/reducers/cartReducer';
-import { findIfLikeApi, getProductByIdApi, setLikeByIdApi, updateProductDetail } from '../../redux/reducers/productReducer';
-import { getProfileApi } from '../../redux/reducers/userReducer';
+import { findIfLikeApi, getProductByIdApi, setLikeByIdApi } from '../../redux/reducers/productReducer';
 import LazyloadImg from '../../hoc/LazyloadImg';
 
 const Detail = () => {
@@ -13,34 +12,20 @@ const Detail = () => {
   const dispatch = useDispatch();
   const { productId } = useParams();
   const [number, setNumber] = useState(1);
-  const [addResult, setAddResult] = useState(false);
-  const navigate = useNavigate();
 
   const getProductById = () => dispatch(getProductByIdApi(productId));
 
   const findIfLike = () => dispatch(findIfLikeApi(productId));
 
-  const likeHandle = e => {
-    if (!userData) {
-      navigate("/login", { state: { needLoginMessage: "Bạn cần đăng nhập để sử dụng chức năng này!", page: window.location.pathname } });
-      return
-    }
-    dispatch(setLikeByIdApi(!ifProductLiked, productId));
-  }
+  const likeHandle = e => dispatch(setLikeByIdApi(!ifProductLiked, productId));
 
   const addToCartHandle = () => {
-    if (!userData) {
-      navigate("/login", { state: { needLoginMessage: "Bạn cần đăng nhập để sử dụng chức năng này!", page: window.location.pathname } });
-      return
-    }
     const payload = {
       ...productDetail,
       quantity: number,
       checked: false
     }
     dispatch(addToCart(payload));
-    dispatch(getProfileApi);
-    setAddResult(true);
   }
 
   useEffect(() => {
@@ -119,13 +104,6 @@ const Detail = () => {
           </div>
         </div>
       </div>
-
-      {addResult && <div className="main-container" style={{ margin: "20px 0" }}>
-        <div className="page-header">
-          <i className="fa-solid fa-check" style={{ color: "green" }}></i>
-          Thêm giỏ hàng thành công, <Link state={{ justAddId: productDetail.id }} to="/cart" className="alert-link">xem giỏ hàng</Link>.
-        </div>
-      </div>}
 
       <div className="related-product main-container">
         <div className="page-header">

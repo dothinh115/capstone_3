@@ -1,12 +1,11 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { memo } from 'react'
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../redux/reducers/cartReducer';
 import LazyloadImg from '../../hoc/LazyloadImg';
 
 const Item = ({ item }) => {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const addToCartHandle = item => {
@@ -42,10 +41,7 @@ const Item = ({ item }) => {
                         </>}
                 </div>
                 <div className="card-footer">
-                    <div className="footer-left" onClick={async e => {
-                        await addToCartHandle(item);
-                        navigate("/cart", { state: { justAddId: item.id } });
-                    }}>
+                    <div className="footer-left" onClick={() => addToCartHandle(item)}>
                         <i className="fa-solid fa-cart-shopping"></i>
                         Mua ngay
                     </div>

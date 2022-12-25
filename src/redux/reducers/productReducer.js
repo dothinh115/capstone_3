@@ -1,14 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { Navigate } from 'react-router-dom';
+import { createSlice } from '@reduxjs/toolkit';
+import { history } from '../../App';
 import { http } from '../../util/config';
-import { getLocalStorage } from '../../util/function';
-const token = () => {
-  let token = getLocalStorage("loginInfo");
-  if (token) {
-    return token.accessToken;
-  }
-  return null;
-}
+import { getToken } from '../../util/function';
 
 const initialState = {
   productData: [],
@@ -35,7 +28,7 @@ const productReducer = createSlice({
       state.ifProductLiked = action.payload;
     },
     updateProductFavorite: (state, action) => {
-      if (!token()) return;
+      if (!getToken()) return;
       state.productFavorite = action.payload;
     }
   }
@@ -77,6 +70,7 @@ export const getProductByIdApi = productId => {
 }
 
 export const setLikeByIdApi = (bool, productId) => {
+  if(!getToken())return  history.push("/login", { needLoginMessage: "Bạn cần đăng nhập để sử dụng chức năng này!", page: window.location.pathname });
   return async (dispatch) => {
     try {
       await http.get(`https://shop.cyberlearn.vn/api/Users/${bool ? "" : "un"}like?productId=${productId}`);

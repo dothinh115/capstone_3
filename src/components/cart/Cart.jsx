@@ -13,6 +13,7 @@ const Cart = () => {
   const [checkoutRes, setCheckoutRes] = useState(false);
   const [error, setError] = useState("");
   const { state } = useLocation();
+  const [loading, setLoading] = useState(false);
 
   const quantityUpdateHandle = (id, value) => {
     const payload = {
@@ -53,8 +54,15 @@ const Cart = () => {
   }
 
   const sendCheckoutHandle = async (data) => {
-    await http.post("https://shop.cyberlearn.vn/api/Users/order", data);
-    await dispatch(getProfileApi);
+    setLoading(true);
+    try {
+      await http.post("https://shop.cyberlearn.vn/api/Users/order", data);
+      await dispatch(getProfileApi);
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoading(false);
+    }
   }
 
   const checkOutHandle = e => {
@@ -105,7 +113,8 @@ const Cart = () => {
   }
 
   useEffect(() => {
-    if(state?.justAddId) window.scrollTo({top: 0, behavior: "smooth"});
+    if (state?.justAddId) window.scrollTo({ top: 0, behavior: "smooth" });
+    console.log(state?.justAddId)
   }, [state]);
 
   return (
@@ -197,16 +206,18 @@ const Cart = () => {
         </div>
       </div>}
 
-      <div className="main-container order-history" style={{ marginTop: "20px" }}>
-        <div className="page-header">
-          <h1>
-            LỊCH SỬ MUA HÀNG
-          </h1>
+      {loading ? <div className="loader"></div> :
+        <div className="main-container order-history" style={{ marginTop: "20px" }}>
+          <div className="page-header">
+            <h1>
+              LỊCH SỬ MUA HÀNG
+            </h1>
+          </div>
+          <div className="main-body">
+            <OrderHistory />
+          </div>
         </div>
-        <div className="main-body">
-          <OrderHistory />
-        </div>
-      </div>
+      }
     </>
   )
 }

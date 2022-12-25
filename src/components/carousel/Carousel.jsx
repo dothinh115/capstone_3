@@ -3,7 +3,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../../assets/css/carousel.css";
 import Slider from 'react-slick';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/reducers/cartReducer';
 import LazyloadImg from '../../hoc/LazyloadImg';
@@ -11,7 +11,6 @@ import LazyloadImg from '../../hoc/LazyloadImg';
 const Carousel = () => {
   const { productData } = useSelector(store => store.product);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const addToCartHandle = item => {
     const payload = {
@@ -77,10 +76,7 @@ const Carousel = () => {
                   ${item.price}
                 </li>
               </ul>
-              <button className="btn btn-brown" onClick={async e => {
-                await addToCartHandle(item);
-                navigate("/cart", { state: { justAddId: item.id } });
-              }}>
+              <button className="btn btn-brown" onClick={() => addToCartHandle(item)}>
                 <i className="fa-solid fa-cart-plus"></i>
                 Thêm vào giỏ hàng
               </button>
