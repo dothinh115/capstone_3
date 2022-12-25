@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { Navigate } from 'react-router-dom';
 import { http } from '../../util/config';
 import { getLocalStorage } from '../../util/function';
 const token = () => {
@@ -69,7 +70,7 @@ export const getProductByIdApi = productId => {
       dispatch(updateProductDetail(fetch.data.content));
     } catch (error) {
       console.log(error);
-    }finally {
+    } finally {
       dispatch(updateProductDetailLoading(false));
     }
   }

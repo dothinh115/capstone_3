@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { checkAll, checkItem, deleteCartItem, quantityUpdate } from '../../redux/reducers/cartReducer';
@@ -103,6 +103,10 @@ const Cart = () => {
       deleteHandle(value.id);
     }
   }
+
+  useEffect(() => {
+    if(state?.justAddId) window.scrollTo({top: 0, behavior: "smooth"});
+  }, [state]);
 
   return (
     <>
