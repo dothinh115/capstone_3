@@ -3,18 +3,16 @@ import { Navigate, Route, Routes, unstable_HistoryRouter as HistoryRouter } from
 import Homtemplate from './templates/homeTemplate/Homtemplate';
 import Index from './components/index/Index';
 import { createBrowserHistory } from 'history';
-import { getToken } from './util/function';
 import LoggedInRoute from './hoc/NotLoggedInRoute';
 import NotLoggedInRoute from './hoc/LoggedInRoute';
 import React, { Suspense, lazy } from 'react';
+import useCheckToken from './hooks/useCheckToken';
 
 //npm i history => chuyển hướng trang ở file ko phải component
 export const history = createBrowserHistory();
 
 function App() {
-  const token = getToken();
-  let loggedIn = false;
-  if (token) loggedIn = true;
+  const loggedIn = useCheckToken();
 
   const Search = lazy(() => import("./components/search/Search"));
   const Detail = lazy(() => import("./components/detail/Detail"));

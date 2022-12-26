@@ -42,9 +42,12 @@ http.interceptors.response.use(res => {
     }
     //lỗi unauthorized
     if (err.response?.status === 401 || err.response?.status === 403) {
-        // history.push("/login");
+        //Chưa hoạt động
+        history.push("/login");
         localStorage.removeItem("loginInfo");
         window.location.reload();
     }
+    localStorage.removeItem("loginInfo");
+    window.location.reload();
     return Promise.reject(err);
 });

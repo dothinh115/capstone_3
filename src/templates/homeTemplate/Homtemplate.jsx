@@ -25,11 +25,9 @@ const Homtemplate = ({ loggedIn }) => {
 
   const setHeight = () => setPageYOffset(window.pageYOffset);
 
-  const backToTopHandle = () => window.scrollTo({top: 0,behavior: "smooth"});
+  const backToTopHandle = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   useEffect(() => {
-    getAllProduct();
-    getCartData(getEmail());
     if (loggedIn) getProfile();
   }, [loggedIn]);
 
@@ -38,11 +36,16 @@ const Homtemplate = ({ loggedIn }) => {
   }, [cartData]);
 
   useEffect(() => {
+    if (getEmail()) getCartData(getEmail());
+    getAllProduct();
+  }, []);
+
+  useEffect(() => {
     window.addEventListener("scroll", setHeight);
     return () => {
       window.removeEventListener("scroll", setHeight);
     }
-  }, []);
+  });
 
   return (
     <div className="container main-contain" >
@@ -80,7 +83,7 @@ const Homtemplate = ({ loggedIn }) => {
       <div className="contain-footer">
         <Footer />
       </div>
-      <i className={`fa-sharp fa-solid fa-arrow-up back-to-top-button ${pageYOffset >= 300 && "showBackToTop" }`} onClick={() => backToTopHandle()}></i>
+      <i className={`fa-sharp fa-solid fa-arrow-up back-to-top-button ${pageYOffset >= 300 && "showBackToTop"}`} onClick={() => backToTopHandle()}></i>
     </div>
   )
 }
