@@ -180,7 +180,10 @@ a:hover {
   font-size: 20px;
 }
 
-input:not(input[type=checkbox]), input:focus, input:focus-visible {
+input {
+  transition: all ease 0.5s;
+}
+input:not(input[type=checkbox]) {
   width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.05);
   border-radius: 5px;
@@ -190,11 +193,13 @@ input:not(input[type=checkbox]), input:focus, input:focus-visible {
 input:disabled {
   cursor: not-allowed;
 }
-input.isInvalid {
-  border-color: rgba(255, 0, 0, 0.35) !important;
+input:focus {
+  border-color: rgba(128, 189, 255, 0.65) !important;
+  box-shadow: 0 0 0 0.15rem rgba(128, 189, 255, 0.45);
 }
-input.isValid {
-  border-color: rgba(0, 128, 0, 0.35) !important;
+input.isInvalid {
+  border-color: rgba(255, 0, 0, 0.65) !important;
+  box-shadow: 0 0 0 0.15rem rgba(255, 0, 0, 0.25);
 }
 
 select {

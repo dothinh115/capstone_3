@@ -141,7 +141,7 @@ const Register = () => {
                             data-id={item}
                             type={item === "password" ? "password" : "text"}
                             onChange={e => inputChangeHandle(e)}
-                            className={`${error[item] && "isInvalid"} ${!error[item] && dataValue[item] && "isValid"}`}
+                            className={error[item] && "isInvalid"}
                             placeholder={dataConfig.placeHolder[index]}
                             defaultValue={dataValue[item]}
                           />}

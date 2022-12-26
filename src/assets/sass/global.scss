@@ -198,10 +198,7 @@ a:hover {
 }
 
 input {
-
-    &:not(input[type="checkbox"]),
-    &:focus,
-    &:focus-visible {
+    &:not(input[type="checkbox"]) {
         width: 100%;
         border: 1px solid rgba(black, 0.05);
         border-radius: 5px;
@@ -213,13 +210,17 @@ input {
         cursor: not-allowed;
     }
 
-    &.isInvalid {
-        border-color: rgba(red, .35) !important;
+    &:focus {
+        border-color: rgba(#80bdff, .65) !important;
+        box-shadow: 0 0 0 0.15rem rgba(#80bdff, .45);
+
     }
 
-    &.isValid {
-        border-color: rgba(green, .35) !important;
+    &.isInvalid {
+        border-color: rgba(red, .65) !important;
+        box-shadow: 0 0 0 0.15rem rgba(red, .25);
     }
+    transition: all ease .5s;
 }
 
 select {

@@ -141,7 +141,7 @@ const Edit = () => {
                     data-id={item} 
                     type={item === "password" ? "password" : "text"} 
                     defaultValue={dataValue[item]} onChange={e => inputChangeHandle(e)} 
-                    className={`${error[item] && "isInvalid"} ${!error[item] && dataValue[item] && "isValid"}`} />}
+                    className={error[item] && "isInvalid"} />}
                     {error[item] && <div className="form-error">
                       {error[item]}
                     </div>}
