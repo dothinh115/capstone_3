@@ -143,6 +143,7 @@ const Edit = () => {
                     defaultValue={dataValue[item]} onChange={e => inputChangeHandle(e)} 
                     className={error[item] && "isInvalid"} />}
                     {error[item] && <div className="form-error">
+                      <i className="fa-solid fa-circle-exclamation" style={{ color: "red" }}></i>
                       {error[item]}
                     </div>}
                   </div>
