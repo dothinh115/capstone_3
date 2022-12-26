@@ -118,7 +118,7 @@ a:hover {
 .contain-body .body-left {
   width: 20%;
 }
-@media (max-width: 950px) {
+@media (max-width: 963px) {
   .contain-body .body-left {
     width: 100%;
   }
@@ -160,12 +160,12 @@ a:hover {
 .contain-body .body-right {
   width: 80%;
 }
-@media (max-width: 950px) {
+@media (max-width: 963px) {
   .contain-body .body-right {
     width: 100%;
   }
 }
-@media (max-width: 950px) {
+@media (max-width: 963px) {
   .contain-body {
     display: block;
   }
@@ -322,7 +322,12 @@ i {
           animation: fadeIn 1s;
 }
 .card-item-inner .card-body h3 {
-  padding: 10px;
+  padding: 0 10px;
+}
+@media (min-width: 768px) and (max-width: 825px) {
+  .card-item-inner .card-body h3 {
+    min-height: 60px;
+  }
 }
 .card-item-inner .card-body p {
   padding: 10px;
