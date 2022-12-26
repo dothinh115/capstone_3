@@ -141,6 +141,7 @@ const Edit = () => {
                     data-id={item} 
                     type={item === "password" ? "password" : "text"} 
                     defaultValue={dataValue[item]} onChange={e => inputChangeHandle(e)} 
+                    placeholder={dataConfig.placeHolder[index]}
                     className={error[item] && "isInvalid"} />}
                     {error[item] && <div className="form-error">
                       <i className="fa-solid fa-circle-exclamation" style={{ color: "red" }}></i>
