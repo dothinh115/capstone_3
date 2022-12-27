@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { history } from "../../App";
-import { http } from "../../util/config";
+import { http, needLoginToDoSth } from "../../util/config";
 import { getToken } from "../../util/function";
 
 const initialState = {
@@ -71,12 +71,12 @@ export const getProductByIdApi = (productId) => {
 };
 
 export const setLikeByIdApi = (bool, productId) => {
-  if (!getToken())
-    return history.push("/login", {
-      needLoginMessage: "Bạn cần đăng nhập để sử dụng chức năng này!",
-      page: window.location.pathname,
-    });
   return async (dispatch) => {
+    if (!getToken())
+      return history.push("/login", {
+        needLoginMessage: needLoginToDoSth,
+        page: window.location.pathname,
+      });
     try {
       await http.get(
         `https://shop.cyberlearn.vn/api/Users/${

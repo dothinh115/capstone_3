@@ -8,6 +8,9 @@ export const http = axios.create({
   timeout: 30000,
 });
 
+export const needLoginToDoSth = "Bạn cần đăng nhập để sử dụng chức năng này!";
+export const needLoginToViewSth = "Bạn cần đăng nhập để sử dụng trang này!";
+
 //cấu hình interceptor cho cấu hình request
 http.interceptors.request.use(
   (config) => {

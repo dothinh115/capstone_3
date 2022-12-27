@@ -1,5 +1,6 @@
 import React from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { needLoginToViewSth } from "../util/config";
 
 const NotLoggedInRoute = ({ loggedIn }) => {
   const location = useLocation();
@@ -8,7 +9,7 @@ const NotLoggedInRoute = ({ loggedIn }) => {
       <Navigate
         to="/login"
         state={{
-          needLoginMessage: "Bạn cần đăng nhập để truy cập trang này!",
+          needLoginMessage: needLoginToViewSth,
           page: location.pathname,
         }}
       />

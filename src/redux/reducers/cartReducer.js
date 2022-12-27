@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { history } from "../../App";
+import { needLoginToDoSth } from "../../util/config";
 import { getToken } from "../../util/function";
 
 const initialState = {
@@ -13,7 +14,7 @@ const cartReducer = createSlice({
     addToCart: (state, action) => {
       if (!getToken())
         return history.push("/login", {
-          needLoginMessage: "Bạn cần đăng nhập để sử dụng chức năng này!",
+          needLoginMessage: needLoginToDoSth,
           page: window.location.pathname,
         });
       let { cartData } = state;
