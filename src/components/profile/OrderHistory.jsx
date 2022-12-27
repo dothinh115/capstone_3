@@ -30,11 +30,11 @@ const OrderHistory = () => {
 
   return (
     <>
-      {userData?.ordersHistory.length === 0 ? (
+      {userData?.ordersHistory?.length === 0 ? (
         "Chưa có lịch sử mua hàng!"
       ) : (
         <ul>
-          {userData?.ordersHistory.slice(0, seeAll).map((item, index) => {
+          {userData?.ordersHistory?.slice(0, seeAll).map((item, index) => {
             return (
               <li key={index} style={{ opacity: deleting === item.id && ".3" }}>
                 <div>
@@ -76,11 +76,11 @@ const OrderHistory = () => {
           })}
         </ul>
       )}
-      {userData?.ordersHistory.length - seeAll > 0 && (
+      {userData?.ordersHistory?.length - seeAll > 0 && (
         <>
           <div className="footer-hr-span">
             <span>
-              Còn lại <b>{userData?.ordersHistory.length - seeAll}</b> đơn hàng
+              Còn lại <b>{userData?.ordersHistory?.length - seeAll}</b> đơn hàng
             </span>
             <div>
               <i
