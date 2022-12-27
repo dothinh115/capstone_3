@@ -15,6 +15,7 @@ const Search = () => {
   }
 
   const sendData = async (value) => {
+    if(value === null) return;
     setLoading(true);
     try {
       const fetch = await http.get(`/api/Product?keyword=${value}`);
@@ -66,7 +67,7 @@ const Search = () => {
   useEffect(() => {
     const keywords = params.get("keywords");
     if (keywords !== null) setSearchValue(keywords); sendData(keywords);
-  }, [params.get("keywords")]);
+  }, []);
 
   return (
     <>

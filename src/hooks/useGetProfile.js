@@ -1,11 +1,12 @@
 import { useDispatch } from "react-redux";
 import { getProfileApi } from "../redux/reducers/userReducer";
-import { getToken } from "../util/function";
+import useToken from "./useToken";
 
 const useGetProfile = () => {
     const dispatch = useDispatch();
+    const { token } = useToken();
     return () => {
-        if (getToken()) dispatch(getProfileApi);
+        if (token) dispatch(getProfileApi);
     }
 }
 

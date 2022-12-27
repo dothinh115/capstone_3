@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import ReactFacebookLogin from 'react-facebook-login';
 import { Link, useLocation } from 'react-router-dom';
+import useToken from '../../hooks/useToken';
 import { http } from '../../util/config';
-import { saveLocalStorage } from '../../util/function';
 
 const Login = () => {
   const { state } = useLocation();
+  const { setToken } = useToken();
   const [loginValue, setLoginValue] = useState({
     email: "",
     password: ""
@@ -51,7 +52,7 @@ const Login = () => {
   const sendData = async () => {
     try {
       const fetch = await http.post("https://shop.cyberlearn.vn/api/Users/signin", loginValue);
-      await saveLocalStorage("loginInfo", fetch.data.content);
+      setToken(fetch.data.content);
     } catch (error) {
       setResult(error.response?.data.message);
     } finally {
@@ -70,7 +71,7 @@ const Login = () => {
         facebookToken: response.accessToken
       }
       const fetch = await http.post("/api/Users/facebooklogin", data);
-      await saveLocalStorage("loginInfo", fetch.data.content);
+      setToken(fetch.data.content);
     } catch (error) {
       console.log(error);
     } finally {
@@ -129,11 +130,11 @@ const Login = () => {
                 </div>
                 <div className="item-right">
                   <input type="text" data-id="email" onChange={e => inputChangeHandle(e)} className={error.email && "isInvalid"} />
-                  {error.email && 
-                  <div className="form-error">
-                    <i className="fa-solid fa-circle-exclamation" style={{ color: "red" }}></i>
-                    {error.email}
-                  </div>}
+                  {error.email &&
+                    <div className="form-error">
+                      <i className="fa-solid fa-circle-exclamation" style={{ color: "red" }}></i>
+                      {error.email}
+                    </div>}
                 </div>
               </div>
               <div className="item">
@@ -159,20 +160,20 @@ const Login = () => {
             </div>
           </form>
           <div className="footer-hr-span">
-                <span>
-                  Hoặc
-                </span>
-                <div>
-                  <ReactFacebookLogin
-                    appId="3435564930010422"
-                    autoLoad={false}
-                    fields="name,email,picture"
-                    callback={responseFacebook}
-                    cssClass="my-fb-login-btn btn"
-                    textButton="Đăng nhập bằng Facebook"
-                    icon="fa-brands fa-facebook" />
-                </div>
-              </div>
+            <span>
+              Hoặc
+            </span>
+            <div>
+              <ReactFacebookLogin
+                appId="3435564930010422"
+                autoLoad={false}
+                fields="name,email,picture"
+                callback={responseFacebook}
+                cssClass="my-fb-login-btn btn"
+                textButton="Đăng nhập bằng Facebook"
+                icon="fa-brands fa-facebook" />
+            </div>
+          </div>
         </div>
       </div>
     </>

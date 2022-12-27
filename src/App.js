@@ -6,13 +6,13 @@ import { createBrowserHistory } from 'history';
 import LoggedInRoute from './hoc/NotLoggedInRoute';
 import NotLoggedInRoute from './hoc/LoggedInRoute';
 import React, { Suspense, lazy } from 'react';
-import useCheckToken from './hooks/useCheckToken';
+import useToken from './hooks/useToken';
 
 //npm i history => chuyển hướng trang ở file ko phải component
 export const history = createBrowserHistory();
 
 function App() {
-  const loggedIn = useCheckToken();
+  const { token } = useToken();
 
   const Search = lazy(() => import("./components/search/Search"));
   const Detail = lazy(() => import("./components/detail/Detail"));
@@ -25,7 +25,7 @@ function App() {
   return (
     <HistoryRouter history={history}>
       <Routes>
-        <Route path='/' element={<Homtemplate loggedIn={loggedIn} />} >
+        <Route path='/' element={<Homtemplate loggedIn={token} />} >
           <Route index element={
             <Suspense fallback={<div className="loader"></div>}>
               <Index />
@@ -40,7 +40,7 @@ function App() {
               <Detail />
             </Suspense>
           } />
-          <Route element={<NotLoggedInRoute loggedIn={loggedIn} />} >
+          <Route element={<NotLoggedInRoute loggedIn={token} />} >
             <Route path="/register" element={
               <Suspense fallback={<div className="loader"></div>}>
                 <Register />
@@ -52,7 +52,7 @@ function App() {
               </Suspense>
             } />
           </Route>
-          <Route element={<LoggedInRoute loggedIn={loggedIn} />}>
+          <Route element={<LoggedInRoute loggedIn={token} />}>
             <Route path='/cart' element={
               <Suspense fallback={<div className="loader"></div>}>
                 <Cart />
