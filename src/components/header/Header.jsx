@@ -1,11 +1,13 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
+import useToken from '../../hooks/useToken';
 
-const Header = ({ loggedIn }) => {
+const Header = () => {
   const { userData } = useSelector(store => store.userData);
   const navigate = useNavigate();
   const location = useLocation();
+  const { token } = useToken();
   const logoutHandle = e => {
     e.preventDefault();
     localStorage.removeItem("loginInfo");
@@ -24,7 +26,7 @@ const Header = ({ loggedIn }) => {
       </div>
       <div className="header-menu">
         <ul>
-          {loggedIn ?
+          {token ?
             <>
               <li>
                 <NavLink to="/profile">

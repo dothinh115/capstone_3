@@ -9,12 +9,14 @@ import useGetAllProduct from '../../hooks/useGetAllProduct'
 import useGetCartData from '../../hooks/useGetCartData'
 import useGetProfile from '../../hooks/useGetProfile'
 import Sidebar from '../../components/sidebar/Sidebar'
+import useToken from '../../hooks/useToken'
 
-const Homtemplate = ({ loggedIn }) => {
+const Homtemplate = () => {
   const { cartData } = useSelector(store => store.cart);
   const getAllProduct = useGetAllProduct();
   const getCartData = useGetCartData();
   const getProfile = useGetProfile();
+  const { token } = useToken();
   const [pageYOffset, setPageYOffset] = useState(0);
 
   const saveCartData = () => {
@@ -29,8 +31,8 @@ const Homtemplate = ({ loggedIn }) => {
   const backToTopHandle = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   useEffect(() => {
-    if (loggedIn) getProfile();
-  }, [loggedIn]);
+    if (token) getProfile();
+  }, [token]);
 
   useEffect(() => {
     saveCartData();
@@ -51,7 +53,7 @@ const Homtemplate = ({ loggedIn }) => {
   return (
     <div className="container main-contain" >
       <div className="contain-header">
-        <Header loggedIn={loggedIn} />
+        <Header />
       </div>
       <div className="contain-body">
         <div className="body-left">

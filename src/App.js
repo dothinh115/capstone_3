@@ -5,7 +5,7 @@ import Index from './components/index/Index';
 import { createBrowserHistory } from 'history';
 import LoggedInRoute from './hoc/NotLoggedInRoute';
 import NotLoggedInRoute from './hoc/LoggedInRoute';
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import useToken from './hooks/useToken';
 
 //npm i history => chuyển hướng trang ở file ko phải component
