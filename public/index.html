@@ -3,17 +3,44 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="React Capstone 3"
-    />
-    
+    <meta name="description" content="React Capstone 3" />
+
+    # ---------------------------------------------------------------------- #
+    Expires headers (for better cache control) #
+    ---------------------------------------------------------------------- #
+    These are pretty far-future expires headers. # They assume you control
+    versioning with filename-based cache busting # Additionally, consider that
+    outdated proxies may miscache #
+    www.stevesouders.com/blog/2008/08/23/revving-filenames-dont-use-querystring/
+    # If you don't use filenames to version, lower the CSS and JS to something
+    like # "access plus 1 week".
+
+    <IfModule mod_expires.c>
+      ExpiresActive on # Your document html ExpiresByType text/html "access plus
+      0 seconds" # Media: images, video, audio ExpiresByType audio/ogg "access
+      plus 1 month" ExpiresByType image/gif "access plus 1 month" ExpiresByType
+      image/jpeg "access plus 1 month" ExpiresByType image/png "access plus 1
+      month" ExpiresByType video/mp4 "access plus 1 month" ExpiresByType
+      video/ogg "access plus 1 month" ExpiresByType video/webm "access plus 1
+      month" # CSS and JavaScript ExpiresByType application/javascript "access
+      plus 1 year" ExpiresByType text/css "access plus 1 year"
+    </IfModule>
+
     <!-- GOOGLE FONT  -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <!-- FONTAWESOME  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
