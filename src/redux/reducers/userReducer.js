@@ -1,9 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { http } from '../../util/config';
+import { createSlice } from "@reduxjs/toolkit";
+import { http } from "../../util/config";
 
 const initialState = {
-  userData: null
-}
+  userData: null,
+};
 
 const userReducer = createSlice({
   name: "userReducer",
@@ -13,16 +13,16 @@ const userReducer = createSlice({
       let { payload } = action;
       payload = {
         ...payload,
-        ordersHistory: payload.ordersHistory.reverse()
-      }
+        ordersHistory: payload.ordersHistory.reverse(),
+      };
       state.userData = payload;
-    }
-  }
+    },
+  },
 });
 
-export const { updateUserReducer } = userReducer.actions
+export const { updateUserReducer } = userReducer.actions;
 
-export default userReducer.reducer
+export default userReducer.reducer;
 
 /****************** async dispatch ******************/
 export const getProfileApi = async (dispatch) => {
@@ -32,5 +32,4 @@ export const getProfileApi = async (dispatch) => {
   } catch (error) {
     console.log(error);
   }
-}
-
+};

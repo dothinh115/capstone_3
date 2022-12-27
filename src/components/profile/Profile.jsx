@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, Outlet, useLocation, useOutlet } from 'react-router-dom';
-import { getProductFavoriteApi, setLikeByIdApi } from '../../redux/reducers/productReducer';
-import useGetProfile from '../../hooks/useGetProfile';
-import OrderHistory from '../profile/OrderHistory';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Outlet, useLocation, useOutlet } from "react-router-dom";
+import {
+  getProductFavoriteApi,
+  setLikeByIdApi,
+} from "../../redux/reducers/productReducer";
+import useGetProfile from "../../hooks/useGetProfile";
+import OrderHistory from "../profile/OrderHistory";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const { state } = useLocation();
-  const { userData } = useSelector(store => store.userData);
-  const { productFavorite } = useSelector(store => store.product);
+  const { userData } = useSelector((store) => store.userData);
+  const { productFavorite } = useSelector((store) => store.product);
   const outlet = useOutlet();
   const getProfile = useGetProfile();
 
@@ -18,7 +21,7 @@ const Profile = () => {
   const sendUnLike = async (productId) => {
     await dispatch(setLikeByIdApi(false, productId));
     await getProductFavorite();
-  }
+  };
 
   useEffect(() => {
     getProductFavorite();
@@ -26,7 +29,7 @@ const Profile = () => {
   }, []);
   return (
     <>
-      {state?.success &&
+      {state?.success && (
         <>
           <div className="main-container" style={{ marginBottom: "20px" }}>
             <div className="page-header">
@@ -34,14 +37,15 @@ const Profile = () => {
               Chỉnh sửa thông tin thành công
             </div>
           </div>
-        </>}
-      {outlet ? <Outlet /> :
+        </>
+      )}
+      {outlet ? (
+        <Outlet />
+      ) : (
         <>
           <div className="main-container">
             <div className="page-header">
-              <h1>
-                THÔNG TIN CÁ NHÂN
-              </h1>
+              <h1>THÔNG TIN CÁ NHÂN</h1>
             </div>
             <div className="main-body profile-body">
               <div className="main-body-inner">
@@ -51,15 +55,25 @@ const Profile = () => {
                 <div className="main-body-inner-right">
                   <div className="item">
                     <div className="inner-left">
-                      Email: {userData?.email.split("@")[0].length > 12 ? userData?.email.split("@")[0].slice(0, 6) + "..." + userData?.email.split("@")[0].slice(9, 12) + "@" + userData?.email.split("@")[1] : userData?.email}
+                      Email:{" "}
+                      {userData?.email.split("@")[0].length > 12
+                        ? userData?.email.split("@")[0].slice(0, 6) +
+                          "..." +
+                          userData?.email.split("@")[0].slice(9, 12) +
+                          "@" +
+                          userData?.email.split("@")[1]
+                        : userData?.email}
                     </div>
-                    <div className="inner-right">
-                      Họ tên: {userData?.name}
-                    </div>
+                    <div className="inner-right">Họ tên: {userData?.name}</div>
                   </div>
                   <div className="item">
                     <div className="inner-left">
-                      Giới tính: <i className={`fa-solid fa-${userData?.gender ? "mars" : "venus"}`}></i>
+                      Giới tính:{" "}
+                      <i
+                        className={`fa-solid fa-${
+                          userData?.gender ? "mars" : "venus"
+                        }`}
+                      ></i>
                     </div>
                     <div className="inner-right">
                       Điện thoại: {userData?.phone}
@@ -75,13 +89,15 @@ const Profile = () => {
               </div>
             </div>
           </div>
-        </>}
+        </>
+      )}
 
-      <div className="main-container order-history" style={{ marginTop: "20px" }}>
+      <div
+        className="main-container order-history"
+        style={{ marginTop: "20px" }}
+      >
         <div className="page-header">
-          <h1>
-            LỊCH SỬ MUA HÀNG
-          </h1>
+          <h1>LỊCH SỬ MUA HÀNG</h1>
         </div>
         <div className="main-body">
           <OrderHistory />
@@ -90,12 +106,12 @@ const Profile = () => {
 
       <div className="main-container" style={{ marginTop: "20px" }}>
         <div className="page-header">
-          <h1>
-            SẢN PHẨM YÊU THÍCH
-          </h1>
+          <h1>SẢN PHẨM YÊU THÍCH</h1>
         </div>
         <div className="main-body liked-product">
-          {productFavorite.length === 0 ? "Chưa có sản phẩm yêu thích!" :
+          {productFavorite.length === 0 ? (
+            "Chưa có sản phẩm yêu thích!"
+          ) : (
             <>
               <div className="table">
                 <div className="thead">
@@ -107,30 +123,33 @@ const Profile = () => {
                 </div>
                 <div className="tbody">
                   {productFavorite?.map((item, index) => {
-                    return (<div key={index} className="tr">
-                      <div className="td">
-                        <img src={item.image} alt="" />
+                    return (
+                      <div key={index} className="tr">
+                        <div className="td">
+                          <img src={item.image} alt="" />
+                        </div>
+                        <div className="td">
+                          <Link to={`/detail/${item.id}`}>{item.name}</Link>
+                        </div>
+                        <div className="td">
+                          <button
+                            className="btn btn-red"
+                            onClick={(e) => sendUnLike(item.id)}
+                          >
+                            <i className="fa-solid fa-trash"></i>
+                          </button>
+                        </div>
                       </div>
-                      <div className="td">
-                        <Link to={`/detail/${item.id}`}>
-                          {item.name}
-                        </Link>
-                      </div>
-                      <div className="td">
-                        <button className="btn btn-red" onClick={e => sendUnLike(item.id)}>
-                          <i className="fa-solid fa-trash"></i>
-                        </button>
-                      </div>
-                    </div>
-                    )
+                    );
                   })}
                 </div>
               </div>
-            </>}
+            </>
+          )}
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;

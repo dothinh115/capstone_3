@@ -2,8 +2,8 @@ import { useDispatch } from "react-redux";
 import { getAllProductApi } from "../redux/reducers/productReducer";
 
 const useGetAllProduct = () => {
-    const dispatch = useDispatch();
-    return () => dispatch(getAllProductApi);
-}
+  const dispatch = useDispatch();
+  return () => dispatch(getAllProductApi);
+};
 
-export default useGetAllProduct
+export default useGetAllProduct;

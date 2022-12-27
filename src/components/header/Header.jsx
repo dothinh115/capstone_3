@@ -1,23 +1,23 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { NavLink, useLocation, useNavigate } from 'react-router-dom'
-import useToken from '../../hooks/useToken';
+import React from "react";
+import { useSelector } from "react-redux";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import useToken from "../../hooks/useToken";
 
 const Header = () => {
-  const { userData } = useSelector(store => store.userData);
+  const { userData } = useSelector((store) => store.userData);
   const navigate = useNavigate();
   const location = useLocation();
   const { token } = useToken();
-  const logoutHandle = e => {
+  const logoutHandle = (e) => {
     e.preventDefault();
     localStorage.removeItem("loginInfo");
     window.location.reload();
-  }
+  };
 
-  const loginClickHandle = e => {
+  const loginClickHandle = (e) => {
     e.preventDefault();
     navigate("/login", { state: { page: location.pathname } });
-  }
+  };
 
   return (
     <div className="header">
@@ -26,7 +26,7 @@ const Header = () => {
       </div>
       <div className="header-menu">
         <ul>
-          {token ?
+          {token ? (
             <>
               <li>
                 <NavLink to="/profile">
@@ -35,16 +35,21 @@ const Header = () => {
                 </NavLink>
               </li>
               <li>
-                <a href="#" onClick={e => logoutHandle(e)}>
+                <a href="#" onClick={(e) => logoutHandle(e)}>
                   <i className="fa-solid fa-power-off"></i>
                   Thoát
                 </a>
               </li>
             </>
-            :
+          ) : (
             <>
               <li>
-                <NavLink to="/login" onClick={e => { loginClickHandle(e) }}>
+                <NavLink
+                  to="/login"
+                  onClick={(e) => {
+                    loginClickHandle(e);
+                  }}
+                >
                   <i className="fa-solid fa-right-to-bracket"></i>
                   Đăng nhập
                 </NavLink>
@@ -54,11 +59,13 @@ const Header = () => {
                   <i className="fa-solid fa-user-plus"></i>
                   Đăng ký
                 </NavLink>
-              </li></>}
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
