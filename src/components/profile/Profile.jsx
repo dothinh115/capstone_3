@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useLocation, useOutlet } from "react-router-dom";
 import {
@@ -13,15 +13,26 @@ const Profile = () => {
   const { state } = useLocation();
   const { userData } = useSelector((store) => store.userData);
   const { productFavorite } = useSelector((store) => store.product);
+  const [deleting, setDeleting] = useState(null);
   const outlet = useOutlet();
   const getProfile = useGetProfile();
 
   const getProductFavorite = () => dispatch(getProductFavoriteApi);
 
   const sendUnLike = async (productId) => {
-    await dispatch(setLikeByIdApi(false, productId));
-    await getProductFavorite();
+    setDeleting(productId);
+    try {
+      await dispatch(setLikeByIdApi(false, productId));
+    } catch (error) {
+      console.log(error);
+    } finally {
+      getProductFavorite();
+    }
   };
+
+  useEffect(() => {
+    console.log("profile render");
+  });
 
   useEffect(() => {
     getProductFavorite();
@@ -124,7 +135,11 @@ const Profile = () => {
                 <div className="tbody">
                   {productFavorite?.map((item, index) => {
                     return (
-                      <div key={index} className="tr">
+                      <div
+                        key={index}
+                        className="tr"
+                        style={{ opacity: deleting === item.id && ".3" }}
+                      >
                         <div className="td">
                           <img src={item.image} alt="" />
                         </div>

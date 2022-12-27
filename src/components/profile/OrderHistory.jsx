@@ -25,7 +25,7 @@ const OrderHistory = () => {
   const seeAllHandle = () => setSeeAll(seeAll + 3);
 
   useEffect(() => {
-    setDeleting(null);
+    if (userData?.orderHistory) setDeleting(null);
   }, [userData?.ordersHistory]);
 
   return (
