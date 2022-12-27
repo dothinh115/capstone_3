@@ -3,7 +3,6 @@ import { history } from "../App";
 import { getToken } from "./function";
 import { isExpired } from "react-jwt";
 //tạo 1 api mới
-
 export const http = axios.create({
     baseURL: "https://shop.cyberlearn.vn",
     timeout: 30000
