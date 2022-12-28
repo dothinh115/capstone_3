@@ -35,10 +35,11 @@ http.interceptors.response.use(
     const ifTokenExpired = isExpired(getToken());
     if (getToken() && ifTokenExpired) {
       localStorage.removeItem("loginInfo");
-      window.location.reload();
-      console.log(ifTokenExpired);
-    }
-    if (err.response?.status === 400) {
+      history.push("/login", {
+        needLoginMessage: "Hết phiên đăng nhập, vui lòng đăng nhập lại!",
+        page: window.location.pathname,
+      });
+    } else if (err.response?.status === 400) {
       if (
         window.location.pathname === "/register" ||
         window.location.pathname === "/login"
@@ -50,14 +51,14 @@ http.interceptors.response.use(
       history.push("/");
     }
     //lỗi unauthorized
-    if (err.response?.status === 401 || err.response?.status === 403) {
+    else if (err.response?.status === 401 || err.response?.status === 403) {
       //Chưa hoạt động
-      history.push("/login");
+      localStorage.removeItem("loginInfo");
+      window.location.reload();
+    } else {
       localStorage.removeItem("loginInfo");
       window.location.reload();
     }
-    localStorage.removeItem("loginInfo");
-    window.location.reload();
     return Promise.reject(err);
   }
 );
