@@ -1,10 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { history } from "../../App";
 import { needLoginToDoSth } from "../../util/config";
-import { getToken } from "../../util/function";
+import { getEmail, getLocalStorage, getToken } from "../../util/function";
+const getCartData = () => {
+  const data = getLocalStorage(`cartData.${getEmail()}`);
+  if (data) return data;
+  return [];
+};
 
 const initialState = {
-  cartData: [],
+  cartData: getCartData(),
 };
 
 const cartReducer = createSlice({
