@@ -9,7 +9,7 @@ const useCartData = () => {
   const dispatch = useDispatch();
   const cartKey = `cartData.${email}`;
   const getLocalData = () => {
-    const data = getLocalStorage(`cartData.${email}`);
+    const data = getLocalStorage(cartKey);
     if (data) return data;
     return null;
   };
@@ -20,7 +20,7 @@ const useCartData = () => {
   };
 
   const getCartData = () => {
-    const data = getLocalStorage(`cartData.${email}`);
+    const data = getLocalStorage(cartKey);
     dispatch(loadCartData(data));
   };
 
