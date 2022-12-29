@@ -31,7 +31,6 @@ const Detail = () => {
     const payload = {
       ...productDetail,
       quantity: number,
-      checked: false,
     };
     dispatch(addToCart(payload));
   };

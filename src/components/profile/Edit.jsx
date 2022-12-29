@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import dataConfig from "../../templates/dataConfig";
-import { getProfileApi } from "../../redux/reducers/userReducer";
-import { http } from "../../util/config";
+import { updateProfileApi } from "../../redux/reducers/userReducer";
 
 const Edit = () => {
   const dispatch = useDispatch();
@@ -32,7 +31,7 @@ const Edit = () => {
   const checkValid = () => {
     for (let key in dataValue) {
       if (key === "gender") continue;
-      if (dataValue[key] == "" || error[key] != "") return false;
+      if (dataValue[key] === "" || error[key] !== "") return false;
     }
     return true;
   };
@@ -73,11 +72,7 @@ const Edit = () => {
 
   const sendData = async () => {
     try {
-      await http.post(
-        "https://shop.cyberlearn.vn/api/Users/updateProfile",
-        dataValue
-      );
-      dispatch(getProfileApi);
+      await dispatch(updateProfileApi(dataValue));
     } catch (error) {
       setMessErr(error.response.data.content);
     } finally {

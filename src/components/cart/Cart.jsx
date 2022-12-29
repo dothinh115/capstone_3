@@ -6,9 +6,8 @@ import {
   checkItem,
   deleteCartItem,
   quantityUpdate,
+  sendOrderApi,
 } from "../../redux/reducers/cartReducer";
-import { getProfileApi } from "../../redux/reducers/userReducer";
-import { http } from "../../util/config";
 import { getEmail } from "../../util/function";
 import OrderHistory from "../profile/OrderHistory";
 
@@ -63,8 +62,7 @@ const Cart = () => {
   const sendCheckoutHandle = async (data) => {
     setLoading(true);
     try {
-      await http.post("https://shop.cyberlearn.vn/api/Users/order", data);
-      await dispatch(getProfileApi);
+      await dispatch(sendOrderApi(data));
     } catch (error) {
       console.log(error);
     } finally {

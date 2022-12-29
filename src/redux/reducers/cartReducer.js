@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { history } from "../../App";
-import { needLoginToDoSth } from "../../util/config";
+import { http, needLoginToDoSth } from "../../util/config";
 import { getEmail, getLocalStorage, getToken } from "../../util/function";
+import { getProfileApi } from "./userReducer";
 const getCartData = () => {
   const data = getLocalStorage(`cartData.${getEmail()}`);
   if (data) return data;
@@ -23,7 +24,7 @@ const cartReducer = createSlice({
           page: window.location.pathname,
         });
       let { cartData } = state;
-      const { payload } = action;
+      let { payload } = action;
       const index = cartData.findIndex((item) => item.id === payload.id);
       if (index !== -1) {
         cartData[index] = {
@@ -31,13 +32,14 @@ const cartReducer = createSlice({
           quantity: cartData[index].quantity + payload.quantity,
         };
       } else {
+        payload = {
+          ...payload,
+          checked: false,
+        };
         cartData = [...cartData, payload];
       }
       state.cartData = cartData;
       history.push("/cart", { justAddId: payload.id });
-    },
-    loadCartData: (state, action) => {
-      state.cartData = action.payload;
     },
     quantityUpdate: (state, action) => {
       let { cartData } = state;
@@ -83,7 +85,6 @@ const cartReducer = createSlice({
 
 export const {
   addToCart,
-  loadCartData,
   quantityUpdate,
   deleteCartItem,
   checkItem,
@@ -91,3 +92,15 @@ export const {
 } = cartReducer.actions;
 
 export default cartReducer.reducer;
+
+/************ async action **********/
+export const sendOrderApi = (data) => {
+  return async (dispatch) => {
+    try {
+      await http.post("https://shop.cyberlearn.vn/api/Users/order", data);
+      await dispatch(getProfileApi);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

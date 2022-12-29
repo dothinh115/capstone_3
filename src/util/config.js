@@ -9,7 +9,7 @@ export const http = axios.create({
 });
 
 export const needLoginToDoSth = "Bạn cần đăng nhập để sử dụng chức năng này!";
-export const needLoginToViewSth = "Bạn cần đăng nhập để sử dụng trang này!";
+export const needLoginToViewSth = "Bạn cần đăng nhập để truy cập trang này!";
 
 //cấu hình interceptor cho cấu hình request
 http.interceptors.request.use(

@@ -33,3 +33,17 @@ export const getProfileApi = async (dispatch) => {
     console.log(error);
   }
 };
+
+export const updateProfileApi = (dataValue) => {
+  return async (dispatch) => {
+    try {
+      await http.post(
+        "https://shop.cyberlearn.vn/api/Users/updateProfile",
+        dataValue
+      );
+      dispatch(getProfileApi);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

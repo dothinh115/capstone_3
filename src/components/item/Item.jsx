@@ -12,7 +12,6 @@ const Item = ({ item }) => {
     const payload = {
       ...item,
       quantity: 1,
-      checked: false,
     };
     dispatch(addToCart(payload));
   };
