@@ -224,7 +224,7 @@ const Cart = () => {
         </div>
       </div>
 
-      {checkoutRes && (
+      {checkoutRes && !loading && (
         <div className="main-container" style={{ margin: "20px 0" }}>
           <div className="page-header">
             {error ? (
@@ -245,21 +245,18 @@ const Cart = () => {
         </div>
       )}
 
-      {loading ? (
-        <div className="loader"></div>
-      ) : (
-        <div
-          className="main-container order-history"
-          style={{ marginTop: "20px" }}
-        >
-          <div className="page-header">
-            <h1>LỊCH SỬ MUA HÀNG</h1>
-          </div>
-          <div className="main-body">
-            <OrderHistory />
-          </div>
+      {loading && <div className="loader"></div>}
+      <div
+        className="main-container order-history"
+        style={{ marginTop: "20px" }}
+      >
+        <div className="page-header">
+          <h1>LỊCH SỬ MUA HÀNG</h1>
         </div>
-      )}
+        <div className="main-body">
+          <OrderHistory />
+        </div>
+      </div>
     </>
   );
 };

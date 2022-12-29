@@ -439,7 +439,7 @@ i {
   box-sizing: border-box;
   -webkit-animation: rotation 1s linear infinite;
           animation: rotation 1s linear infinite;
-  margin: auto;
+  margin: 20px auto;
 }
 
 @-webkit-keyframes rotation {

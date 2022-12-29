@@ -9,6 +9,7 @@ const Edit = () => {
   const { userData } = useSelector((store) => store.userData);
   const navigate = useNavigate();
   const [messErr, setMessErr] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const [dataValue, setDataValue] = useState({
     email: "",
@@ -71,11 +72,13 @@ const Edit = () => {
   };
 
   const sendData = async () => {
+    setLoading(true);
     try {
       await dispatch(updateProfileApi(dataValue));
     } catch (error) {
       setMessErr(error.response.data.content);
     } finally {
+      setLoading(false);
       navigate("/profile", { state: { success: true } });
     }
   };
@@ -115,6 +118,7 @@ const Edit = () => {
           </div>
         </>
       )}
+      {loading && <div className="loader"></div>}
       <div className="main-container">
         <div className="page-header">
           <h1>Chỉnh sửa thông tin cá nhân - {userData?.name}</h1>
