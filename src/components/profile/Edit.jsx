@@ -13,7 +13,6 @@ const Edit = () => {
 
   const [dataValue, setDataValue] = useState({
     email: userData?.email,
-    password: "",
     name: userData?.name,
     gender: userData?.gender,
     phone: userData?.phone,
@@ -21,7 +20,6 @@ const Edit = () => {
 
   const [error, setError] = useState({
     email: "",
-    password: "",
     name: "",
     gender: "",
     phone: "",
@@ -110,6 +108,7 @@ const Edit = () => {
         <div className="main-body edit-container">
           <form onSubmit={(e) => submitHandle(e)}>
             {dataConfig.id.map((item, index) => {
+              if (index === 1) return false;
               return (
                 <div key={index} className="item">
                   <div className="item-left">
@@ -135,7 +134,6 @@ const Edit = () => {
                       <input
                         disabled={item === "email" ? true : false}
                         data-id={item}
-                        type={item === "password" ? "password" : "text"}
                         defaultValue={dataValue[item]}
                         onChange={(e) => inputChangeHandle(e)}
                         placeholder={dataConfig.placeHolder[index]}
