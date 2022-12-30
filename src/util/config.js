@@ -35,7 +35,7 @@ http.interceptors.response.use(
     //check Token
     const ifTokenExpired = isExpired(getToken());
     if (getToken() && ifTokenExpired) {
-      localStorage.removeItem("loginInfo");
+      localStorage.removeItem(loginKey);
       history.push("/login", {
         needLoginMessage: "Hết phiên đăng nhập, vui lòng đăng nhập lại!",
         page: window.location.pathname,
@@ -57,9 +57,15 @@ http.interceptors.response.use(
     //lỗi unauthorized
     if (err.response?.status === 401 || err.response?.status === 403) {
       //Chưa hoạt động
-      localStorage.removeItem("loginInfo");
+      localStorage.removeItem(loginKey);
       window.location.reload();
     }
+
+    if (err.code === "ERR_NETWORK") {
+      localStorage.removeItem(loginKey);
+      window.location.reload();
+    }
+
     return Promise.reject(err);
   }
 );
