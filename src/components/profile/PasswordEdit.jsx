@@ -138,6 +138,7 @@ const PasswordEdit = () => {
                 <div className="item-right">
                   <div className="form-button">
                     <button
+                      type="submit"
                       className="btn"
                       disabled={checkValid() ? false : true}
                     >
@@ -145,6 +146,7 @@ const PasswordEdit = () => {
                     </button>
                     <button
                       className="btn btn-red"
+                      type="button"
                       onClick={() => navigate("/profile")}
                     >
                       Hủy
