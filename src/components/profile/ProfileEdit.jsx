@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import dataConfig from "../../templates/dataConfig";
 import { updateProfileApi } from "../../redux/reducers/userReducer";
+import { useForm } from "react-hook-form";
 
 const ProfileEdit = () => {
   const dispatch = useDispatch();
@@ -11,68 +12,24 @@ const ProfileEdit = () => {
   const [messErr, setMessErr] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const [dataValue, setDataValue] = useState({
-    email: userData?.email,
-    name: userData?.name,
-    gender: userData?.gender,
-    phone: userData?.phone,
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "all",
+    defaultValues: {
+      email: userData?.email,
+      name: userData?.name,
+      gender: userData?.gender,
+      phone: userData?.phone,
+    },
   });
 
-  const [error, setError] = useState({
-    email: "",
-    name: "",
-    gender: "",
-    phone: "",
-  });
-
-  const [valid, setValid] = useState(false);
-
-  const checkValid = () => {
-    for (let key in dataValue) {
-      if (key === "gender") continue;
-      if (dataValue[key] === "" || error[key] !== "") return false;
-    }
-    return true;
-  };
-
-  const inputChangeHandle = (e) => {
-    const { value } = e.target;
-    const id = e.target.getAttribute("data-id");
-    let errMess = "";
-    if (value.trim() === "") {
-      errMess = "Không được để trống!";
-    } else {
-      for (let key in dataConfig.id) {
-        switch (id) {
-          case dataConfig.id[key]: {
-            if (!value.match(dataConfig.reg[key]))
-              errMess = dataConfig.errorMessage[key];
-          }
-        }
-      }
-    }
-    setError({
-      ...error,
-      [id]: errMess,
-    });
-
-    setDataValue({
-      ...dataValue,
-      [id]: value,
-    });
-  };
-
-  const submitHandle = (e) => {
-    e.preventDefault();
-    if (checkValid()) {
-      sendData();
-    }
-  };
-
-  const sendData = async () => {
+  const submitHandle = async (data) => {
     setLoading(true);
     try {
-      await dispatch(updateProfileApi(dataValue));
+      await dispatch(updateProfileApi(data));
     } catch (error) {
       setMessErr(error.response.data.content);
     } finally {
@@ -82,10 +39,6 @@ const ProfileEdit = () => {
       });
     }
   };
-
-  useEffect(() => {
-    setValid(checkValid());
-  }, [dataValue]);
 
   return (
     <>
@@ -108,7 +61,7 @@ const ProfileEdit = () => {
           <h1>Chỉnh sửa thông tin cá nhân - {userData?.name}</h1>
         </div>
         <div className="main-body edit-container">
-          <form onSubmit={(e) => submitHandle(e)}>
+          <form onSubmit={handleSubmit(submitHandle)}>
             {dataConfig.id.map((item, index) => {
               if (index === 1) return false;
               return (
@@ -123,33 +76,31 @@ const ProfileEdit = () => {
                   </div>
                   <div className="item-right">
                     {item === "gender" ? (
-                      <select
-                        name="gender"
-                        data-id={item}
-                        onChange={(e) => inputChangeHandle(e)}
-                        value={dataValue.gender}
-                      >
+                      <select {...register(item)}>
                         <option value="true">Nam</option>
                         <option value="false">Nữ</option>
                       </select>
                     ) : (
                       <input
                         disabled={item === "email" ? true : false}
-                        data-id={item}
-                        defaultValue={dataValue[item]}
-                        onChange={(e) => inputChangeHandle(e)}
-                        onBlur={(e) => inputChangeHandle(e)}
+                        {...register(item, {
+                          required: "Không được bỏ trống!",
+                          pattern: {
+                            value: dataConfig.reg[index],
+                            message: dataConfig.errorMessage[index],
+                          },
+                        })}
                         placeholder={dataConfig.placeHolder[index]}
-                        className={error[item] && "isInvalid"}
+                        className={errors[item]?.message && "isInvalid"}
                       />
                     )}
-                    {error[item] && (
+                    {errors[item]?.message && (
                       <div className="form-error">
                         <i
                           className="fa-solid fa-circle-exclamation"
                           style={{ color: "red" }}
                         ></i>
-                        {error[item]}
+                        {errors[item]?.message}
                       </div>
                     )}
                   </div>
@@ -160,11 +111,7 @@ const ProfileEdit = () => {
               <div className="item-left"></div>
               <div className="item-right">
                 <div className="form-button">
-                  <button
-                    type="submit"
-                    className="btn"
-                    disabled={valid ? false : true}
-                  >
+                  <button type="submit" className="btn">
                     Sửa
                   </button>
                   <button

@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import dataConfig from "../../templates/dataConfig";
 import { http } from "../../util/config";
+import { useForm } from "react-hook-form";
 
 const Register = () => {
-  const [dataValue, setDataValue] = useState({
-    email: "",
-    password: "",
-    name: "",
-    gender: true,
-    phone: "",
-  });
-
-  const [error, setError] = useState({
-    email: "",
-    password: "",
-    name: "",
-    gender: "",
-    phone: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "all",
+    defaultValues: {
+      email: "",
+      password: "",
+      name: "",
+      gender: true,
+      phone: "",
+    },
   });
 
   const [result, setResult] = useState({
@@ -25,44 +25,9 @@ const Register = () => {
     message: "",
   });
 
-  const [valid, setValid] = useState(false);
-
-  const checkValid = () => {
-    for (let key in dataValue) {
-      if (dataValue[key] === "" || error[key] !== "") return false;
-    }
-    return true;
-  };
-
-  const inputChangeHandle = (e) => {
-    const { value } = e.target;
-    const id = e.target.getAttribute("data-id");
-    let errMess = "";
-    if (value.trim() === "") {
-      errMess = "Không được để trống!";
-    } else {
-      for (let key in dataConfig.id) {
-        switch (id) {
-          case dataConfig.id[key]: {
-            if (!value.match(dataConfig.reg[key]))
-              errMess = dataConfig.errorMessage[key];
-          }
-        }
-      }
-    }
-    setError({
-      ...error,
-      [id]: errMess,
-    });
-    setDataValue({
-      ...dataValue,
-      [id]: value,
-    });
-  };
-
-  const sendData = async () => {
+  const submitHandle = async (data) => {
     try {
-      const fetch = await http.post("/api/Users/signup", dataValue);
+      const fetch = await http.post("/api/Users/signup", data);
       setResult({
         result: true,
         message: fetch.data?.message,
@@ -74,18 +39,6 @@ const Register = () => {
       });
     }
   };
-
-  const submitHandle = (e) => {
-    e.preventDefault();
-  };
-
-  const regButtonHandle = (e) => {
-    checkValid() && sendData();
-  };
-
-  useEffect(() => {
-    setValid(checkValid());
-  }, [dataValue]);
 
   return (
     <>
@@ -139,7 +92,7 @@ const Register = () => {
           </div>
           <div className="main-body">
             <div className="register-form">
-              <form onSubmit={(e) => submitHandle(e)}>
+              <form onSubmit={handleSubmit(submitHandle)}>
                 <div className="register-form-main">
                   {dataConfig.id.map((item, index) => {
                     return (
@@ -154,33 +107,31 @@ const Register = () => {
                         </div>
                         <div className="item-right">
                           {item === "gender" ? (
-                            <select
-                              name="gender"
-                              data-id={item}
-                              onChange={(e) => inputChangeHandle(e)}
-                              value={dataValue.gender}
-                            >
+                            <select {...register(item)}>
                               <option value="true">Nam</option>
                               <option value="false">Nữ</option>
                             </select>
                           ) : (
                             <input
-                              data-id={item}
                               type={item === "password" ? "password" : "text"}
-                              onChange={(e) => inputChangeHandle(e)}
-                              onBlur={(e) => inputChangeHandle(e)}
-                              className={error[item] && "isInvalid"}
+                              className={errors[item]?.message && "isInvalid"}
                               placeholder={dataConfig.placeHolder[index]}
-                              defaultValue={dataValue[item]}
+                              {...register(item, {
+                                required: "Không được để trống!",
+                                pattern: {
+                                  value: dataConfig.reg[index],
+                                  message: dataConfig.errorMessage[index],
+                                },
+                              })}
                             />
                           )}
-                          {error[item] && (
+                          {errors[item]?.message && (
                             <div className="form-error">
                               <i
                                 className="fa-solid fa-circle-exclamation"
                                 style={{ color: "red" }}
                               ></i>
-                              {error[item]}
+                              {errors[item]?.message}
                             </div>
                           )}
                         </div>
@@ -191,11 +142,7 @@ const Register = () => {
                     <div className="item-left"></div>
                     <div className="item-right">
                       <div className="form-button">
-                        <button
-                          className="btn"
-                          disabled={valid ? false : true}
-                          onClick={(e) => regButtonHandle(e)}
-                        >
+                        <button className="btn" type="submit">
                           Đăng ký
                         </button>
                       </div>

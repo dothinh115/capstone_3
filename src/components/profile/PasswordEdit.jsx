@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import dataConfig from "../../templates/dataConfig";
 import { http } from "../../util/config";
 
 const PasswordEdit = () => {
   const navigate = useNavigate();
-
-  const [value, setValue] = useState({
-    password: "",
-    passwordConfirm: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm({
+    mode: "all",
+    defaultValues: {
+      password: "",
+      passwordConfirm: "",
+    },
   });
-
-  const [error, setError] = useState({
-    password: "",
-    passwordConfirm: "",
-  });
-
   const [loading, setLoading] = useState(false);
-
   const reg = () => {
     for (let key in dataConfig.id) {
       if (dataConfig.id[key] === "password") return dataConfig.reg[key];
@@ -30,47 +31,12 @@ const PasswordEdit = () => {
     }
   };
 
-  const passwordChangeHandle = ({ target }) => {
-    const id = target.getAttribute("data-id");
-    let messageError = "";
-    if (target.value === "") {
-      messageError = "Không được để trống!";
-    } else {
-      if (id === "password" && !target.value.match(reg()))
-        messageError = "Mật khẩu không đúng định dạng!";
-      if (id === "passwordConfirm" && target.value !== value.password)
-        messageError = "Mật khẩu chưa khớp";
-    }
-    setError({
-      ...error,
-      [id]: messageError,
-    });
-
-    setValue({
-      ...value,
-      [id]: target.value,
-    });
-  };
-
-  const checkValid = () => {
-    let result = true;
-    if (value.password === "" || value.passwordConfirm === "") result = false;
-    if (error.password !== "" || error.passwordConfirm !== "") result = false;
-    return result;
-  };
-
-  const submitHandle = (e) => {
-    e.preventDefault();
-    sendData();
-  };
-
-  const sendData = async () => {
-    if (!checkValid) return;
+  const submitHandle = async (data) => {
     setLoading(true);
-    const data = {
-      newPassword: value.password,
+    const newPass = {
+      newPassword: data.password,
     };
-    await http.post("/api/Users/changePassword", data);
+    await http.post("/api/Users/changePassword", newPass);
     setLoading(false);
     navigate("/profile", { state: { resMess: "Đổi mật khẩu thành công" } });
   };
@@ -85,7 +51,7 @@ const PasswordEdit = () => {
             <h1>Đổi mật khẩu</h1>
           </div>
           <div className="main-body edit-container">
-            <form onSubmit={(e) => submitHandle(e)}>
+            <form onSubmit={handleSubmit(submitHandle)}>
               <div className="item">
                 <div className="item-left">
                   <i className="fa-solid fa-lock"></i>
@@ -95,17 +61,22 @@ const PasswordEdit = () => {
                   <input
                     type="password"
                     placeholder={placeHolder()}
-                    onChange={(e) => passwordChangeHandle(e)}
-                    onBlur={(e) => passwordChangeHandle(e)}
-                    data-id="password"
+                    className={errors.password?.message && "isInvalid"}
+                    {...register("password", {
+                      required: "Không được để trống!",
+                      pattern: {
+                        value: reg(),
+                        message: "Mật khẩu không đúng định dạng!",
+                      },
+                    })}
                   />
-                  {error.password && (
+                  {errors.password?.message && (
                     <div className="form-error">
                       <i
                         className="fa-solid fa-circle-exclamation"
                         style={{ color: "red" }}
                       ></i>
-                      {error.password}
+                      {errors.password?.message}
                     </div>
                   )}
                 </div>
@@ -118,17 +89,22 @@ const PasswordEdit = () => {
                 <div className="item-right">
                   <input
                     type="password"
-                    data-id="passwordConfirm"
-                    onChange={(e) => passwordChangeHandle(e)}
-                    onBlur={(e) => passwordChangeHandle(e)}
+                    className={errors.passwordConfirm?.message && "isInvalid"}
+                    {...register("passwordConfirm", {
+                      required: "Không được để trống!",
+                      validate: (value) => {
+                        if (watch("password") !== value)
+                          return "Nhập lại mật khẩu chưa khớp!";
+                      },
+                    })}
                   />
-                  {error.passwordConfirm && (
+                  {errors.passwordConfirm?.message && (
                     <div className="form-error">
                       <i
                         className="fa-solid fa-circle-exclamation"
                         style={{ color: "red" }}
                       ></i>
-                      {error.passwordConfirm}
+                      {errors.passwordConfirm?.message}
                     </div>
                   )}
                 </div>
@@ -137,11 +113,7 @@ const PasswordEdit = () => {
                 <div className="item-left"></div>
                 <div className="item-right">
                   <div className="form-button">
-                    <button
-                      type="submit"
-                      className="btn"
-                      disabled={checkValid() ? false : true}
-                    >
+                    <button type="submit" className="btn">
                       Lưu
                     </button>
                     <button
