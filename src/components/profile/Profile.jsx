@@ -100,69 +100,69 @@ const Profile = () => {
               </div>
             </div>
           </div>
+
+          <div
+            className="main-container order-history"
+            style={{ marginTop: "20px" }}
+          >
+            <div className="page-header">
+              <h1>LỊCH SỬ MUA HÀNG</h1>
+            </div>
+            <div className="main-body">
+              <OrderHistory />
+            </div>
+          </div>
+
+          <div className="main-container" style={{ marginTop: "20px" }}>
+            <div className="page-header">
+              <h1>SẢN PHẨM YÊU THÍCH</h1>
+            </div>
+            <div className="main-body liked-product">
+              {productFavorite.length === 0 ? (
+                "Chưa có sản phẩm yêu thích!"
+              ) : (
+                <>
+                  <div className="table">
+                    <div className="thead">
+                      <div className="tr">
+                        <div className="th"></div>
+                        <div className="th">Tên sản phẩm</div>
+                        <div className="th">Thao tác</div>
+                      </div>
+                    </div>
+                    <div className="tbody">
+                      {productFavorite?.map((item, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className="tr"
+                            style={{ opacity: deleting === item.id && ".3" }}
+                          >
+                            <div className="td">
+                              <img src={item.image} alt="" />
+                            </div>
+                            <div className="td">
+                              <Link to={`/detail/${item.id}`}>{item.name}</Link>
+                            </div>
+                            <div className="td">
+                              <button
+                                className="btn btn-red"
+                                onClick={(e) => sendUnLike(item.id)}
+                              >
+                                <i className="fa-solid fa-trash"></i>
+                              </button>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
         </>
       )}
-
-      <div
-        className="main-container order-history"
-        style={{ marginTop: "20px" }}
-      >
-        <div className="page-header">
-          <h1>LỊCH SỬ MUA HÀNG</h1>
-        </div>
-        <div className="main-body">
-          <OrderHistory />
-        </div>
-      </div>
-
-      <div className="main-container" style={{ marginTop: "20px" }}>
-        <div className="page-header">
-          <h1>SẢN PHẨM YÊU THÍCH</h1>
-        </div>
-        <div className="main-body liked-product">
-          {productFavorite.length === 0 ? (
-            "Chưa có sản phẩm yêu thích!"
-          ) : (
-            <>
-              <div className="table">
-                <div className="thead">
-                  <div className="tr">
-                    <div className="th"></div>
-                    <div className="th">Tên sản phẩm</div>
-                    <div className="th">Thao tác</div>
-                  </div>
-                </div>
-                <div className="tbody">
-                  {productFavorite?.map((item, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className="tr"
-                        style={{ opacity: deleting === item.id && ".3" }}
-                      >
-                        <div className="td">
-                          <img src={item.image} alt="" />
-                        </div>
-                        <div className="td">
-                          <Link to={`/detail/${item.id}`}>{item.name}</Link>
-                        </div>
-                        <div className="td">
-                          <button
-                            className="btn btn-red"
-                            onClick={(e) => sendUnLike(item.id)}
-                          >
-                            <i className="fa-solid fa-trash"></i>
-                          </button>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </>
-          )}
-        </div>
-      </div>
     </>
   );
 };

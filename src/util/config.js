@@ -41,6 +41,7 @@ http.interceptors.response.use(
         page: window.location.pathname,
       });
     }
+
     if (
       (err.response?.status === 404 &&
         window.location.pathname === "/register") ||
