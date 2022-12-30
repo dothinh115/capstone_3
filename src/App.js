@@ -25,7 +25,8 @@ function App() {
   const Login = lazy(() => import("./components/login/Login"));
   const Cart = lazy(() => import("./components/cart/Cart"));
   const Profile = lazy(() => import("./components/profile/Profile"));
-  const Edit = lazy(() => import("./components/profile/Edit"));
+  const ProfileEdit = lazy(() => import("./components/profile/ProfileEdit"));
+  const PasswordEdit = lazy(() => import("./components/profile/PasswordEdit"));
 
   return (
     <HistoryRouter history={history}>
@@ -91,10 +92,18 @@ function App() {
               }
             >
               <Route
-                path="/profile/edit"
+                path="/profile/profile-edit"
                 element={
                   <Suspense fallback={<div className="loader"></div>}>
-                    <Edit />
+                    <ProfileEdit />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/profile/password-edit"
+                element={
+                  <Suspense fallback={<div className="loader"></div>}>
+                    <PasswordEdit />
                   </Suspense>
                 }
               />

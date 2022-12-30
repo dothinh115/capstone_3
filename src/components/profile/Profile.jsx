@@ -35,12 +35,12 @@ const Profile = () => {
   }, []);
   return (
     <>
-      {state?.success && (
+      {state?.resMess && (
         <>
           <div className="main-container" style={{ marginBottom: "20px" }}>
             <div className="page-header">
               <i className="fa-solid fa-check" style={{ color: "green" }}></i>
-              Chỉnh sửa thông tin thành công
+              {state?.resMess}
             </div>
           </div>
         </>
@@ -86,9 +86,14 @@ const Profile = () => {
                     </div>
                   </div>
                   <div className="item">
-                    <Link to="/profile/edit" className="edit-button">
+                    <Link to="/profile/profile-edit" className="edit-button">
                       <i className="fa-solid fa-pen-to-square"></i>
                       Chỉnh sửa
+                    </Link>
+
+                    <Link to="/profile/password-edit" className="edit-button">
+                      <i className="fa-solid fa-key"></i>
+                      Đổi mật khẩu
                     </Link>
                   </div>
                 </div>

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import dataConfig from "../../templates/dataConfig";
 import { updateProfileApi } from "../../redux/reducers/userReducer";
 
-const Edit = () => {
+const ProfileEdit = () => {
   const dispatch = useDispatch();
   const { userData } = useSelector((store) => store.userData);
   const navigate = useNavigate();
@@ -77,7 +77,9 @@ const Edit = () => {
       setMessErr(error.response.data.content);
     } finally {
       setLoading(false);
-      navigate("/profile", { state: { success: true } });
+      navigate("/profile", {
+        state: { resMess: "Chỉnh sửa thông tin thành công" },
+      });
     }
   };
 
@@ -157,7 +159,11 @@ const Edit = () => {
               <div className="item-left"></div>
               <div className="item-right">
                 <div className="form-button">
-                  <button className="btn" disabled={valid ? false : true}>
+                  <button
+                    type="submit"
+                    className="btn"
+                    disabled={valid ? false : true}
+                  >
                     Sửa
                   </button>
                   <button
@@ -177,4 +183,4 @@ const Edit = () => {
   );
 };
 
-export default Edit;
+export default ProfileEdit;

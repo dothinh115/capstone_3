@@ -26,7 +26,10 @@ const Breadcrumbs = () => {
             <NavLink to="/profile">Thông tin cá nhân</NavLink>
           </li>
           <li>
-            <NavLink to="/profile/edit">Sửa</NavLink>
+            <NavLink to="/profile/profile-edit">Sửa thông tin</NavLink>
+          </li>
+          <li>
+            <NavLink to="/profile/password-edit">Đổi mật khẩu</NavLink>
           </li>
           <li>
             <NavLink

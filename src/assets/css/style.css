@@ -710,6 +710,13 @@ i {
   border-radius: 5px;
   padding: 15px;
   background-color: rgba(219, 112, 147, 0.65);
+  margin-right: 10px;
+}
+@media (max-width: 768px) {
+  .profile-body .main-body-inner-right .item .edit-button {
+    display: block;
+    margin-bottom: 10px;
+  }
 }
 @media (max-width: 768px) {
   .profile-body .main-body-inner-right .item {
