@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { http } from "../../util/config";
+import { getToken } from "../../util/function";
 
 const initialState = {
-  userData: {},
+  userData: null,
 };
 
 const userReducer = createSlice({
@@ -26,6 +27,7 @@ export default userReducer.reducer;
 
 /****************** async dispatch ******************/
 export const getProfileApi = async (dispatch) => {
+  if (!getToken()) return;
   try {
     const fetch = await http.post("/api/Users/getProfile");
     dispatch(updateUserReducer(fetch.data.content));

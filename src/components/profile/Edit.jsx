@@ -12,11 +12,11 @@ const Edit = () => {
   const [loading, setLoading] = useState(false);
 
   const [dataValue, setDataValue] = useState({
-    email: "",
+    email: userData?.email,
     password: "",
-    name: "",
-    gender: true,
-    phone: "",
+    name: userData?.name,
+    gender: userData?.gender,
+    phone: userData?.phone,
   });
 
   const [error, setError] = useState({
@@ -82,22 +82,6 @@ const Edit = () => {
       navigate("/profile", { state: { success: true } });
     }
   };
-
-  useEffect(() => {
-    // for (let key in dataValue) {
-    //   setDataValue({
-    //     ...dataValue,
-    //     [key]: userInfo[key]
-    //   });
-    // }
-    setDataValue({
-      ...dataValue,
-      name: userData?.name,
-      gender: userData?.gender,
-      email: userData?.email,
-      phone: userData?.phone,
-    });
-  }, [userData]);
 
   useEffect(() => {
     setValid(checkValid());

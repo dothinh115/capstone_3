@@ -5,8 +5,8 @@ import {
   getProductFavoriteApi,
   setLikeByIdApi,
 } from "../../redux/reducers/productReducer";
-import useGetProfile from "../../hooks/useGetProfile";
 import OrderHistory from "../profile/OrderHistory";
+import { getProfileApi } from "../../redux/reducers/userReducer";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,6 @@ const Profile = () => {
   const { productFavorite } = useSelector((store) => store.product);
   const [deleting, setDeleting] = useState(null);
   const outlet = useOutlet();
-  const getProfile = useGetProfile();
 
   const getProductFavorite = () => dispatch(getProductFavoriteApi);
 
@@ -32,7 +31,7 @@ const Profile = () => {
 
   useEffect(() => {
     getProductFavorite();
-    getProfile();
+    dispatch(getProfileApi);
   }, []);
   return (
     <>

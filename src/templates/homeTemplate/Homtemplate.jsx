@@ -4,14 +4,13 @@ import { Outlet } from "react-router-dom";
 import Footer from "../../components/footer/Footer";
 import Header from "../../components/header/Header";
 import Breadcrumbs from "../../components/breadCrumbs/BreadCrumbs";
-import useGetProfile from "../../hooks/useGetProfile";
 import Sidebar from "../../components/sidebar/Sidebar";
 import useCartData from "../../hooks/useCartData";
 import { getAllProductApi } from "../../redux/reducers/productReducer";
+import { getProfileApi } from "../../redux/reducers/userReducer";
 
 const Homtemplate = () => {
   const { cartData } = useSelector((store) => store.cart);
-  const getProfile = useGetProfile();
   const [pageYOffset, setPageYOffset] = useState(0);
   const { saveCartData } = useCartData();
   const dispatch = useDispatch();
@@ -26,7 +25,7 @@ const Homtemplate = () => {
 
   useEffect(() => {
     getAllProduct();
-    getProfile();
+    dispatch(getProfileApi);
   }, []);
 
   useEffect(() => {
