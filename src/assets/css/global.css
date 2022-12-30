@@ -213,8 +213,8 @@ select {
   width: 100%;
   background-color: rgba(255, 255, 255, 0.65);
   border-radius: 5px;
-  -webkit-animation: fadeIn 0.5s;
-          animation: fadeIn 0.5s;
+  -webkit-animation: fadeIn 0.8s;
+          animation: fadeIn 0.8s;
 }
 
 .main-body {
@@ -437,8 +437,8 @@ i {
   border-radius: 50%;
   display: block;
   box-sizing: border-box;
-  -webkit-animation: rotation 1s linear infinite;
-          animation: rotation 1s linear infinite;
+  -webkit-animation: rotation 1s linear infinite, fadeIn 0.5s;
+          animation: rotation 1s linear infinite, fadeIn 0.5s;
   margin: 20px auto;
 }
 

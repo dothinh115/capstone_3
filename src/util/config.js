@@ -61,7 +61,7 @@ http.interceptors.response.use(
       window.location.reload();
     }
 
-    if (err.code === "ERR_NETWORK") {
+    if (err.code == "ERR_NETWORK") {
       localStorage.removeItem(loginKey);
       window.location.reload();
     }

@@ -138,6 +138,7 @@ const ProfileEdit = () => {
                         data-id={item}
                         defaultValue={dataValue[item]}
                         onChange={(e) => inputChangeHandle(e)}
+                        onBlur={(e) => inputChangeHandle(e)}
                         placeholder={dataConfig.placeHolder[index]}
                         className={error[item] && "isInvalid"}
                       />
