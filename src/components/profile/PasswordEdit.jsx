@@ -19,6 +19,7 @@ const PasswordEdit = () => {
     },
   });
   const [loading, setLoading] = useState(false);
+
   const reg = () => {
     for (let key in dataConfig.id) {
       if (dataConfig.id[key] === "password") return dataConfig.reg[key];

@@ -1,72 +1,55 @@
 import React, { useState } from "react";
 import ReactFacebookLogin from "react-facebook-login";
+import { useForm } from "react-hook-form";
 import { Link, useLocation } from "react-router-dom";
 import useToken from "../../hooks/useToken";
+import dataConfig from "../../templates/dataConfig";
 import { http } from "../../util/config";
 
 const Login = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "all",
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
   const { state } = useLocation();
   const { setToken } = useToken();
-  const [loginValue, setLoginValue] = useState({
-    email: "",
-    password: "",
-  });
-  const [error, setError] = useState({
-    email: "",
-    password: "",
-  });
-  const [valid, setValid] = useState(false);
+
+  const reg = () => {
+    for (let key in dataConfig.id) {
+      if (dataConfig.id[key] === "email") return dataConfig.reg[key];
+    }
+  };
+
+  const placeHolder = () => {
+    for (let key in dataConfig.id) {
+      if (dataConfig.id[key] === "email") return dataConfig.placeHolder[key];
+    }
+  };
+
   const [result, setResult] = useState("");
-
-  const checkValid = () => {
-    for (let key in loginValue) {
-      if (loginValue[key] === "" || error[key] !== "") return false;
-    }
-    return true;
-  };
-
-  const inputChangeHandle = (e) => {
-    const { value } = e.target;
-    const id = e.target.getAttribute("data-id");
-    let errMess = "";
-    if (value.trim() === "") errMess = "Không được để trống!";
-    else {
-      const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      if (!value.match(reg) && id === "email")
-        errMess = "Email phải đúng định dạng!";
-    }
-
-    setLoginValue({
-      ...loginValue,
-      [id]: value,
-    });
-
-    setError({
-      ...error,
-      [id]: errMess,
-    });
-    setValid(checkValid());
-  };
 
   const windowNavigate = (page) =>
     page ? (window.location.href = page) : window.location.reload();
 
-  const sendData = async () => {
+  const submitHandle = async (data) => {
+    console.log(data);
     try {
       const fetch = await http.post(
         "https://shop.cyberlearn.vn/api/Users/signin",
-        loginValue
+        data
       );
       setToken(fetch.data.content);
       windowNavigate(state?.page);
     } catch (error) {
       setResult(error.response?.data.message);
     }
-  };
-
-  const submitHandle = (e) => {
-    e.preventDefault();
-    checkValid() && sendData();
   };
 
   const responseFacebook = async (response) => {
@@ -132,7 +115,7 @@ const Login = () => {
           <h1>ĐĂNG NHẬP</h1>
         </div>
         <div className="main-body login-container">
-          <form onSubmit={(e) => submitHandle(e)}>
+          <form onSubmit={handleSubmit(submitHandle)}>
             <div className="form-main">
               <div className="item">
                 <div className="item-left">
@@ -143,16 +126,23 @@ const Login = () => {
                   <input
                     type="text"
                     data-id="email"
-                    onChange={(e) => inputChangeHandle(e)}
-                    className={error.email && "isInvalid"}
+                    placeholder={placeHolder()}
+                    className={errors.email?.message && "isInvalid"}
+                    {...register("email", {
+                      required: "Không được để trống!",
+                      pattern: {
+                        value: reg(),
+                        message: "Email phải đúng định dạng!",
+                      },
+                    })}
                   />
-                  {error.email && (
+                  {errors.email?.message && (
                     <div className="form-error">
                       <i
                         className="fa-solid fa-circle-exclamation"
                         style={{ color: "red" }}
                       ></i>
-                      {error.email}
+                      {errors.email?.message}
                     </div>
                   )}
                 </div>
@@ -163,23 +153,13 @@ const Login = () => {
                   Mật khẩu
                 </div>
                 <div className="item-right">
-                  <input
-                    type="password"
-                    data-id="password"
-                    onChange={(e) => inputChangeHandle(e)}
-                    className={error.password && "isInvalid"}
-                  />
-                  {error.password && (
-                    <div className="form-error">{error.password}</div>
-                  )}
+                  <input type="password" {...register("password")} />
                 </div>
               </div>
               <div className="item">
                 <div className="item-left"></div>
                 <div className="item-right">
-                  <button className="btn" disabled={valid ? false : true}>
-                    Đăng nhập
-                  </button>
+                  <button className="btn">Đăng nhập</button>
                 </div>
               </div>
             </div>
