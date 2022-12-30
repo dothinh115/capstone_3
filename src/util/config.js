@@ -40,23 +40,22 @@ http.interceptors.response.use(
         needLoginMessage: "Hết phiên đăng nhập, vui lòng đăng nhập lại!",
         page: window.location.pathname,
       });
-    } else if (err.response?.status === 400) {
-      if (
-        window.location.pathname === "/register" ||
-        window.location.pathname === "/login"
-      ) {
-        //nếu lỗi ở /login và /register
-        return Promise.reject(err);
-      }
-      //lỗi ko hợp lệ, ví dụ: sai id sản phẩm
+    }
+    if (
+      (err.response?.status === 404 &&
+        window.location.pathname === "/register") ||
+      window.location.pathname === "/login"
+    ) {
+      return Promise.reject(err);
+    }
+
+    if (err.response?.status === 400) {
+      //lỗi ko hợp lệ, ví dụ sai id sản phẩm
       history.push("/");
     }
     //lỗi unauthorized
-    else if (err.response?.status === 401 || err.response?.status === 403) {
+    if (err.response?.status === 401 || err.response?.status === 403) {
       //Chưa hoạt động
-      localStorage.removeItem("loginInfo");
-      window.location.reload();
-    } else {
       localStorage.removeItem("loginInfo");
       window.location.reload();
     }
