@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import {
+  addToCart,
   checkAll,
   checkItem,
   deleteCartItem,
-  quantityUpdate,
   sendOrderApi,
 } from "../../redux/reducers/cartReducer";
 import { getEmail } from "../../util/function";
@@ -19,12 +19,12 @@ const Cart = () => {
   const { state } = useLocation();
   const [loading, setLoading] = useState(false);
 
-  const quantityUpdateHandle = (id, value) => {
+  const quantityUpdateHandle = (id, quantity) => {
     const payload = {
       id,
-      value,
+      quantity,
     };
-    dispatch(quantityUpdate(payload));
+    dispatch(addToCart(payload));
   };
 
   const deleteHandle = (id) => dispatch(deleteCartItem(id));

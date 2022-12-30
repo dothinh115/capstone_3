@@ -41,17 +41,6 @@ const cartReducer = createSlice({
       state.cartData = cartData;
       history.push("/cart", { justAddId: payload.id });
     },
-    quantityUpdate: (state, action) => {
-      let { cartData } = state;
-      const { payload } = action;
-      const index = cartData.findIndex((item) => item.id === payload.id);
-      if (index !== -1)
-        cartData[index] = {
-          ...cartData[index],
-          quantity: cartData[index].quantity + payload.value,
-        };
-      state.cartData = cartData;
-    },
     deleteCartItem: (state, action) => {
       const { cartData } = state;
       const { payload } = action;
@@ -83,13 +72,8 @@ const cartReducer = createSlice({
   },
 });
 
-export const {
-  addToCart,
-  quantityUpdate,
-  deleteCartItem,
-  checkItem,
-  checkAll,
-} = cartReducer.actions;
+export const { addToCart, deleteCartItem, checkItem, checkAll } =
+  cartReducer.actions;
 
 export default cartReducer.reducer;
 
