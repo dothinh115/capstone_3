@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { history } from "../../App";
 import { http, needLoginToDoSth } from "../../util/config";
 import { getToken } from "../../util/function";
+import { getProfileApi } from "./userReducer";
 
 const initialState = {
   productData: [],
@@ -118,4 +119,17 @@ export const getProductFavoriteApi = async (dispatch) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const sendDeleteOrderApi = (id) => {
+  return async (dispatch) => {
+    try {
+      await http.post("https://shop.cyberlearn.vn/api/Users/deleteOrder", {
+        orderId: id,
+      });
+      dispatch(getProfileApi);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };

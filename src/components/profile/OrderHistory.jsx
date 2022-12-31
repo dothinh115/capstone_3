@@ -1,25 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { getProfileApi } from "../../redux/reducers/userReducer";
-import { http } from "../../util/config";
+import { useDispatch, useSelector } from "react-redux";
+import { sendDeleteOrderApi } from "../../redux/reducers/productReducer";
 
 const OrderHistory = () => {
   const { userData } = useSelector((store) => store.userData);
-  const dispatch = useDispatch();
   const [seeAll, setSeeAll] = useState(4);
   const [deleting, setDeleting] = useState(null);
+  const dispatch = useDispatch();
 
-  const deleteOrderHandle = async (e, id) => {
+  const deleteOrderHandle = async (id) => {
+    dispatch(sendDeleteOrderApi(id));
     setDeleting(id);
-    try {
-      await http.post("https://shop.cyberlearn.vn/api/Users/deleteOrder", {
-        orderId: id,
-      });
-      dispatch(getProfileApi);
-    } catch (error) {
-      console(error);
-    }
   };
 
   const seeAllHandle = () => setSeeAll(seeAll + 3);
@@ -45,7 +36,7 @@ const OrderHistory = () => {
                 <div>
                   <button
                     className="btn btn-red"
-                    onClick={(e) => deleteOrderHandle(e, item.id)}
+                    onClick={() => deleteOrderHandle(item.id)}
                   >
                     <i className="fa-solid fa-trash"></i>
                   </button>
