@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import useToken from "../../hooks/useToken";
+import { loginKey } from "../../util/config";
 
 const Header = () => {
   const { userData } = useSelector((store) => store.userData);
@@ -10,7 +11,7 @@ const Header = () => {
   const { token } = useToken();
   const logoutHandle = (e) => {
     e.preventDefault();
-    localStorage.removeItem("loginInfo");
+    localStorage.removeItem(loginKey);
     window.location.reload();
   };
 

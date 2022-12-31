@@ -1,3 +1,5 @@
+import { loginKey } from "./config";
+
 export const {
   getLocalStorage,
   saveLocalStorage,
@@ -25,12 +27,12 @@ export const {
     return total;
   },
   getToken() {
-    const token = getLocalStorage("loginInfo");
+    const token = getLocalStorage(loginKey);
     if (token) return token.accessToken;
     return null;
   },
   getEmail() {
-    const email = getLocalStorage("loginInfo");
+    const email = getLocalStorage(loginKey);
     if (email) return email.email;
     return null;
   },
