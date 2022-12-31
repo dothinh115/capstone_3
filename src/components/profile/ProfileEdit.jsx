@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import dataConfig from "../../templates/dataConfig";
@@ -7,10 +7,8 @@ import { useForm } from "react-hook-form";
 
 const ProfileEdit = () => {
   const dispatch = useDispatch();
-  const { userData } = useSelector((store) => store.userData);
+  const { userData, loading } = useSelector((store) => store.userData);
   const navigate = useNavigate();
-  const [messErr, setMessErr] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -26,35 +24,10 @@ const ProfileEdit = () => {
     },
   });
 
-  const submitHandle = async (data) => {
-    setLoading(true);
-    try {
-      await dispatch(updateProfileApi(data));
-    } catch (error) {
-      setMessErr(error.response.data.content);
-    } finally {
-      setLoading(false);
-      navigate("/profile", {
-        state: { resMess: "Chỉnh sửa thông tin thành công" },
-      });
-    }
-  };
+  const submitHandle = (data) => dispatch(updateProfileApi(data));
 
   return (
     <>
-      {messErr && (
-        <>
-          <div className="main-container" style={{ marginBottom: "20px" }}>
-            <div className="page-header">
-              <i
-                className="fa-solid fa-circle-exclamation"
-                style={{ color: "red" }}
-              ></i>
-              {messErr}
-            </div>
-          </div>
-        </>
-      )}
       {loading && <div className="loader"></div>}
       <div className="main-container">
         <div className="page-header">

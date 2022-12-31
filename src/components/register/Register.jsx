@@ -1,10 +1,13 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import dataConfig from "../../templates/dataConfig";
-import { http } from "../../util/config";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { sendRegisterApi } from "../../redux/reducers/userReducer";
 
 const Register = () => {
+  const dispatch = useDispatch();
+  const { state } = useLocation();
   const {
     register,
     handleSubmit,
@@ -20,25 +23,7 @@ const Register = () => {
     },
   });
 
-  const [result, setResult] = useState({
-    result: "",
-    message: "",
-  });
-
-  const submitHandle = async (data) => {
-    try {
-      const fetch = await http.post("/api/Users/signup", data);
-      setResult({
-        result: true,
-        message: fetch.data?.message,
-      });
-    } catch (error) {
-      setResult({
-        result: false,
-        message: error.response?.data?.message,
-      });
-    }
-  };
+  const submitHandle = (data) => dispatch(sendRegisterApi(data));
 
   return (
     <>
@@ -54,39 +39,41 @@ const Register = () => {
           </p>
         </div>
       </div>
-      {result.message && (
-        <div className="main-container">
-          <div className="page-header">
-            <h1>THÔNG BÁO</h1>
+      {(state?.resMess || state?.errMess) && (
+        <>
+          <div className="main-container" style={{ marginBottom: "20px" }}>
+            <div className="page-header">
+              <h1>THÔNG BÁO</h1>
+            </div>
+            <div className="main-body">
+              <i
+                className={`fa-solid fa-${
+                  (state?.resMess && "check") ||
+                  (state?.errMess && "circle-exclamation")
+                }`}
+                style={{
+                  color: `${
+                    (state?.resMess && "green") || (state?.errMess && "red")
+                  }`,
+                }}
+              ></i>
+              {(state?.resMess && (
+                <>
+                  {state?.resMess} {", "}
+                  <Link className="alert-link" to="/login">
+                    <i className="fa-solid fa-arrow-right"></i>bấm vào đây
+                  </Link>{" "}
+                  để đăng nhập!!
+                </>
+              )) ||
+                state?.errMess}
+            </div>
           </div>
-          <div className="main-body">
-            {result.result ? (
-              <>
-                <i className="fa-solid fa-check" style={{ color: "green" }}></i>
-                Đăng ký thành công,
-                <Link className="alert-link" to="/login">
-                  <i className="fa-solid fa-arrow-right"></i>bấm vào đây
-                </Link>
-                để đăng nhập!!
-              </>
-            ) : (
-              <>
-                <i
-                  className="fa-solid fa-circle-exclamation"
-                  style={{ color: "red" }}
-                ></i>
-                {result.message}
-              </>
-            )}
-          </div>
-        </div>
+        </>
       )}
 
-      {!result.result && (
-        <div
-          className="main-container"
-          style={{ marginTop: result.message && "20px" }}
-        >
+      {!state?.resMess && (
+        <div className="main-container">
           <div className="page-header">
             <h1>ĐĂNG KÝ TÀI KHOẢN</h1>
           </div>

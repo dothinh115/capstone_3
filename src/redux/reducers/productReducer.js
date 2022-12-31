@@ -84,6 +84,7 @@ export const setLikeByIdApi = (bool, productId) => {
         }like?productId=${productId}`
       );
       dispatch(updateProductLike(bool));
+      dispatch(getProductFavoriteApi);
     } catch (error) {
       console.log(error);
     }

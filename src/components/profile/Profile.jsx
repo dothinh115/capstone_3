@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useLocation, useOutlet } from "react-router-dom";
 import {
@@ -13,34 +13,33 @@ const Profile = () => {
   const { state } = useLocation();
   const { userData } = useSelector((store) => store.userData);
   const { productFavorite } = useSelector((store) => store.product);
-  const [deleting, setDeleting] = useState(null);
   const outlet = useOutlet();
 
-  const getProductFavorite = () => dispatch(getProductFavoriteApi);
-
-  const sendUnLike = async (productId) => {
-    setDeleting(productId);
-    try {
-      await dispatch(setLikeByIdApi(false, productId));
-    } catch (error) {
-      console.log(error);
-    } finally {
-      getProductFavorite();
-    }
-  };
+  const sendUnLike = (productId) => dispatch(setLikeByIdApi(false, productId));
 
   useEffect(() => {
-    getProductFavorite();
+    dispatch(getProductFavoriteApi);
     dispatch(getProfileApi);
   }, []);
   return (
     <>
-      {state?.resMess && (
+      {(state?.resMess || state?.errMess) && (
         <>
           <div className="main-container" style={{ marginBottom: "20px" }}>
             <div className="page-header">
-              <i className="fa-solid fa-check" style={{ color: "green" }}></i>
+              <i
+                className={`fa-solid fa-${
+                  (state?.resMess && "check") ||
+                  (state?.errMess && "circle-exclamation")
+                }`}
+                style={{
+                  color: `${
+                    (state?.errMess && "red") || (state?.resMess && "green")
+                  }`,
+                }}
+              ></i>
               {state?.resMess}
+              {state?.errMess}
             </div>
           </div>
         </>
@@ -133,11 +132,7 @@ const Profile = () => {
                     <div className="tbody">
                       {productFavorite?.map((item, index) => {
                         return (
-                          <div
-                            key={index}
-                            className="tr"
-                            style={{ opacity: deleting === item.id && ".3" }}
-                          >
+                          <div key={index} className="tr">
                             <div className="td">
                               <img src={item.image} alt="" />
                             </div>

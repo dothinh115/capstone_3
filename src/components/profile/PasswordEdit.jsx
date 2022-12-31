@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { updatePasswordApi } from "../../redux/reducers/userReducer";
 import dataConfig from "../../templates/dataConfig";
-import { http } from "../../util/config";
 
 const PasswordEdit = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading } = useSelector((store) => store.userData);
   const {
     register,
     handleSubmit,
@@ -18,29 +21,18 @@ const PasswordEdit = () => {
       passwordConfirm: "",
     },
   });
-  const [loading, setLoading] = useState(false);
 
   const reg = () => {
-    for (let key in dataConfig.id) {
-      if (dataConfig.id[key] === "password") return dataConfig.reg[key];
-    }
+    const index = dataConfig.id.findIndex((item) => item === "password");
+    return dataConfig.reg[index];
   };
 
   const placeHolder = () => {
-    for (let key in dataConfig.id) {
-      if (dataConfig.id[key] === "password") return dataConfig.placeHolder[key];
-    }
+    const index = dataConfig.id.findIndex((item) => item === "password");
+    return dataConfig.placeHolder[index];
   };
 
-  const submitHandle = async (data) => {
-    setLoading(true);
-    const newPass = {
-      newPassword: data.password,
-    };
-    await http.post("/api/Users/changePassword", newPass);
-    setLoading(false);
-    navigate("/profile", { state: { resMess: "Đổi mật khẩu thành công" } });
-  };
+  const submitHandle = (data) => dispatch(updatePasswordApi(data.password));
 
   return (
     <>
