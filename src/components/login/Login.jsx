@@ -169,7 +169,12 @@ const Login = () => {
                       Mật khẩu
                     </div>
                     <div className="item-right">
-                      <input type="password" {...register("password")} />
+                      <input
+                        type="password"
+                        {...register("password", {
+                          required: "Không được để trống!",
+                        })}
+                      />
                     </div>
                   </div>
                   <div className="item">
