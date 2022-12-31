@@ -42,15 +42,14 @@ http.interceptors.response.use(
       });
     }
 
-    if (
-      (err.response?.status === 404 &&
-        window.location.pathname === "/register") ||
-      window.location.pathname === "/login"
-    ) {
-      return Promise.reject(err);
+    if (err.response?.status === 404) {
+      //login không thành công
+      if (window.location.pathname === "/login ") return Promise.reject(err);
     }
 
     if (err.response?.status === 400) {
+      //register trùng email
+      if (window.location.pathname === "/register") return Promise.reject(err);
       //lỗi ko hợp lệ, ví dụ sai id sản phẩm
       history.push("/");
     }
