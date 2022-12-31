@@ -1,20 +1,15 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
-const RegisterForm = ({ onSubmit, children }) => {
+const MyForm = ({ defaultValues, onSubmit, children }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm({
     mode: "all",
-    defaultValues: {
-      email: "",
-      password: "",
-      name: "",
-      gender: true,
-      phone: "",
-    },
+    defaultValues,
   });
 
   return (
@@ -24,6 +19,8 @@ const RegisterForm = ({ onSubmit, children }) => {
           if (React.isValidElement(child)) {
             return React.cloneElement(child, {
               register,
+              errors,
+              watch,
             });
           }
           return child;
@@ -33,4 +30,4 @@ const RegisterForm = ({ onSubmit, children }) => {
   );
 };
 
-export default RegisterForm;
+export default MyForm;

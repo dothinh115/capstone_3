@@ -7,6 +7,7 @@ export const {
   getToken,
   getEmail,
   getDataConfig,
+  getIndexDataConfig,
 } = {
   getLocalStorage(name) {
     let data = localStorage.getItem(name);
@@ -40,5 +41,8 @@ export const {
   getDataConfig(key, id) {
     const index = dataConfig.id.findIndex((item) => item === id);
     return dataConfig[key][index];
+  },
+  getIndexDataConfig(id) {
+    return dataConfig.id.findIndex((item) => item === id);
   },
 };

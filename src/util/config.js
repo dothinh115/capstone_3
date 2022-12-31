@@ -4,16 +4,24 @@ import { getToken } from "./function";
 import { isExpired } from "react-jwt";
 
 export const dataConfig = {
-  id: ["email", "password", "name", "gender", "phone"],
-  name: ["Email", "Password", "Họ tên", "Giới tính", "Số điện thoại"],
+  id: ["email", "password", "name", "gender", "phone", "passwordConfirm"],
+  name: [
+    "Email",
+    "Password",
+    "Họ tên",
+    "Giới tính",
+    "Số điện thoại",
+    "Xác nhân lại",
+  ],
   errorMessage: [
     "Email phải đúng định dạng!",
     "Passworld không hợp lệ!",
     "Tên chỉ được điền chữ!",
     "Giới tính phải được chọn!",
     "Số điện thoại chỉ được điền số!",
+    "Mật khẩu nhập lại chưa khớp!",
   ],
-  icon: ["envelope", "lock", "file-signature", "venus-mars", "phone"],
+  icon: ["envelope", "lock", "file-signature", "venus-mars", "phone", "key"],
   reg: [
     /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{0,}$/,
@@ -22,6 +30,7 @@ export const dataConfig = {
       "ụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]+$",
     "^([Tt][Rr][Uu][Ee]|[Ff][Aa][Ll][Ss][Ee])$",
     /^[0-9]+$/,
+    "",
   ],
   placeHolder: [
     "yourname@example.com",
@@ -29,6 +38,7 @@ export const dataConfig = {
     "Chỉ được nhập chữ!",
     "",
     "Chỉ được nhập số!",
+    "",
   ],
 };
 

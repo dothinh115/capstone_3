@@ -2,27 +2,21 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { updateProfileApi } from "../../redux/reducers/userReducer";
-import { useForm } from "react-hook-form";
 import { dataConfig } from "../../util/config";
+import MyForm from "../Form/MyForm";
+import Input from "../Form/MyFormItem";
 
 const ProfileEdit = () => {
   const dispatch = useDispatch();
   const { userData, loading } = useSelector((store) => store.userData);
   const navigate = useNavigate();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    mode: "all",
-    defaultValues: {
-      email: userData?.email,
-      name: userData?.name,
-      gender: userData?.gender,
-      phone: userData?.phone,
-    },
-  });
+  const defaultValues = {
+    email: userData?.email,
+    name: userData?.name,
+    gender: userData?.gender,
+    phone: userData?.phone,
+  };
 
   const submitHandle = (data) => dispatch(updateProfileApi(data));
 
@@ -34,50 +28,15 @@ const ProfileEdit = () => {
           <h1>Chỉnh sửa thông tin cá nhân - {userData?.name}</h1>
         </div>
         <div className="main-body edit-container">
-          <form onSubmit={handleSubmit(submitHandle)}>
+          <MyForm defaultValues={defaultValues} onSubmit={submitHandle}>
             {dataConfig.id.map((item, index) => {
-              if (index === 1) return false;
+              if (index === 1 || index === 5) return false;
               return (
-                <div key={index} className="item">
-                  <div className="item-left">
-                    {
-                      <i
-                        className={`fa-solid fa-${dataConfig.icon[index]}`}
-                      ></i>
-                    }
-                    {dataConfig.name[index]}
-                  </div>
-                  <div className="item-right">
-                    {item === "gender" ? (
-                      <select {...register(item)}>
-                        <option value="true">Nam</option>
-                        <option value="false">Nữ</option>
-                      </select>
-                    ) : (
-                      <input
-                        disabled={item === "email" ? true : false}
-                        {...register(item, {
-                          required: "Không được bỏ trống!",
-                          pattern: {
-                            value: dataConfig.reg[index],
-                            message: dataConfig.errorMessage[index],
-                          },
-                        })}
-                        placeholder={dataConfig.placeHolder[index]}
-                        className={errors[item]?.message && "isInvalid"}
-                      />
-                    )}
-                    {errors[item]?.message && (
-                      <div className="form-error">
-                        <i
-                          className="fa-solid fa-circle-exclamation"
-                          style={{ color: "red" }}
-                        ></i>
-                        {errors[item]?.message}
-                      </div>
-                    )}
-                  </div>
-                </div>
+                <Input
+                  key={index}
+                  item={item}
+                  type={item === "gender" ? "select" : "input"}
+                />
               );
             })}
             <div className="item">
@@ -97,7 +56,7 @@ const ProfileEdit = () => {
                 </div>
               </div>
             </div>
-          </form>
+          </MyForm>
         </div>
       </div>
     </>

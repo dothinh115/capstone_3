@@ -1,26 +1,18 @@
 import React from "react";
-import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { updatePasswordApi } from "../../redux/reducers/userReducer";
-import { getDataConfig } from "../../util/function";
+import MyForm from "../Form/MyForm";
+import Input from "../Form/MyFormItem";
 
 const PasswordEdit = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading } = useSelector((store) => store.userData);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-  } = useForm({
-    mode: "all",
-    defaultValues: {
-      password: "",
-      passwordConfirm: "",
-    },
-  });
+  const defaultValues = {
+    password: "",
+    passwordConfirm: "",
+  };
 
   const submitHandle = (data) => dispatch(updatePasswordApi(data.password));
 
@@ -34,69 +26,9 @@ const PasswordEdit = () => {
             <h1>Đổi mật khẩu</h1>
           </div>
           <div className="main-body edit-container">
-            <form onSubmit={handleSubmit(submitHandle)}>
-              <div className="item">
-                <div className="item-left">
-                  <i
-                    className={`fa-solid fa-${getDataConfig(
-                      "icon",
-                      "password"
-                    )}`}
-                  ></i>
-                  Mật khẩu
-                </div>
-                <div className="item-right">
-                  <input
-                    type="password"
-                    placeholder={getDataConfig("placeHolder", "password")}
-                    className={errors.password?.message && "isInvalid"}
-                    {...register("password", {
-                      required: "Không được để trống!",
-                      pattern: {
-                        value: getDataConfig("reg", "password"),
-                        message: "Mật khẩu không đúng định dạng!",
-                      },
-                    })}
-                  />
-                  {errors.password?.message && (
-                    <div className="form-error">
-                      <i
-                        className="fa-solid fa-circle-exclamation"
-                        style={{ color: "red" }}
-                      ></i>
-                      {errors.password?.message}
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="item">
-                <div className="item-left">
-                  <i className="fa-solid fa-key"></i>
-                  Xác nhận
-                </div>
-                <div className="item-right">
-                  <input
-                    type="password"
-                    className={errors.passwordConfirm?.message && "isInvalid"}
-                    {...register("passwordConfirm", {
-                      required: "Không được để trống!",
-                      validate: (value) => {
-                        if (watch("password") !== value)
-                          return "Nhập lại mật khẩu chưa khớp!";
-                      },
-                    })}
-                  />
-                  {errors.passwordConfirm?.message && (
-                    <div className="form-error">
-                      <i
-                        className="fa-solid fa-circle-exclamation"
-                        style={{ color: "red" }}
-                      ></i>
-                      {errors.passwordConfirm?.message}
-                    </div>
-                  )}
-                </div>
-              </div>
+            <MyForm defaultValues={defaultValues} onSubmit={submitHandle}>
+              <Input type={"input"} item={"password"} />
+              <Input type={"input"} item={"passwordConfirm"} />
               <div className="item">
                 <div className="item-left"></div>
                 <div className="item-right">
@@ -114,7 +46,7 @@ const PasswordEdit = () => {
                   </div>
                 </div>
               </div>
-            </form>
+            </MyForm>
           </div>
         </div>
       )}

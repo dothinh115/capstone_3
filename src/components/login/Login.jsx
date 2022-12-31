@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import ReactFacebookLogin from "react-facebook-login";
-import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import useToken from "../../hooks/useToken";
@@ -8,32 +7,22 @@ import {
   sendFacebookLoginApi,
   sendLoginApi,
 } from "../../redux/reducers/userReducer";
-import { getDataConfig } from "../../util/function";
+import MyForm from "../Form/MyForm";
+import Input from "../Form/MyFormItem";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    mode: "all",
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
+  const defaultValues = {
+    email: "",
+    password: "",
+  };
   const { state } = useLocation();
   const { setToken } = useToken();
-
   const windowNavigate = (page) =>
     page ? (window.location.href = page) : window.location.reload();
-
   const submitHandle = (data) => dispatch(sendLoginApi(data, state?.page));
-
   const responseFacebook = (response) =>
     dispatch(sendFacebookLoginApi(response.accessToken, state?.page));
-
   useEffect(() => {
     if (state?.loginRes) {
       setToken(state.loginRes);
@@ -124,70 +113,20 @@ const Login = () => {
               <h1>ĐĂNG NHẬP</h1>
             </div>
             <div className="main-body login-container">
-              <form onSubmit={handleSubmit(submitHandle)}>
-                <div className="form-main">
-                  <div className="item">
-                    <div className="item-left">
-                      <i
-                        className={`fa-solid fa-${getDataConfig(
-                          "icon",
-                          "email"
-                        )}`}
-                      ></i>
-                      Email
-                    </div>
-                    <div className="item-right">
-                      <input
-                        type="text"
-                        data-id="email"
-                        placeholder={getDataConfig("placeHolder", "email")}
-                        className={errors.email?.message && "isInvalid"}
-                        {...register("email", {
-                          required: "Không được để trống!",
-                          pattern: {
-                            value: getDataConfig("reg", "email"),
-                            message: "Email phải đúng định dạng!",
-                          },
-                        })}
-                      />
-                      {errors.email?.message && (
-                        <div className="form-error">
-                          <i
-                            className="fa-solid fa-circle-exclamation"
-                            style={{ color: "red" }}
-                          ></i>
-                          {errors.email?.message}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <div className="item">
-                    <div className="item-left">
-                      <i
-                        className={`fa-solid fa-${getDataConfig(
-                          "icon",
-                          "password"
-                        )}`}
-                      ></i>
-                      Mật khẩu
-                    </div>
-                    <div className="item-right">
-                      <input
-                        type="password"
-                        {...register("password", {
-                          required: "Không được để trống!",
-                        })}
-                      />
-                    </div>
-                  </div>
-                  <div className="item">
-                    <div className="item-left"></div>
-                    <div className="item-right">
-                      <button className="btn">Đăng nhập</button>
+              <MyForm defaultValues={defaultValues} onSubmit={submitHandle}>
+                <Input type={"input"} item={"email"} />
+                <Input type={"input"} item={"password"} />
+                <div className="item">
+                  <div className="item-left"></div>
+                  <div className="item-right">
+                    <div className="form-button">
+                      <button type="submit" className="btn">
+                        Đăng nhập
+                      </button>
                     </div>
                   </div>
                 </div>
-              </form>
+              </MyForm>
               <div className="footer-hr-span">
                 <span>Hoặc</span>
                 <div>
