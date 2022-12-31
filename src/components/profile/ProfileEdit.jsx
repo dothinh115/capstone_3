@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import dataConfig from "../../templates/dataConfig";
 import { updateProfileApi } from "../../redux/reducers/userReducer";
 import { useForm } from "react-hook-form";
+import { dataConfig } from "../../util/config";
 
 const ProfileEdit = () => {
   const dispatch = useDispatch();

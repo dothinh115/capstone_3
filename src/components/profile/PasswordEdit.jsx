@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { updatePasswordApi } from "../../redux/reducers/userReducer";
-import dataConfig from "../../templates/dataConfig";
+import { getDataConfig } from "../../util/function";
 
 const PasswordEdit = () => {
   const navigate = useNavigate();
@@ -22,16 +22,6 @@ const PasswordEdit = () => {
     },
   });
 
-  const reg = () => {
-    const index = dataConfig.id.findIndex((item) => item === "password");
-    return dataConfig.reg[index];
-  };
-
-  const placeHolder = () => {
-    const index = dataConfig.id.findIndex((item) => item === "password");
-    return dataConfig.placeHolder[index];
-  };
-
   const submitHandle = (data) => dispatch(updatePasswordApi(data.password));
 
   return (
@@ -47,18 +37,23 @@ const PasswordEdit = () => {
             <form onSubmit={handleSubmit(submitHandle)}>
               <div className="item">
                 <div className="item-left">
-                  <i className="fa-solid fa-lock"></i>
+                  <i
+                    className={`fa-solid fa-${getDataConfig(
+                      "icon",
+                      "password"
+                    )}`}
+                  ></i>
                   Mật khẩu
                 </div>
                 <div className="item-right">
                   <input
                     type="password"
-                    placeholder={placeHolder()}
+                    placeholder={getDataConfig("placeHolder", "password")}
                     className={errors.password?.message && "isInvalid"}
                     {...register("password", {
                       required: "Không được để trống!",
                       pattern: {
-                        value: reg(),
+                        value: getDataConfig("reg", "password"),
                         message: "Mật khẩu không đúng định dạng!",
                       },
                     })}

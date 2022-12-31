@@ -8,7 +8,7 @@ import {
   sendFacebookLoginApi,
   sendLoginApi,
 } from "../../redux/reducers/userReducer";
-import dataConfig from "../../templates/dataConfig";
+import { getDataConfig } from "../../util/function";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -25,14 +25,7 @@ const Login = () => {
   });
   const { state } = useLocation();
   const { setToken } = useToken();
-  const reg = () => {
-    const index = dataConfig.id.findIndex((item) => item === "email");
-    return dataConfig.reg[index];
-  };
-  const placeHolder = () => {
-    const index = dataConfig.id.findIndex((item) => item === "email");
-    return dataConfig.placeHolder[index];
-  };
+
   const windowNavigate = (page) =>
     page ? (window.location.href = page) : window.location.reload();
 
@@ -135,19 +128,24 @@ const Login = () => {
                 <div className="form-main">
                   <div className="item">
                     <div className="item-left">
-                      <i className="fa-solid fa-user"></i>
+                      <i
+                        className={`fa-solid fa-${getDataConfig(
+                          "icon",
+                          "email"
+                        )}`}
+                      ></i>
                       Email
                     </div>
                     <div className="item-right">
                       <input
                         type="text"
                         data-id="email"
-                        placeholder={placeHolder()}
+                        placeholder={getDataConfig("placeHolder", "email")}
                         className={errors.email?.message && "isInvalid"}
                         {...register("email", {
                           required: "Không được để trống!",
                           pattern: {
-                            value: reg(),
+                            value: getDataConfig("reg", "email"),
                             message: "Email phải đúng định dạng!",
                           },
                         })}
@@ -165,7 +163,12 @@ const Login = () => {
                   </div>
                   <div className="item">
                     <div className="item-left">
-                      <i className="fa-solid fa-lock"></i>
+                      <i
+                        className={`fa-solid fa-${getDataConfig(
+                          "icon",
+                          "password"
+                        )}`}
+                      ></i>
                       Mật khẩu
                     </div>
                     <div className="item-right">

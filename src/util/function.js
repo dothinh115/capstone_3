@@ -1,4 +1,4 @@
-import { loginKey } from "./config";
+import { dataConfig, loginKey } from "./config";
 
 export const {
   getLocalStorage,
@@ -6,6 +6,7 @@ export const {
   totalCount,
   getToken,
   getEmail,
+  getDataConfig,
 } = {
   getLocalStorage(name) {
     let data = localStorage.getItem(name);
@@ -35,5 +36,9 @@ export const {
     const email = getLocalStorage(loginKey);
     if (email) return email.email;
     return null;
+  },
+  getDataConfig(key, id) {
+    const index = dataConfig.id.findIndex((item) => item === id);
+    return dataConfig[key][index];
   },
 };

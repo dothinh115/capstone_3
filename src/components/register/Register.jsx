@@ -1,9 +1,9 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import dataConfig from "../../templates/dataConfig";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { sendRegisterApi } from "../../redux/reducers/userReducer";
+import { dataConfig } from "../../util/config";
 
 const Register = () => {
   const dispatch = useDispatch();
