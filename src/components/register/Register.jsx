@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { sendRegisterApi } from "../../redux/reducers/userReducer";
 import { dataConfig } from "../../util/config";
 import MyForm from "../Form/MyForm";
-import Input from "../Form/MyFormItem";
+import { Input, Select } from "../Form/MyFormItem";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -74,11 +74,12 @@ const Register = () => {
               <MyForm defaultValues={defaultValues} onSubmit={submitHandle}>
                 {dataConfig.id.map((item, index) => {
                   if (index === 5) return false;
+                  if (index === 3) return <Select key={index} item={item} />;
                   return (
                     <Input
                       key={index}
                       item={item}
-                      type={item === "gender" ? "select" : "input"}
+                      type={item === "password" ? "password" : ""}
                     />
                   );
                 })}

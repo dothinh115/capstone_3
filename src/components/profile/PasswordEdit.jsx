@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { updatePasswordApi } from "../../redux/reducers/userReducer";
 import MyForm from "../Form/MyForm";
-import Input from "../Form/MyFormItem";
+import { Input } from "../Form/MyFormItem";
 
 const PasswordEdit = () => {
   const navigate = useNavigate();
@@ -27,8 +27,8 @@ const PasswordEdit = () => {
           </div>
           <div className="main-body edit-container">
             <MyForm defaultValues={defaultValues} onSubmit={submitHandle}>
-              <Input type={"input"} item={"password"} />
-              <Input type={"input"} item={"passwordConfirm"} />
+              <Input type="password" item="password" />
+              <Input type="password" item="passwordConfirm" />
               <div className="item">
                 <div className="item-left"></div>
                 <div className="item-right">

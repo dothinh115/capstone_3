@@ -8,7 +8,7 @@ import {
   sendLoginApi,
 } from "../../redux/reducers/userReducer";
 import MyForm from "../Form/MyForm";
-import Input from "../Form/MyFormItem";
+import { Input } from "../Form/MyFormItem";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -114,8 +114,8 @@ const Login = () => {
             </div>
             <div className="main-body login-container">
               <MyForm defaultValues={defaultValues} onSubmit={submitHandle}>
-                <Input type={"input"} item={"email"} />
-                <Input type={"input"} item={"password"} />
+                <Input type="text" item="email" />
+                <Input type="password" item="password" placeHolder={false} />
                 <div className="item">
                   <div className="item-left"></div>
                   <div className="item-right">
