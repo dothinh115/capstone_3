@@ -80,7 +80,13 @@ const Register = () => {
                     <Input
                       key={index}
                       item={item}
-                      type={item === "password" ? "password" : ""}
+                      type={
+                        item === "password"
+                          ? "password"
+                          : "" || item === "phone"
+                          ? "number"
+                          : ""
+                      }
                     />
                   );
                 })}
