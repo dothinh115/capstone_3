@@ -63,7 +63,7 @@ export const Input = ({
   );
 };
 
-export const Select = ({ item, type }) => {
+export const Select = ({ item }) => {
   const index = getIndexDataConfig(item);
   const { register } = useFormContext();
   return (

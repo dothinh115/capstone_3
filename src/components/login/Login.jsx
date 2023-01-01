@@ -8,6 +8,7 @@ import {
   sendLoginApi,
 } from "../../redux/reducers/userReducer";
 import MyForm from "../Form/MyForm";
+import MyFormButton from "../Form/MyFormButton";
 import { Input } from "../Form/MyFormItem";
 
 const Login = () => {
@@ -116,16 +117,14 @@ const Login = () => {
               <MyForm defaultValues={defaultValues} onSubmit={submitHandle}>
                 <Input type="text" item="email" />
                 <Input type="password" item="password" placeHolder={false} />
-                <div className="item">
-                  <div className="item-left"></div>
-                  <div className="item-right">
-                    <div className="form-button">
-                      <button type="submit" className="btn">
-                        Đăng nhập
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <MyFormButton
+                  btn={[
+                    {
+                      type: "submit",
+                      value: "Đăng nhập",
+                    },
+                  ]}
+                />
               </MyForm>
               <div className="footer-hr-span">
                 <span>Hoặc</span>

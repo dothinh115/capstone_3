@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { updatePasswordApi } from "../../redux/reducers/userReducer";
 import MyForm from "../Form/MyForm";
+import MyFormButton from "../Form/MyFormButton";
 import { Input } from "../Form/MyFormItem";
 
 const PasswordEdit = () => {
@@ -29,23 +30,17 @@ const PasswordEdit = () => {
             <MyForm defaultValues={defaultValues} onSubmit={submitHandle}>
               <Input type="password" item="password" />
               <Input type="password" item="passwordConfirm" />
-              <div className="item">
-                <div className="item-left"></div>
-                <div className="item-right">
-                  <div className="form-button">
-                    <button type="submit" className="btn">
-                      Lưu
-                    </button>
-                    <button
-                      className="btn btn-red"
-                      type="button"
-                      onClick={() => navigate("/profile")}
-                    >
-                      Hủy
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <MyFormButton
+                btn={[
+                  { type: "submit", value: "Lưu" },
+                  {
+                    type: "button",
+                    className: "btn-red",
+                    value: "Hủy",
+                    function: () => navigate("/profile"),
+                  },
+                ]}
+              />
             </MyForm>
           </div>
         </div>

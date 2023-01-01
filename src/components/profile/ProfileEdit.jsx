@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { updateProfileApi } from "../../redux/reducers/userReducer";
 import { dataConfig } from "../../util/config";
 import MyForm from "../Form/MyForm";
+import MyFormButton from "../Form/MyFormButton";
 import { Input, Select } from "../Form/MyFormItem";
 
 const ProfileEdit = () => {
@@ -41,23 +42,17 @@ const ProfileEdit = () => {
                 />
               );
             })}
-            <div className="item">
-              <div className="item-left"></div>
-              <div className="item-right">
-                <div className="form-button">
-                  <button type="submit" className="btn">
-                    Sửa
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-red"
-                    onClick={() => navigate("/profile")}
-                  >
-                    Hủy
-                  </button>
-                </div>
-              </div>
-            </div>
+            <MyFormButton
+              btn={[
+                { type: "submit", value: "Sửa" },
+                {
+                  type: "button",
+                  className: "btn-red",
+                  value: "Hủy",
+                  function: () => navigate("/profile"),
+                },
+              ]}
+            />
           </MyForm>
         </div>
       </div>

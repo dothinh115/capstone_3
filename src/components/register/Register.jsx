@@ -5,6 +5,7 @@ import { sendRegisterApi } from "../../redux/reducers/userReducer";
 import { dataConfig } from "../../util/config";
 import MyForm from "../Form/MyForm";
 import { Input, Select } from "../Form/MyFormItem";
+import MyFormButton from "../Form/MyFormButton";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -83,16 +84,7 @@ const Register = () => {
                     />
                   );
                 })}
-                <div className="item">
-                  <div className="item-left"></div>
-                  <div className="item-right">
-                    <div className="form-button">
-                      <button className="btn" type="submit">
-                        Đăng ký
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <MyFormButton btn={[{ type: "submit", value: "Đăng ký" }]} />
               </MyForm>
             </div>
           </div>
