@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { dataConfig } from "../../util/config";
 import { getIndexDataConfig } from "../../util/function";
+import { FormContext } from "./MyForm";
 
-const Input = ({ item, register, type, errors, watch }) => {
+const Input = ({ item, type }) => {
+  const {
+    register,
+    watch,
+    formState: { errors },
+  } = useContext(FormContext);
+
   const index = getIndexDataConfig(item);
   const location = useLocation();
   const checkLoginPage = () => {

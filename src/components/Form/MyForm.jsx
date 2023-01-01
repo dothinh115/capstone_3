@@ -1,30 +1,20 @@
-import React from "react";
+import React, { createContext } from "react";
 import { useForm } from "react-hook-form";
 
+export const FormContext = createContext(null);
+
 const MyForm = ({ defaultValues, onSubmit, children }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-  } = useForm({
+  const methods = useForm({
     mode: "all",
     defaultValues,
   });
 
+  const { handleSubmit } = methods;
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="register-form-main">
-        {React.Children.map(children, (child) => {
-          if (React.isValidElement(child)) {
-            return React.cloneElement(child, {
-              register,
-              errors,
-              watch,
-            });
-          }
-          return child;
-        })}
+        <FormContext.Provider value={methods}>{children}</FormContext.Provider>
       </div>
     </form>
   );

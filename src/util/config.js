@@ -11,7 +11,7 @@ export const dataConfig = {
     "Họ tên",
     "Giới tính",
     "Số điện thoại",
-    "Xác nhân lại",
+    "Xác nhận lại",
   ],
   errorMessage: [
     "Email phải đúng định dạng!",
