@@ -24,11 +24,7 @@ export const Input = ({
   } = useFormContext();
 
   useEffect(() => {
-    if (customError) {
-      setError(item, { message: customError });
-    } else {
-      clearErrors(item);
-    }
+    if (customError) setError(item, { message: customError });
   }, [customError, errors]);
 
   const index = getIndexDataConfig(item);
