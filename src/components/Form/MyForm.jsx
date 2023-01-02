@@ -3,7 +3,7 @@ import { FormProvider, useForm } from "react-hook-form";
 
 const MyForm = ({ defaultValues, onSubmit, children }) => {
   const methods = useForm({
-    mode: "all",
+    mode: "onChange",
     defaultValues,
   });
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { useLocation } from "react-router-dom";
 import { dataConfig } from "../../util/config";
@@ -18,17 +18,8 @@ export const Input = ({
   const {
     register,
     watch,
-    setError,
-    getValues,
     formState: { errors },
   } = useFormContext();
-  const alreadyExistEmail = useRef(null);
-  useEffect(() => {
-    if (customError) {
-      setError(item, { message: customError });
-      alreadyExistEmail.current = getValues(item);
-    }
-  }, [customError, errors]);
 
   const index = getIndexDataConfig(item);
 
@@ -59,7 +50,7 @@ export const Input = ({
                 }),
                 ...(customError && {
                   validate: (value) => {
-                    if (value === alreadyExistEmail.current) return customError;
+                    return customError;
                   },
                 }),
               }),

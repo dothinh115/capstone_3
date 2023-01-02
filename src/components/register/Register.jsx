@@ -34,23 +34,31 @@ const Register = () => {
         iconStyle="arrow-right"
       />
 
-      {state?.resMess && (
+      {(state?.resMess || state?.errMess) && (
         <div className="main-container" style={{ marginBottom: "20px" }}>
           <div className="page-header">
             <h1>THÔNG BÁO</h1>
           </div>
           <div className="main-body">
             <i
-              className="fa-solid fa-check"
+              className={`fa-solid fa-${
+                state?.resMess ? "check" : "circle-exclamation"
+              }`}
               style={{
-                color: "green",
+                color: state?.resMess ? "green" : "red",
               }}
             ></i>
-            {state?.resMess} {", "}
-            <Link className="alert-link" to="/login">
-              <i className="fa-solid fa-arrow-right"></i>bấm vào đây
-            </Link>{" "}
-            để đăng nhập!!
+            {state?.resMess ? (
+              <>
+                {state?.resMess + ", "}
+                <Link className="alert-link" to="/login">
+                  <i className="fa-solid fa-arrow-right"></i>bấm vào đây
+                </Link>{" "}
+                để đăng nhập!!
+              </>
+            ) : (
+              state.errMess
+            )}
           </div>
         </div>
       )}
@@ -76,9 +84,6 @@ const Register = () => {
                           : "" || item === "phone"
                           ? "number"
                           : ""
-                      }
-                      customError={
-                        state?.errMess && item === "email" && state?.errMess
                       }
                     />
                   );
