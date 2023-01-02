@@ -6,6 +6,7 @@ import { dataConfig } from "../../util/config";
 import MyForm from "../Form/MyForm";
 import MyFormButton from "../Form/MyFormButton";
 import { Input, Select } from "../Form/MyFormItem";
+import MainBlock from "../others/MainBlock";
 
 const ProfileEdit = () => {
   const dispatch = useDispatch();
@@ -24,38 +25,39 @@ const ProfileEdit = () => {
   return (
     <>
       {loading && <div className="loader"></div>}
-      <div className="main-container">
-        <div className="page-header">
-          <h1>Chỉnh sửa thông tin cá nhân - {userData?.name}</h1>
-        </div>
-        <div className="main-body edit-container">
-          <MyForm defaultValues={defaultValues} onSubmit={submitHandle}>
-            {dataConfig.id.map((item, index) => {
-              if (index === 1 || index === 5) return false;
-              if (index === 3) return <Select key={index} item={item} />;
-              return (
-                <Input
-                  key={index}
-                  item={item}
-                  type="text"
-                  disabled={item === "email" && true}
-                />
-              );
-            })}
-            <MyFormButton
-              btn={[
-                { type: "submit", value: "Sửa" },
-                {
-                  type: "button",
-                  className: "btn-red",
-                  value: "Hủy",
-                  function: () => navigate("/profile"),
-                },
-              ]}
-            />
-          </MyForm>
-        </div>
-      </div>
+      <MainBlock
+        headerValue={<>Chỉnh sửa thông tin cá nhân - {userData?.name}</>}
+        otherClass="edit-container"
+        value={
+          <>
+            <MyForm defaultValues={defaultValues} onSubmit={submitHandle}>
+              {dataConfig.id.map((item, index) => {
+                if (index === 1 || index === 5) return false;
+                if (index === 3) return <Select key={index} item={item} />;
+                return (
+                  <Input
+                    key={index}
+                    item={item}
+                    type="text"
+                    disabled={item === "email" && true}
+                  />
+                );
+              })}
+              <MyFormButton
+                btn={[
+                  { type: "submit", value: "Sửa" },
+                  {
+                    type: "button",
+                    className: "btn-red",
+                    value: "Hủy",
+                    function: () => navigate("/profile"),
+                  },
+                ]}
+              />
+            </MyForm>
+          </>
+        }
+      />
     </>
   );
 };

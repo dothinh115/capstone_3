@@ -6,7 +6,7 @@ import { dataConfig } from "../../util/config";
 import MyForm from "../Form/MyForm";
 import { Input, Select } from "../Form/MyFormItem";
 import MyFormButton from "../Form/MyFormButton";
-import TopMessages from "../others/TopMessages";
+import MainBlock from "../others/MainBlock";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const Register = () => {
 
   return (
     <>
-      <TopMessages
+      <MainBlock
         value={[
           "Nếu đã có tài khoản, vui lòng ",
           <Link key={"letLogin"} to="/login" className="alert-link">
@@ -35,7 +35,7 @@ const Register = () => {
       />
 
       {(state?.resMess || state?.errMess) && (
-        <TopMessages
+        <MainBlock
           value={
             state?.resMess
               ? [
@@ -55,11 +55,9 @@ const Register = () => {
       )}
 
       {!state?.resMess && (
-        <div className="main-container">
-          <div className="page-header">
-            <h1>ĐĂNG KÝ TÀI KHOẢN</h1>
-          </div>
-          <div className="main-body">
+        <MainBlock
+          headerValue="ĐĂNG KÝ TÀI KHOẢN"
+          value={
             <div className="register-form">
               <MyForm defaultValues={defaultValues} onSubmit={submitHandle}>
                 {dataConfig.id.map((item, index) => {
@@ -82,8 +80,8 @@ const Register = () => {
                 <MyFormButton btn={[{ type: "submit", value: "Đăng ký" }]} />
               </MyForm>
             </div>
-          </div>
-        </div>
+          }
+        />
       )}
     </>
   );

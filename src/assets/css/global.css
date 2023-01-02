@@ -108,6 +108,12 @@ a:hover {
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   padding: 10px;
   color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: space-between;
+}
+.page-header h1 {
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 20px;
 }
 
 .contain-body {
@@ -173,11 +179,6 @@ a:hover {
 
 .contain-footer {
   padding: 15px;
-}
-
-.page-header h1 {
-  color: rgba(0, 0, 0, 0.65);
-  font-size: 20px;
 }
 
 input {

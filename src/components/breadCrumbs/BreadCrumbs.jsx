@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
+import MainBlock from "../others/MainBlock";
 
 const Breadcrumbs = () => {
   const { productId } = useParams();
@@ -14,8 +15,9 @@ const Breadcrumbs = () => {
   };
 
   return (
-    <div className="main-container" style={{ marginBottom: "20px" }}>
-      <div className="page-header">
+    <MainBlock
+      headerValue={null}
+      value={
         <ul className="breadcrumbs">
           <li>
             <NavLink to="/">
@@ -55,8 +57,8 @@ const Breadcrumbs = () => {
             <NavLink to="/register">Đăng ký</NavLink>
           </li>
         </ul>
-      </div>
-    </div>
+      }
+    />
   );
 };
 

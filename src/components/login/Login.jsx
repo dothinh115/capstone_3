@@ -10,7 +10,7 @@ import {
 import MyForm from "../Form/MyForm";
 import MyFormButton from "../Form/MyFormButton";
 import { Input } from "../Form/MyFormItem";
-import TopMessages from "../others/TopMessages";
+import MainBlock from "../others/MainBlock";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -42,14 +42,14 @@ const Login = () => {
   return (
     <>
       {state?.needLoginMessage && (
-        <TopMessages
+        <MainBlock
           value={state.needLoginMessage}
           iconStyle="circle-exclamation"
           iconColor="red"
         />
       )}
 
-      <TopMessages
+      <MainBlock
         value={[
           "Nếu chưa có tài khoản, ",
           <Link key={"letReg"} to="/register" className="alert-link">
@@ -60,7 +60,7 @@ const Login = () => {
         iconStyle="arrow-right"
       />
       {(state?.errMess || state?.loginRes) && (
-        <TopMessages
+        <MainBlock
           value={
             state?.errMess
               ? state?.errMess
@@ -68,55 +68,55 @@ const Login = () => {
           }
           iconStyle={state?.errMess ? "circle-exclamation" : "check"}
           iconColor={state.errMess ? "red" : "green"}
-          header={true}
-          hrFooter={state?.errMess ? false : true}
-          hrFooterFunc={() => windowNavigate(state?.page)}
-          hrFooterButtonValue={[
-            <i
-              className="fa-solid fa-arrow-right"
-              style={{ color: "blue" }}
-            ></i>,
-            " Chuyển hướng ngay",
-          ]}
+          hrFooterValue={
+            state?.loginRes && (
+              <>
+                <button
+                  className="btn"
+                  onClick={() => windowNavigate(state?.page)}
+                >
+                  <i
+                    className="fa-solid fa-arrow-right"
+                    style={{ color: "blue" }}
+                  ></i>{" "}
+                  Chuyển hướng ngay!
+                </button>
+              </>
+            )
+          }
         />
       )}
 
       {!state?.loginRes && (
-        <>
-          <div className="main-container">
-            <div className="page-header">
-              <h1>ĐĂNG NHẬP</h1>
-            </div>
-            <div className="main-body login-container">
-              <MyForm defaultValues={defaultValues} onSubmit={submitHandle}>
-                <Input type="text" item="email" />
-                <Input type="password" item="password" placeHolder={false} />
-                <MyFormButton
-                  btn={[
-                    {
-                      type: "submit",
-                      value: "Đăng nhập",
-                    },
-                  ]}
-                />
-              </MyForm>
-              <div className="footer-hr-span">
-                <span>Hoặc</span>
-                <div>
-                  <ReactFacebookLogin
-                    appId="3435564930010422"
-                    autoLoad={false}
-                    fields="name,email,picture"
-                    callback={responseFacebook}
-                    cssClass="my-fb-login-btn btn"
-                    textButton="Đăng nhập bằng Facebook"
-                    icon="fa-brands fa-facebook"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </>
+        <MainBlock
+          value={
+            <MyForm defaultValues={defaultValues} onSubmit={submitHandle}>
+              <Input type="text" item="email" />
+              <Input type="password" item="password" placeHolder={false} />
+              <MyFormButton
+                btn={[
+                  {
+                    type: "submit",
+                    value: "Đăng nhập",
+                  },
+                ]}
+              />
+            </MyForm>
+          }
+          headerValue="ĐĂNG NHẬP"
+          hrFooterValue={
+            <ReactFacebookLogin
+              appId="3435564930010422"
+              autoLoad={false}
+              fields="name,email,picture"
+              callback={responseFacebook}
+              cssClass="my-fb-login-btn btn"
+              textButton="Đăng nhập bằng Facebook"
+              icon="fa-brands fa-facebook"
+            />
+          }
+          otherClass="login-container"
+        />
       )}
     </>
   );

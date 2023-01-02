@@ -119,7 +119,14 @@ a:hover {
     border-bottom: 1px solid rgba(black, 0.05);
     padding: 10px;
     color: rgba(black, 0.65);
+    display: flex;
+    justify-content: space-between;
+    h1 {
+        color: rgba(black, 0.65);
+        font-size: 20px;
+    }
 }
+
 
 .contain-body {
     display: flex;
@@ -192,10 +199,8 @@ a:hover {
     padding: 15px;
 }
 
-.page-header h1 {
-    color: rgba(black, 0.65);
-    font-size: 20px;
-}
+
+
 
 input {
     &:not(input[type="checkbox"]) {

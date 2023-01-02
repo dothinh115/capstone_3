@@ -5,6 +5,7 @@ import { updatePasswordApi } from "../../redux/reducers/userReducer";
 import MyForm from "../Form/MyForm";
 import MyFormButton from "../Form/MyFormButton";
 import { Input } from "../Form/MyFormItem";
+import MainBlock from "../others/MainBlock";
 
 const PasswordEdit = () => {
   const navigate = useNavigate();
@@ -22,11 +23,10 @@ const PasswordEdit = () => {
       {loading ? (
         <div className="loader"></div>
       ) : (
-        <div className="main-container" style={{ marginTop: "20px" }}>
-          <div className="page-header">
-            <h1>Đổi mật khẩu</h1>
-          </div>
-          <div className="main-body edit-container">
+        <MainBlock
+          headerValue="ĐỔI MẬT KHẨU"
+          otherClass="edit-container"
+          value={
             <MyForm defaultValues={defaultValues} onSubmit={submitHandle}>
               <Input type="password" item="password" />
               <Input type="password" item="passwordConfirm" />
@@ -42,8 +42,8 @@ const PasswordEdit = () => {
                 ]}
               />
             </MyForm>
-          </div>
-        </div>
+          }
+        />
       )}
     </>
   );

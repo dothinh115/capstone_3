@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { http } from "../../util/config";
 import Item from "../item/Item";
+import MainBlock from "../others/MainBlock";
 
 const Search = () => {
   const [searchValue, setSearchValue] = useState(null);
@@ -73,11 +74,9 @@ const Search = () => {
 
   return (
     <>
-      <div className="main-container">
-        <div className="page-header">
-          <h1>TÌM KIẾM</h1>
-        </div>
-        <div className="main-body">
+      <MainBlock
+        headerValue="TÌM KIẾM"
+        value={
           <form className="search" onSubmit={(e) => submitHandle(e)}>
             <div className="search-left">
               <i className="fa-solid fa-magnifying-glass"></i>
@@ -95,43 +94,36 @@ const Search = () => {
               <button className="btn">Tìm</button>
             </div>
           </form>
-        </div>
-      </div>
+        }
+      />
 
       {loading ? (
         <div className="loader"></div>
       ) : (
-        <div className="main-container" style={{ marginTop: "20px" }}>
-          <div className="page-header">
-            <h1
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
+        <MainBlock
+          headerValue="KẾT QUẢ"
+          otherClass="search-result"
+          headerRight={
+            <select
+              onChange={(e) => {
+                sortHandle(e);
               }}
+              defaultValue={params.get("sortby")}
             >
-              <span>KẾT QUẢ</span>
-              <select
-                onChange={(e) => {
-                  sortHandle(e);
-                }}
-                defaultValue={params.get("sortby")}
-              >
-                <option value={""}>Lọc</option>
-                <option value="priceUp">Giá giảm dần</option>
-                <option value="priceDown">Giá tăng dần</option>
-              </select>
-            </h1>
-          </div>
-          <div className="main-body">
+              <option value={""}>Lọc</option>
+              <option value="priceUp">Giá giảm dần</option>
+              <option value="priceDown">Giá tăng dần</option>
+            </select>
+          }
+          value={
             <div className="card">
               {searchResult?.map((item, index) => {
                 return <Item key={index} item={item} />;
               })}
               {searchResult.length === 0 && "Không có gì ở đây!"}
             </div>
-          </div>
-        </div>
+          }
+        />
       )}
     </>
   );
