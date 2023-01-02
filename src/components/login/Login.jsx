@@ -59,6 +59,7 @@ const Login = () => {
         ]}
         iconStyle="arrow-right"
       />
+
       {(state?.errMess || state?.loginRes) && (
         <MainBlock
           value={

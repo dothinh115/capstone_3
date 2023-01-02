@@ -135,7 +135,7 @@ export const sendFacebookLoginApi = (data, page) => {
     } catch (error) {
       console.log(error);
       history.push(window.location.pathname, {
-        errMess: error.response?.data?.message,
+        errMess: error.response?.statusText,
         ...(page && { page }),
       });
     }
