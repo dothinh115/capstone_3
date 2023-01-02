@@ -9,6 +9,7 @@ import {
   sendOrderApi,
 } from "../../redux/reducers/cartReducer";
 import { getEmail } from "../../util/function";
+import TopMessages from "../others/TopMessages";
 import OrderHistory from "../profile/OrderHistory";
 
 const Cart = () => {
@@ -225,24 +226,13 @@ const Cart = () => {
       </div>
 
       {checkoutRes && !loading && (
-        <div className="main-container" style={{ margin: "20px 0" }}>
-          <div className="page-header">
-            {error ? (
-              <>
-                <i
-                  className="fa-solid fa-circle-exclamation"
-                  style={{ color: "red" }}
-                ></i>{" "}
-                {error}
-              </>
-            ) : (
-              <>
-                <i className="fa-solid fa-check" style={{ color: "green" }}></i>
-                Đặt hàng thành công.
-              </>
-            )}
-          </div>
-        </div>
+        <TopMessages
+          value={error ? error : "Đặt hàng thành công"}
+          icon={true}
+          iconStyle={error ? "circle-exclamation" : "check"}
+          iconColor={error ? "red" : "green"}
+          style={{ marginTop: "20px" }}
+        />
       )}
 
       {loading && <div className="loader"></div>}

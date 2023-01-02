@@ -5,18 +5,29 @@ import { sendDeleteOrderApi } from "../../redux/reducers/productReducer";
 const OrderHistory = () => {
   const { userData } = useSelector((store) => store.userData);
   const [seeAll, setSeeAll] = useState(4);
-  const [deleting, setDeleting] = useState(null);
+  const [deleting, setDeleting] = useState([]);
   const dispatch = useDispatch();
 
   const deleteOrderHandle = async (id) => {
     dispatch(sendDeleteOrderApi(id));
-    setDeleting(id);
+    setDeleting([...deleting, id]);
+  };
+
+  const findIfDeleting = (id) => {
+    const find = deleting.find((item) => item === id);
+    if (find) return true;
+    return false;
   };
 
   const seeAllHandle = () => setSeeAll(seeAll + 3);
 
   useEffect(() => {
-    if (userData?.orderHistory) setDeleting(null);
+    for (let value of deleting) {
+      for (let item of userData?.ordersHistory) {
+        if (value !== item.id)
+          setDeleting(deleting.filter((val) => val !== value));
+      }
+    }
   }, [userData?.ordersHistory]);
 
   return (
@@ -27,7 +38,10 @@ const OrderHistory = () => {
         <ul>
           {userData?.ordersHistory?.slice(0, seeAll).map((item, index) => {
             return (
-              <li key={index} style={{ opacity: deleting === item.id && ".3" }}>
+              <li
+                key={index}
+                style={{ opacity: findIfDeleting(item.id) && ".3" }}
+              >
                 <div>
                   <span>
                     <i className="fa-solid fa-turn-down-right"></i>#{item.id}

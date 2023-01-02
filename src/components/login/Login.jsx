@@ -10,6 +10,7 @@ import {
 import MyForm from "../Form/MyForm";
 import MyFormButton from "../Form/MyFormButton";
 import { Input } from "../Form/MyFormItem";
+import TopMessages from "../others/TopMessages";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -36,31 +37,25 @@ const Login = () => {
   return (
     <>
       {state?.needLoginMessage && (
-        <div className="main-container" style={{ marginBottom: "20px" }}>
-          <div className="page-header">
-            <p>
-              <i
-                className="fa-solid fa-circle-exclamation"
-                style={{ color: "red" }}
-              ></i>
-              {state.needLoginMessage}
-            </p>
-          </div>
-        </div>
+        <TopMessages
+          value={state.needLoginMessage}
+          icon={true}
+          iconStyle="circle-exclamation"
+          iconColor="red"
+        />
       )}
 
-      <div className="main-container" style={{ marginBottom: "20px" }}>
-        <div className="page-header">
-          <p>
-            <i className="fa-solid fa-arrow-right"></i>
-            Nếu chưa có tài khoản,{" "}
-            <Link to="/register" className="alert-link">
-              bấm vào đây
-            </Link>{" "}
-            để đăng ký!!
-          </p>
-        </div>
-      </div>
+      <TopMessages
+        value={[
+          "Nếu chưa có tài khoản, ",
+          <Link to="/register" className="alert-link">
+            bấm vào đây
+          </Link>,
+          " để đăng ký!!",
+        ]}
+        icon={true}
+        iconStyle="arrow-right"
+      />
       {(state?.errMess || state?.loginRes) && (
         <div className="main-container" style={{ marginBottom: "20px" }}>
           <div className="page-header">

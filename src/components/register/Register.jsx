@@ -6,6 +6,7 @@ import { dataConfig } from "../../util/config";
 import MyForm from "../Form/MyForm";
 import { Input, Select } from "../Form/MyFormItem";
 import MyFormButton from "../Form/MyFormButton";
+import TopMessages from "../others/TopMessages";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -22,18 +23,18 @@ const Register = () => {
 
   return (
     <>
-      <div className="main-container" style={{ marginBottom: "20px" }}>
-        <div className="page-header">
-          <p>
-            <i className="fa-solid fa-arrow-right"></i>
-            Nếu đã có tài khoản, vui lòng{" "}
-            <Link to="/login" className="alert-link">
-              đăng nhập
-            </Link>
-            !!!
-          </p>
-        </div>
-      </div>
+      <TopMessages
+        value={[
+          "Nếu đã có tài khoản, vui lòng ",
+          <Link to="/login" className="alert-link">
+            đăng nhập
+          </Link>,
+          " !!!",
+        ]}
+        icon={true}
+        iconStyle="arrow-right"
+      />
+
       {(state?.resMess || state?.errMess) && (
         <div className="main-container" style={{ marginBottom: "20px" }}>
           <div className="page-header">

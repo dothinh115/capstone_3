@@ -7,6 +7,7 @@ import {
 } from "../../redux/reducers/productReducer";
 import OrderHistory from "../profile/OrderHistory";
 import { getProfileApi } from "../../redux/reducers/userReducer";
+import TopMessages from "../others/TopMessages";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -24,25 +25,15 @@ const Profile = () => {
   return (
     <>
       {(state?.resMess || state?.errMess) && (
-        <>
-          <div className="main-container" style={{ marginBottom: "20px" }}>
-            <div className="page-header">
-              <i
-                className={`fa-solid fa-${
-                  (state?.resMess && "check") ||
-                  (state?.errMess && "circle-exclamation")
-                }`}
-                style={{
-                  color: `${
-                    (state?.errMess && "red") || (state?.resMess && "green")
-                  }`,
-                }}
-              ></i>
-              {state?.resMess}
-              {state?.errMess}
-            </div>
-          </div>
-        </>
+        <TopMessages
+          icon={true}
+          iconStyle={
+            (state?.resMess && "check") ||
+            (state?.errMess && "circle-exclamation")
+          }
+          iconColor={(state?.errMess && "red") || (state?.resMess && "green")}
+          value={state?.resMess || state?.errMess}
+        />
       )}
       {outlet ? (
         <Outlet />
