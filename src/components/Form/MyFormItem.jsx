@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { useLocation } from "react-router-dom";
 import { dataConfig } from "../../util/config";
@@ -19,12 +19,15 @@ export const Input = ({
     register,
     watch,
     setError,
-    clearErrors,
+    getValues,
     formState: { errors },
   } = useFormContext();
-
+  const [alreadyExistEmail, setAlreadyExistEmail] = useState(null);
   useEffect(() => {
-    if (customError) setError(item, { message: customError });
+    if (customError) {
+      setError(item, { message: customError });
+      setAlreadyExistEmail(getValues(item));
+    }
   }, [customError, errors]);
 
   const index = getIndexDataConfig(item);
@@ -52,6 +55,11 @@ export const Input = ({
                   validate: (value) => {
                     if (watch("password") !== value)
                       return dataConfig.errorMessage[index];
+                  },
+                }),
+                ...(customError && {
+                  validate: (value) => {
+                    if (value === alreadyExistEmail) return customError;
                   },
                 }),
               }),
