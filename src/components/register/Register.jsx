@@ -26,42 +26,31 @@ const Register = () => {
       <TopMessages
         value={[
           "Nếu đã có tài khoản, vui lòng ",
-          <Link to="/login" className="alert-link">
+          <Link key={"letLogin"} to="/login" className="alert-link">
             đăng nhập
           </Link>,
           " !!!",
         ]}
-        icon={true}
         iconStyle="arrow-right"
       />
 
-      {(state?.resMess || state?.errMess) && (
+      {state?.resMess && (
         <div className="main-container" style={{ marginBottom: "20px" }}>
           <div className="page-header">
             <h1>THÔNG BÁO</h1>
           </div>
           <div className="main-body">
             <i
-              className={`fa-solid fa-${
-                (state?.resMess && "check") ||
-                (state?.errMess && "circle-exclamation")
-              }`}
+              className="fa-solid fa-check"
               style={{
-                color: `${
-                  (state?.resMess && "green") || (state?.errMess && "red")
-                }`,
+                color: "green",
               }}
             ></i>
-            {(state?.resMess && (
-              <>
-                {state?.resMess} {", "}
-                <Link className="alert-link" to="/login">
-                  <i className="fa-solid fa-arrow-right"></i>bấm vào đây
-                </Link>{" "}
-                để đăng nhập!!
-              </>
-            )) ||
-              state?.errMess}
+            {state?.resMess} {", "}
+            <Link className="alert-link" to="/login">
+              <i className="fa-solid fa-arrow-right"></i>bấm vào đây
+            </Link>{" "}
+            để đăng nhập!!
           </div>
         </div>
       )}
@@ -87,6 +76,9 @@ const Register = () => {
                           : "" || item === "phone"
                           ? "number"
                           : ""
+                      }
+                      customError={
+                        state?.errMess && item === "email" && state?.errMess
                       }
                     />
                   );

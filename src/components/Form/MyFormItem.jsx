@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
+import { useLocation } from "react-router-dom";
 import { dataConfig } from "../../util/config";
 import { getIndexDataConfig } from "../../util/function";
 
@@ -10,12 +11,25 @@ export const Input = ({
   required = true,
   validate = true,
   disabled = false,
+  customError = null,
 }) => {
+  const location = useLocation();
+
   const {
     register,
     watch,
+    setError,
+    clearErrors,
     formState: { errors },
   } = useFormContext();
+
+  useEffect(() => {
+    if (customError) {
+      setError(item, { message: customError });
+    } else {
+      clearErrors(item);
+    }
+  }, [customError, errors]);
 
   const index = getIndexDataConfig(item);
 
@@ -32,18 +46,19 @@ export const Input = ({
           className={errors[item]?.message && "isInvalid"}
           placeholder={placeHolder ? dataConfig.placeHolder[index] : ""}
           {...register(item, {
-            ...(validate && {
-              pattern: {
-                value: dataConfig.reg[index],
-                message: dataConfig.errorMessage[index],
-              },
-              ...(item === "passwordConfirm" && {
-                validate: (value) => {
-                  if (watch("password") !== value)
-                    return dataConfig.errorMessage[index];
+            ...(validate &&
+              location.pathname !== "/login" && {
+                pattern: {
+                  value: dataConfig.reg[index],
+                  message: dataConfig.errorMessage[index],
                 },
+                ...(item === "passwordConfirm" && {
+                  validate: (value) => {
+                    if (watch("password") !== value)
+                      return dataConfig.errorMessage[index];
+                  },
+                }),
               }),
-            }),
             ...(required && { required: "Không được để trống!" }),
           })}
           disabled={disabled ? true : false}

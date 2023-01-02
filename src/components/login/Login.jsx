@@ -39,7 +39,6 @@ const Login = () => {
       {state?.needLoginMessage && (
         <TopMessages
           value={state.needLoginMessage}
-          icon={true}
           iconStyle="circle-exclamation"
           iconColor="red"
         />
@@ -48,12 +47,11 @@ const Login = () => {
       <TopMessages
         value={[
           "Nếu chưa có tài khoản, ",
-          <Link to="/register" className="alert-link">
+          <Link key={"letReg"} to="/register" className="alert-link">
             bấm vào đây
           </Link>,
           " để đăng ký!!",
         ]}
-        icon={true}
         iconStyle="arrow-right"
       />
       {(state?.errMess || state?.loginRes) && (
