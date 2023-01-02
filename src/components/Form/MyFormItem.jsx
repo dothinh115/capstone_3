@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useFormContext } from "react-hook-form";
 import { useLocation } from "react-router-dom";
 import { dataConfig } from "../../util/config";
@@ -11,7 +11,6 @@ export const Input = ({
   required = true,
   validate = true,
   disabled = false,
-  customError = null,
 }) => {
   const location = useLocation();
 
@@ -46,11 +45,6 @@ export const Input = ({
                   validate: (value) => {
                     if (watch("password") !== value)
                       return dataConfig.errorMessage[index];
-                  },
-                }),
-                ...(customError && {
-                  validate: (value) => {
-                    return customError;
                   },
                 }),
               }),

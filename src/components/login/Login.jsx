@@ -19,12 +19,17 @@ const Login = () => {
     password: "",
   };
   const { state } = useLocation();
+
   const { setToken } = useToken();
+
   const windowNavigate = (page) =>
     page ? (window.location.href = page) : window.location.reload();
+
   const submitHandle = (data) => dispatch(sendLoginApi(data, state?.page));
+
   const responseFacebook = (response) =>
     dispatch(sendFacebookLoginApi(response.accessToken, state?.page));
+
   useEffect(() => {
     if (state?.loginRes) {
       setToken(state.loginRes);
@@ -55,49 +60,25 @@ const Login = () => {
         iconStyle="arrow-right"
       />
       {(state?.errMess || state?.loginRes) && (
-        <div className="main-container" style={{ marginBottom: "20px" }}>
-          <div className="page-header">
-            <h1>THÔNG BÁO</h1>
-          </div>
-          <div className="main-body">
-            {(state?.errMess && (
-              <>
-                <i
-                  className="fa-solid fa-circle-exclamation"
-                  style={{ color: "red" }}
-                ></i>
-                {state?.errMess}
-              </>
-            )) ||
-              (state?.loginRes && (
-                <>
-                  <p>
-                    <i
-                      className="fa-solid fa-check"
-                      style={{ color: "green" }}
-                    ></i>
-                    Đăng nhập thành công, bạn sẽ được chuyển hướng sang trang
-                    đang xem trước đó trong vài giây!
-                  </p>
-                  <div className="footer-hr-span" style={{ marginTop: "20px" }}>
-                    <span>Hoặc</span>
-                    <div>
-                      <button
-                        className="btn"
-                        onClick={() => windowNavigate(state?.page)}
-                      >
-                        <i
-                          className="fa-solid fa-arrow-right"
-                          style={{ color: "blue" }}
-                        ></i>{" "}
-                        Chuyển hướng ngay
-                      </button>
-                    </div>
-                  </div>
-                </>
-              ))}
-          </div>
-        </div>
+        <TopMessages
+          value={
+            state?.errMess
+              ? state?.errMess
+              : "Đăng nhập thành công, bạn sẽ được chuyển hướng sang trang đang xem trước đó trong vài giây!"
+          }
+          iconStyle={state?.errMess ? "circle-exclamation" : "check"}
+          iconColor={state.errMess ? "red" : "green"}
+          header={true}
+          hrFooter={state?.errMess ? false : true}
+          hrFooterFunc={() => windowNavigate(state?.page)}
+          hrFooterButtonValue={[
+            <i
+              className="fa-solid fa-arrow-right"
+              style={{ color: "blue" }}
+            ></i>,
+            " Chuyển hướng ngay",
+          ]}
+        />
       )}
 
       {!state?.loginRes && (

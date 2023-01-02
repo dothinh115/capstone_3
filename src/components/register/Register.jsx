@@ -35,32 +35,23 @@ const Register = () => {
       />
 
       {(state?.resMess || state?.errMess) && (
-        <div className="main-container" style={{ marginBottom: "20px" }}>
-          <div className="page-header">
-            <h1>THÔNG BÁO</h1>
-          </div>
-          <div className="main-body">
-            <i
-              className={`fa-solid fa-${
-                state?.resMess ? "check" : "circle-exclamation"
-              }`}
-              style={{
-                color: state?.resMess ? "green" : "red",
-              }}
-            ></i>
-            {state?.resMess ? (
-              <>
-                {state?.resMess + ", "}
-                <Link className="alert-link" to="/login">
-                  <i className="fa-solid fa-arrow-right"></i>bấm vào đây
-                </Link>{" "}
-                để đăng nhập!!
-              </>
-            ) : (
-              state.errMess
-            )}
-          </div>
-        </div>
+        <TopMessages
+          value={
+            state?.resMess
+              ? [
+                  state?.resMess,
+                  " ",
+                  <Link key={"regRes"} className="alert-link" to="/login">
+                    <i className="fa-solid fa-arrow-right"></i>bấm vào đây
+                  </Link>,
+                  " để đăng nhập!!!",
+                ]
+              : state.errMess
+          }
+          iconStyle={state?.resMess ? "check" : "circle-exclamation"}
+          iconColor={state?.resMess ? "green" : "red"}
+          header={true}
+        />
       )}
 
       {!state?.resMess && (
