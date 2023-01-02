@@ -363,7 +363,7 @@ i {
 .footer-hr-span {
   position: relative;
   text-align: center;
-  margin-top: 20px 0;
+  margin: 20px 0;
 }
 .footer-hr-span::after {
   position: absolute;
