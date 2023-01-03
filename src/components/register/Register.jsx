@@ -53,7 +53,6 @@ const Register = () => {
           }
           iconStyle={state?.resMess ? "check" : "circle-exclamation"}
           iconColor={state?.resMess ? "green" : "red"}
-          header={true}
         />
       )}
 
