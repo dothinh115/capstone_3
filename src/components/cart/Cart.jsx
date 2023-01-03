@@ -63,7 +63,7 @@ const Cart = () => {
   const sendCheckoutHandle = async (data) => {
     setLoading(true);
     try {
-      await dispatch(sendOrderApi(data));
+      dispatch(sendOrderApi(data));
     } catch (error) {
       console.log(error);
     } finally {

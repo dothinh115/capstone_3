@@ -50,14 +50,17 @@ const Login = () => {
       )}
 
       <MainBlock
-        value={[
-          "Nếu chưa có tài khoản, ",
-          <Link key={"letReg"} to="/register" className="alert-link">
-            bấm vào đây
-          </Link>,
-          " để đăng ký!!",
-        ]}
+        value={
+          <>
+            Nếu chưa có tài khoản,{" "}
+            <Link to="/register" className="alert-link">
+              bấm vào đây
+            </Link>{" "}
+            để đăng ký!!
+          </>
+        }
         iconStyle="arrow-right"
+        headerValue={false}
       />
 
       {(state?.errMess || state?.loginRes) && (

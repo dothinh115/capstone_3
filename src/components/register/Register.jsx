@@ -24,14 +24,17 @@ const Register = () => {
   return (
     <>
       <MainBlock
-        value={[
-          "Nếu đã có tài khoản, vui lòng ",
-          <Link key={"letLogin"} to="/login" className="alert-link">
-            đăng nhập
-          </Link>,
-          " !!!",
-        ]}
+        value={
+          <>
+            Nếu đã có tài khoản, vui lòng{" "}
+            <Link to="/login" className="alert-link">
+              đăng nhập
+            </Link>
+            !!!
+          </>
+        }
         iconStyle="arrow-right"
+        headerValue={false}
       />
 
       {(state?.resMess || state?.errMess) && (

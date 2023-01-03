@@ -1,6 +1,10 @@
 import React from "react";
+import { useFormContext } from "react-hook-form";
 
 const MyFormButton = ({ btn }) => {
+  const {
+    formState: { isValid },
+  } = useFormContext();
   return (
     <div className="item">
       <div className="item-left"></div>
@@ -13,6 +17,7 @@ const MyFormButton = ({ btn }) => {
                 key={index}
                 type={item.type}
                 className={`btn ${item.className}`}
+                disabled={isValid ? false : true}
               >
                 {item.value}
               </button>

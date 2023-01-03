@@ -29,33 +29,31 @@ const ProfileEdit = () => {
         headerValue={<>Chỉnh sửa thông tin cá nhân - {userData?.name}</>}
         otherClass="edit-container"
         value={
-          <>
-            <MyForm defaultValues={defaultValues} onSubmit={submitHandle}>
-              {dataConfig.id.map((item, index) => {
-                if (index === 1 || index === 5) return false;
-                if (index === 3) return <Select key={index} item={item} />;
-                return (
-                  <Input
-                    key={index}
-                    item={item}
-                    type="text"
-                    disabled={item === "email" && true}
-                  />
-                );
-              })}
-              <MyFormButton
-                btn={[
-                  { type: "submit", value: "Sửa" },
-                  {
-                    type: "button",
-                    className: "btn-red",
-                    value: "Hủy",
-                    function: () => navigate("/profile"),
-                  },
-                ]}
-              />
-            </MyForm>
-          </>
+          <MyForm defaultValues={defaultValues} onSubmit={submitHandle}>
+            {dataConfig.id.map((item, index) => {
+              if (index === 1 || index === 5) return false;
+              if (index === 3) return <Select key={index} item={item} />;
+              return (
+                <Input
+                  key={index}
+                  item={item}
+                  type="text"
+                  disabled={item === "email" && true}
+                />
+              );
+            })}
+            <MyFormButton
+              btn={[
+                { type: "submit", value: "Sửa" },
+                {
+                  type: "button",
+                  className: "btn-red",
+                  value: "Hủy",
+                  function: () => navigate("/profile"),
+                },
+              ]}
+            />
+          </MyForm>
         }
       />
     </>
