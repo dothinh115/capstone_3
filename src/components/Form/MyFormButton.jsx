@@ -17,7 +17,6 @@ const MyFormButton = ({ btn }) => {
                 key={index}
                 type={item.type}
                 className={`btn ${item.className}`}
-                disabled={isValid ? false : true}
               >
                 {item.value}
               </button>
