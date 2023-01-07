@@ -12,7 +12,7 @@ body {
     min-height: 100vh;
     padding-top: 50px;
     font-size: 15px;
-
+    position: relative;
     @media (max-width: 600px) {
         font-size: 13px;
     }
@@ -108,7 +108,6 @@ a:hover {
     background-color: rgba(255, 255, 255, .25);
     border-radius: 5px;
     margin-bottom: 50px;
-    position: relative;
 }
 
 .contain-header {
@@ -139,6 +138,18 @@ a:hover {
             width: 100%;
         }
 
+        @media (max-width: 600px) {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 999;
+            background-color: rgba(white, 0.65);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+        }
+
         .index-menu {
             li {
                 list-style-type: none;
@@ -147,7 +158,6 @@ a:hover {
                 cursor: pointer;
                 margin-bottom: 10px;
                 border: 1px solid transparent;
-
                 i {
                     margin-right: 5px;
                 }
@@ -157,14 +167,10 @@ a:hover {
                     padding: 12px;
                     display: block;
                     height: 100%;
-
-                    @media (max-width:600px) {
-                        padding: 5px;
-                    }
                 }
 
                 &:has(>.active) {
-                    background-color: rgba(white, 0.65);
+                    background-color: rgba(white, 0.85);
                 }
 
                 &:hover {
@@ -175,6 +181,10 @@ a:hover {
 
                 @media (max-width:963px) {
                     display: inline-block;
+                }
+                @media (max-width: 600px) {
+                    margin-bottom: unset;
+                    margin: 0px 5px;
                 }
             }
         }
@@ -468,10 +478,14 @@ i {
     &:hover {
         opacity: 1;
     }
+
+    @media (max-width:600px) {
+        bottom: 65px;
+    }
 }
 
 .showBackToTop {
-    right: 40px;
+    right: 20px;
 }
 
 .loader {

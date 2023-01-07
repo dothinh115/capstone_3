@@ -26,7 +26,6 @@ const productReducer = createSlice({
       state.productDetailLoading = action.payload;
     },
     updateProductFavorite: (state, action) => {
-      if (!getToken()) return;
       state.productFavorite = action.payload;
     },
     updateProductRandomCarousel: (state, action) => {

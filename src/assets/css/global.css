@@ -12,6 +12,7 @@ body {
   min-height: 100vh;
   padding-top: 50px;
   font-size: 15px;
+  position: relative;
 }
 @media (max-width: 600px) {
   body {
@@ -97,7 +98,6 @@ a:hover {
   background-color: rgba(255, 255, 255, 0.25);
   border-radius: 5px;
   margin-bottom: 50px;
-  position: relative;
 }
 
 .contain-header {
@@ -129,6 +129,19 @@ a:hover {
     width: 100%;
   }
 }
+@media (max-width: 600px) {
+  .contain-body .body-left {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    background-color: rgba(255, 255, 255, 0.65);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+  }
+}
 .contain-body .body-left .index-menu li {
   list-style-type: none;
   max-width: 80%;
@@ -147,13 +160,8 @@ a:hover {
   display: block;
   height: 100%;
 }
-@media (max-width: 600px) {
-  .contain-body .body-left .index-menu li a {
-    padding: 5px;
-  }
-}
 .contain-body .body-left .index-menu li:has(> .active) {
-  background-color: rgba(255, 255, 255, 0.65);
+  background-color: rgba(255, 255, 255, 0.85);
 }
 .contain-body .body-left .index-menu li:hover {
   border: 1px solid rgba(255, 255, 255, 0.35);
@@ -161,6 +169,12 @@ a:hover {
 @media (max-width: 963px) {
   .contain-body .body-left .index-menu li {
     display: inline-block;
+  }
+}
+@media (max-width: 600px) {
+  .contain-body .body-left .index-menu li {
+    margin-bottom: unset;
+    margin: 0px 5px;
   }
 }
 .contain-body .body-right {
@@ -437,9 +451,14 @@ i {
 .back-to-top-button:hover {
   opacity: 1;
 }
+@media (max-width: 600px) {
+  .back-to-top-button {
+    bottom: 65px;
+  }
+}
 
 .showBackToTop {
-  right: 40px;
+  right: 20px;
 }
 
 .loader {
