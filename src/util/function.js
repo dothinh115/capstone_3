@@ -9,6 +9,7 @@ export const {
   getDataConfig,
   getIndexDataConfig,
   suffleArray,
+  reverseString,
 } = {
   getLocalStorage(name) {
     let data = localStorage.getItem(name);
@@ -65,5 +66,9 @@ export const {
       ];
     }
     return arr.slice(0, number);
+  },
+  reverseString(string) {
+    string = string.split("-").reverse();
+    return string.join("/");
   },
 };

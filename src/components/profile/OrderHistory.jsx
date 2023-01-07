@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { sendDeleteOrderApi } from "../../redux/reducers/productReducer";
+import { reverseString } from "../../util/function";
 import MainBlock from "../others/MainBlock";
 
 const OrderHistory = () => {
@@ -48,10 +49,8 @@ const OrderHistory = () => {
                     style={{ opacity: findIfDeleting(item.id) && ".3" }}
                   >
                     <div>
-                      <span>
-                        <i className="fa-solid fa-turn-down-right"></i>#
-                        {item.id}
-                      </span>
+                      <span style={{ marginRight: "5px" }}>#{item.id}</span>
+                      <span>{reverseString(item.date.substr(0, 10))}</span>
                     </div>
                     <div>
                       <button
