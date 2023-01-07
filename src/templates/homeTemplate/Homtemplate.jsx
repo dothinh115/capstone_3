@@ -31,7 +31,7 @@ const Homtemplate = () => {
   useEffect(() => {
     getAllProduct();
     dispatch(getProfileApi);
-    if (token) dispatch(getProductFavoriteApi);
+    dispatch(getProductFavoriteApi);
   }, []);
 
   useEffect(() => {

@@ -341,6 +341,11 @@ i {
                     top: 10px;
                     right: 10px;
                     font-size: 0px;
+                    @media (max-width: 768px) {
+                        i {
+                            font-size: 40px;
+                        }
+                    }
                 }
                 img {
                     width: 100%;

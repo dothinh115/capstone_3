@@ -47,6 +47,7 @@ export const getProfileApi = async (dispatch) => {
 };
 
 export const updateProfileApi = (dataValue) => {
+  if (!getToken()) return;
   return async (dispatch) => {
     dispatch(updateLoadingReducer(true));
     try {
@@ -70,6 +71,7 @@ export const updateProfileApi = (dataValue) => {
 };
 
 export const updatePasswordApi = (data) => {
+  if (!getToken()) return;
   return async (dispatch) => {
     dispatch(updateLoadingReducer(true));
     try {

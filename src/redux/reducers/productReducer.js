@@ -1,15 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { history } from "../../App";
 import { http, needLoginToDoSth } from "../../util/config";
-import { getToken } from "../../util/function";
+import { getToken, suffleArray } from "../../util/function";
 import { getProfileApi } from "./userReducer";
 
 const initialState = {
   productData: [],
   productDetail: {},
   productDetailLoading: false,
-  ifProductLiked: false,
   productFavorite: [],
+  productRandomCarousel: [],
 };
 
 const productReducer = createSlice({
@@ -25,12 +25,12 @@ const productReducer = createSlice({
     updateProductDetailLoading: (state, action) => {
       state.productDetailLoading = action.payload;
     },
-    updateProductLike: (state, action) => {
-      state.ifProductLiked = action.payload;
-    },
     updateProductFavorite: (state, action) => {
       if (!getToken()) return;
       state.productFavorite = action.payload;
+    },
+    updateProductRandomCarousel: (state, action) => {
+      state.productRandomCarousel = action.payload;
     },
   },
 });
@@ -39,8 +39,8 @@ export const {
   updateProductReducer,
   updateProductDetail,
   updateProductDetailLoading,
-  updateProductLike,
   updateProductFavorite,
+  updateProductRandomCarousel,
 } = productReducer.actions;
 
 export default productReducer.reducer;
@@ -50,6 +50,7 @@ export const getAllProductApi = async (dispatch) => {
   try {
     const fetch = await http.get("https://shop.cyberlearn.vn/api/Product");
     dispatch(updateProductReducer(fetch.data.content));
+    dispatch(updateProductRandomCarousel(suffleArray(fetch.data.content, 5)));
   } catch (error) {
     console.log(error);
   }
@@ -84,7 +85,6 @@ export const setLikeByIdApi = (bool, productId) => {
           bool ? "" : "un"
         }like?productId=${productId}`
       );
-      dispatch(updateProductLike(bool));
       dispatch(getProductFavoriteApi);
     } catch (error) {
       console.log(error);
@@ -92,25 +92,8 @@ export const setLikeByIdApi = (bool, productId) => {
   };
 };
 
-export const findIfLikeApi = (productId) => {
-  return async (dispatch) => {
-    try {
-      let res = false;
-      const fetch = await http.get(
-        "https://shop.cyberlearn.vn/api/Users/getproductfavorite"
-      );
-      const find = Object.values(fetch.data.content.productsFavorite).find(
-        (item) => item.id == productId
-      );
-      if (find) res = true;
-      dispatch(updateProductLike(res));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
 export const getProductFavoriteApi = async (dispatch) => {
+  if (!getToken()) return;
   try {
     const fetch = await http.get(
       "https://shop.cyberlearn.vn/api/Users/getproductfavorite"
@@ -122,6 +105,7 @@ export const getProductFavoriteApi = async (dispatch) => {
 };
 
 export const sendDeleteOrderApi = (id) => {
+  if (!getToken()) return;
   return async (dispatch) => {
     try {
       await http.post("https://shop.cyberlearn.vn/api/Users/deleteOrder", {

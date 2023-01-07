@@ -324,6 +324,11 @@ i {
   right: 10px;
   font-size: 0px;
 }
+@media (max-width: 768px) {
+  .card-item-inner .card-img span.like i {
+    font-size: 40px;
+  }
+}
 .card-item-inner .card-img img {
   width: 100%;
   -webkit-animation: fadeIn 1s;
