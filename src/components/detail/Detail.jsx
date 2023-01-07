@@ -3,30 +3,20 @@ import { useParams } from "react-router-dom";
 import Item from "../item/Item";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/reducers/cartReducer";
-import {
-  findIfLikeApi,
-  getProductByIdApi,
-  setLikeByIdApi,
-} from "../../redux/reducers/productReducer";
+import { getProductByIdApi } from "../../redux/reducers/productReducer";
 import LazyloadImg from "../../hoc/LazyloadImg";
-import useToken from "../../hooks/useToken";
 import MainBlock from "../others/MainBlock";
+import LikeButton from "../like/LikeButton";
 
 const Detail = () => {
-  const { productDetail, ifProductLiked, productDetailLoading } = useSelector(
+  const { productDetail, productDetailLoading } = useSelector(
     (store) => store.product
   );
   const dispatch = useDispatch();
   const { productId } = useParams();
   const [number, setNumber] = useState(1);
-  const { token } = useToken();
 
   const getProductById = () => dispatch(getProductByIdApi(productId));
-
-  const findIfLike = () => dispatch(findIfLikeApi(productId));
-
-  const likeHandle = (e) =>
-    dispatch(setLikeByIdApi(!ifProductLiked, productId));
 
   const addToCartHandle = () => {
     const payload = {
@@ -35,10 +25,6 @@ const Detail = () => {
     };
     dispatch(addToCart(payload));
   };
-
-  useEffect(() => {
-    if (token) findIfLike();
-  });
 
   useEffect(() => {
     getProductById();
@@ -65,13 +51,7 @@ const Detail = () => {
                 <span className="price">
                   <i className="fa-solid fa-tag"></i>${productDetail?.price}
                 </span>
-                <span className="detail-like" onClick={(e) => likeHandle(e)}>
-                  <i
-                    className="fa-regular fa-heart"
-                    style={{ fontWeight: ifProductLiked && "bold" }}
-                  ></i>
-                  Like
-                </span>
+                <LikeButton productId={Number(productId)} />
               </p>
               <h1>Size có sẵn</h1>
               <div className="detail-body-size">

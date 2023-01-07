@@ -1,10 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useLocation, useOutlet } from "react-router-dom";
-import {
-  getProductFavoriteApi,
-  setLikeByIdApi,
-} from "../../redux/reducers/productReducer";
+import { setLikeByIdApi } from "../../redux/reducers/productReducer";
 import OrderHistory from "../profile/OrderHistory";
 import { getProfileApi } from "../../redux/reducers/userReducer";
 import MainBlock from "../others/MainBlock";
@@ -19,7 +16,6 @@ const Profile = () => {
   const sendUnLike = (productId) => dispatch(setLikeByIdApi(false, productId));
 
   useEffect(() => {
-    dispatch(getProductFavoriteApi);
     dispatch(getProfileApi);
   }, []);
   return (

@@ -1,10 +1,6 @@
 import React from "react";
-import { useFormContext } from "react-hook-form";
 
 const MyFormButton = ({ btn }) => {
-  const {
-    formState: { isValid },
-  } = useFormContext();
   return (
     <div className="item">
       <div className="item-left"></div>

@@ -4,6 +4,7 @@ import { memo } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/reducers/cartReducer";
 import LazyloadImg from "../../hoc/LazyloadImg";
+import LikeButton from "../like/LikeButton";
 
 const Item = ({ item }) => {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const Item = ({ item }) => {
           <Link to={`/detail/${item.id}`}>
             <LazyloadImg url={item.image} />
           </Link>
+          <LikeButton productId={item.id} />
         </div>
         <div className="card-body">
           <h3 className="">

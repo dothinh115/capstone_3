@@ -31,6 +31,7 @@ const Login = () => {
     dispatch(sendFacebookLoginApi(response.accessToken, state?.page));
 
   useEffect(() => {
+    console.log(state);
     if (state?.loginRes) {
       setToken(state.loginRes);
       setTimeout(() => {

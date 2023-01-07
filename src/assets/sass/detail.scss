@@ -52,17 +52,6 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                .detail-like {
-                    display: block;
-                    cursor: pointer;
-                    i {
-                        font-size: 25px;
-                        color: rgba(165, 42, 42, 0.8);
-                    }
-                    i:hover {
-                        font-weight: bold;
-                    }
-                }
             }
         }
         &-size {

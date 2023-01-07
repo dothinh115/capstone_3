@@ -6,14 +6,19 @@ import Header from "../../components/header/Header";
 import Breadcrumbs from "../../components/breadCrumbs/BreadCrumbs";
 import Sidebar from "../../components/sidebar/Sidebar";
 import useCartData from "../../hooks/useCartData";
-import { getAllProductApi } from "../../redux/reducers/productReducer";
+import {
+  getAllProductApi,
+  getProductFavoriteApi,
+} from "../../redux/reducers/productReducer";
 import { getProfileApi } from "../../redux/reducers/userReducer";
+import useToken from "../../hooks/useToken";
 
 const Homtemplate = () => {
   const { cartData } = useSelector((store) => store.cart);
   const [pageYOffset, setPageYOffset] = useState(0);
   const { saveCartData } = useCartData();
   const dispatch = useDispatch();
+  const { token } = useToken();
 
   const getAllProduct = () => dispatch(getAllProductApi);
 
@@ -26,6 +31,7 @@ const Homtemplate = () => {
   useEffect(() => {
     getAllProduct();
     dispatch(getProfileApi);
+    if (token) dispatch(getProductFavoriteApi);
   }, []);
 
   useEffect(() => {
