@@ -157,12 +157,7 @@ const Cart = () => {
                   <div className="tbody">
                     {Object.values(cartData)?.map((item, index) => {
                       return (
-                        <div
-                          key={index}
-                          className={`tr ${
-                            state?.justAddId === item.id ? "active" : ""
-                          }`}
-                        >
+                        <div key={index} className="tr">
                           <div className="td">
                             <input
                               type="checkbox"
