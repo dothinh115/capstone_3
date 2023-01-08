@@ -25,6 +25,9 @@ const Breadcrumbs = () => {
             </NavLink>
           </li>
           <li>
+            <NavLink to="/all">Tất cả sản phẩm</NavLink>
+          </li>
+          <li>
             <NavLink to="/profile">Thông tin cá nhân</NavLink>
           </li>
           <li>
