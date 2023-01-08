@@ -77,7 +77,7 @@ export const Select = ({ item }) => {
         {dataConfig.name[index]}
       </div>
       <div className="item-right">
-        <select {...register}>
+        <select {...register(item)}>
           <option value="true">Nam</option>
           <option value="false">Nữ</option>
         </select>
