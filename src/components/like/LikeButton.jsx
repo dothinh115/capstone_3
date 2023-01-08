@@ -1,26 +1,24 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setLikeByIdApi } from "../../redux/reducers/productReducer";
+import { findIfExistedId } from "../../util/function";
 
 const LikeButton = ({ productId }) => {
   const dispatch = useDispatch();
   const { productFavorite } = useSelector((store) => store.product);
 
-  const findIfLiked = () => {
-    const find = productFavorite.find((item) => item.id === productId);
-    if (find) return true;
-    return false;
-  };
-
-  const likeHandle = () => {
-    dispatch(setLikeByIdApi(!findIfLiked(), productId));
-  };
+  const likeHandle = () =>
+    dispatch(
+      setLikeByIdApi(!findIfExistedId(productFavorite, productId), productId)
+    );
 
   return (
-    <span className="like" onClick={() => likeHandle()}>
+    <span className="like" onClick={likeHandle}>
       <i
         className="fa-regular fa-heart"
-        style={{ fontWeight: findIfLiked() && "bold" }}
+        style={{
+          fontWeight: findIfExistedId(productFavorite, productId) && "bold",
+        }}
       ></i>
       Like
     </span>

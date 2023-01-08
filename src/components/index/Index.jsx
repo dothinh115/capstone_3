@@ -1,12 +1,13 @@
 import React from "react";
-import Carousel from "../carousel/Carousel";
-import Item from "../item/Item";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import AllShoes from "../allshoes/AllShoes";
+import Carousel from "../carousel/Carousel";
 import MainBlock from "../others/MainBlock";
 
 const Index = () => {
   const { productData } = useSelector((store) => store.product);
-
+  const navigate = useNavigate();
   return (
     <>
       <MainBlock
@@ -18,12 +19,12 @@ const Index = () => {
       <MainBlock
         headerValue="SẢN PHẨM"
         otherClass="index-container"
-        value={
-          <div className="card">
-            {productData?.map((item, index) => {
-              return <Item item={item} key={index} />;
-            })}
-          </div>
+        value={<AllShoes productData={productData.slice(0, 6)} />}
+        hrFooterTitle={`Còn lại ${productData?.length - 6} sản phẩm`}
+        hrFooterValue={
+          <button className="btn" onClick={() => navigate("/all")}>
+            Xem tất cả
+          </button>
         }
       />
     </>

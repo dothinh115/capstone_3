@@ -8,6 +8,7 @@ const MainBlock = ({
   headerValue = "THÔNG BÁO",
   headerRight = null,
   hrFooterValue = null,
+  hrFooterTitle = "Hoặc",
   otherClass = null,
 }) => {
   return (
@@ -31,7 +32,7 @@ const MainBlock = ({
         {value}
         {hrFooterValue && (
           <div className="footer-hr-span" style={{ marginTop: "20px" }}>
-            <span>Hoặc</span>
+            <span>{hrFooterTitle}</span>
             <div>{hrFooterValue}</div>
           </div>
         )}

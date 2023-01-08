@@ -14,6 +14,12 @@ const Sidebar = () => {
         </NavLink>
       </li>
       <li>
+        <NavLink to="/all">
+          <i className="fa-solid fa-binoculars"></i>
+          Sản phẩm
+        </NavLink>
+      </li>
+      <li>
         <NavLink to="/search">
           <i className="fa-solid fa-magnifying-glass"></i>
           Tìm kiếm

@@ -10,8 +10,9 @@ import Index from "./components/index/Index";
 import { createBrowserHistory } from "history";
 import LoggedInRoute from "./hoc/NotLoggedInRoute";
 import NotLoggedInRoute from "./hoc/LoggedInRoute";
-import React, { Suspense, lazy, useEffect } from "react";
+import React, { Suspense, lazy } from "react";
 import useToken from "./hooks/useToken";
+import All from "./components/allshoes/All";
 
 //npm i history => chuyển hướng trang ở file ko phải component
 export const history = createBrowserHistory();
@@ -37,6 +38,14 @@ function App() {
             element={
               <Suspense fallback={<div className="loader"></div>}>
                 <Index />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/all"
+            element={
+              <Suspense fallback={<div className="loader"></div>}>
+                <All />
               </Suspense>
             }
           />

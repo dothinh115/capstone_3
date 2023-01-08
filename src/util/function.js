@@ -10,6 +10,7 @@ export const {
   getIndexDataConfig,
   suffleArray,
   reverseString,
+  findIfExistedId,
 } = {
   getLocalStorage(name) {
     let data = localStorage.getItem(name);
@@ -70,5 +71,10 @@ export const {
   reverseString(string) {
     string = string.split("-").reverse();
     return string.join("/");
+  },
+  findIfExistedId(arr, id) {
+    const find = arr.find((item) => item.id === id);
+    if (find) return true;
+    return false;
   },
 };
