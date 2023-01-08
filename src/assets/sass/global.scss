@@ -143,11 +143,12 @@ a:hover {
             bottom: 0;
             left: 0;
             z-index: 999;
-            background-color: rgba(white, 0.65);
+            background-color: white;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 50px;
+            border-top: 1px solid #ccc;
         }
 
         .index-menu {
@@ -167,10 +168,11 @@ a:hover {
                     padding: 12px;
                     display: block;
                     height: 100%;
+                    line-height: 16px;
                 }
 
                 &:has(>.active) {
-                    background-color: rgba(white, 0.85);
+                    background-color: #eee;
                 }
 
                 &:hover {
@@ -184,7 +186,8 @@ a:hover {
                 }
                 @media (max-width: 600px) {
                     margin-bottom: unset;
-                    margin: 0px 5px;
+                    border-radius: unset;
+                    height: 50px;
                 }
             }
         }

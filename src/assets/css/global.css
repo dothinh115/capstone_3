@@ -135,11 +135,12 @@ a:hover {
     bottom: 0;
     left: 0;
     z-index: 999;
-    background-color: rgba(255, 255, 255, 0.65);
+    background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 50px;
+    border-top: 1px solid #ccc;
   }
 }
 .contain-body .body-left .index-menu li {
@@ -159,9 +160,10 @@ a:hover {
   padding: 12px;
   display: block;
   height: 100%;
+  line-height: 16px;
 }
 .contain-body .body-left .index-menu li:has(> .active) {
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: #eee;
 }
 .contain-body .body-left .index-menu li:hover {
   border: 1px solid rgba(255, 255, 255, 0.35);
@@ -174,7 +176,8 @@ a:hover {
 @media (max-width: 600px) {
   .contain-body .body-left .index-menu li {
     margin-bottom: unset;
-    margin: 0px 5px;
+    border-radius: unset;
+    height: 50px;
   }
 }
 .contain-body .body-right {
