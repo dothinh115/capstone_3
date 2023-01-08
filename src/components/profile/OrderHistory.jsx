@@ -48,14 +48,14 @@ const OrderHistory = () => {
                     key={index}
                     style={{ opacity: findIfDeleting(item.id) && ".3" }}
                   >
-                    <div>
+                    <div style={{ width: "70%" }}>
                       <span style={{ marginRight: "5px" }}>#{item.id}</span>
                       <span>
                         <i className="fa-solid fa-calendar-days"></i>
                         {reverseString(item.date.substr(0, 10))}
                       </span>
                     </div>
-                    <div>
+                    <div style={{ width: "30%" }}>
                       <button
                         className="btn btn-red"
                         onClick={() => deleteOrderHandle(item.id)}
