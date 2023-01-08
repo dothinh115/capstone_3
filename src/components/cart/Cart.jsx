@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   addToCart,
   checkAll,
@@ -17,7 +17,6 @@ const Cart = () => {
   const { cartData } = useSelector((store) => store.cart);
   const [checkoutRes, setCheckoutRes] = useState(false);
   const [error, setError] = useState("");
-  const { state } = useLocation();
   const [loading, setLoading] = useState(false);
 
   const quantityUpdateHandle = (id, quantity) => {
@@ -116,10 +115,6 @@ const Cart = () => {
       deleteHandle(value.id);
     }
   };
-
-  useEffect(() => {
-    if (state?.justAddId) window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [state]);
 
   return (
     <>

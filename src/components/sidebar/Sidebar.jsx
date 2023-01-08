@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { totalCount } from "../../util/function";
 
 const Sidebar = () => {
   const { cartData } = useSelector((store) => store.cart);
+  const { state } = useLocation();
+  const [showAlert, setShowAlert] = useState(false);
+  useEffect(() => {
+    setShowAlert(state?.success);
+  });
+
+  useEffect(() => {
+    if (showAlert === true) {
+      setTimeout(() => {
+        setShowAlert(false);
+        state.success = false;
+      }, 4000);
+    }
+  }, [showAlert]);
   return (
     <ul className="index-menu">
       <li>
@@ -25,11 +39,17 @@ const Sidebar = () => {
           Tìm kiếm
         </NavLink>
       </li>
-      <li>
+      <li style={{ position: "relative" }}>
         <NavLink to="/cart">
           <i className="fa-solid fa-cart-shopping"></i>
-          Giỏ hàng [ <b>{totalCount(cartData, "quantity")}</b> ]
+          Giỏ hàng <b>[ {totalCount(cartData, "quantity")} ]</b>
         </NavLink>
+        <div
+          className="add-to-cart-success"
+          style={{ opacity: !showAlert ? 0 : 1 }}
+        >
+          <i className="fa-solid fa-check"></i>
+        </div>
       </li>
     </ul>
   );

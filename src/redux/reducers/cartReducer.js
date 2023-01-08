@@ -39,7 +39,7 @@ const cartReducer = createSlice({
         cartData = [...cartData, payload];
       }
       state.cartData = cartData;
-      history.push("/cart", { justAddId: payload.id });
+      history.push(window.location.pathname, { success: true });
     },
     deleteCartItem: (state, action) => {
       const { cartData } = state;

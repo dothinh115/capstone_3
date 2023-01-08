@@ -27,7 +27,8 @@
   height: 100%;
   padding: 4px;
 }
-.header-menu ul li a:hover, .header-menu ul li a.active {
+.header-menu ul li a:hover,
+.header-menu ul li a.active {
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 4px;
 }/*# sourceMappingURL=header.css.map */

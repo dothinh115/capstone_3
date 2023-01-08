@@ -15,10 +15,9 @@ const LikeButton = ({ productId }) => {
   return (
     <span className="like" onClick={likeHandle}>
       <i
-        className="fa-regular fa-heart"
-        style={{
-          fontWeight: findIfExistedId(productFavorite, productId) && "bold",
-        }}
+        className={`fa-regular fa-heart ${
+          findIfExistedId(productFavorite, productId) ? "bold" : ""
+        }`}
       ></i>
       Like
     </span>

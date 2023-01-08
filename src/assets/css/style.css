@@ -41,6 +41,10 @@ a:hover {
   }
 }
 
+.bold {
+  font-weight: bold;
+}
+
 .btn {
   padding: 7px 15px;
   background: #fff;
@@ -129,7 +133,7 @@ a:hover {
     width: 100%;
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 963px) {
   .contain-body .body-left {
     position: fixed;
     bottom: 0;
@@ -155,7 +159,7 @@ a:hover {
 .contain-body .body-left .index-menu li i {
   margin-right: 5px;
 }
-@media (max-width: 600px) {
+@media (max-width: 963px) {
   .contain-body .body-left .index-menu li i {
     font-size: 20px;
   }
@@ -167,10 +171,13 @@ a:hover {
   height: 100%;
   line-height: 16px;
 }
-@media (max-width: 600px) {
+@media (max-width: 963px) {
   .contain-body .body-left .index-menu li a {
     font-size: 0px;
     padding: 12px 25px;
+  }
+  .contain-body .body-left .index-menu li a b {
+    font-size: 16px;
   }
 }
 .contain-body .body-left .index-menu li:has(> .active) {
@@ -184,7 +191,7 @@ a:hover {
     display: inline-block;
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 963px) {
   .contain-body .body-left .index-menu li {
     margin: unset;
     border-radius: unset;
@@ -465,7 +472,7 @@ i {
 .back-to-top-button:hover {
   opacity: 1;
 }
-@media (max-width: 600px) {
+@media (max-width: 963px) {
   .back-to-top-button {
     bottom: 65px;
   }
@@ -478,7 +485,7 @@ i {
 .loader {
   width: 48px;
   height: 48px;
-  border: 5px solid #FFF;
+  border: 5px solid #fff;
   border-bottom-color: transparent;
   border-radius: 50%;
   display: block;
@@ -498,6 +505,53 @@ i {
 }
 .like i:hover {
   font-weight: bold;
+}
+
+.add-to-cart-success {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: green;
+  z-index: 10;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-align: center;
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+.add-to-cart-success::after {
+  position: absolute;
+  display: block;
+  content: "";
+  top: 50%;
+  transform: translateY(-50%);
+  right: 100%;
+  border: 5px solid;
+  border-color: transparent green transparent transparent;
+}
+@media (max-width: 600px) {
+  .add-to-cart-success::after {
+    border-color: green transparent transparent transparent;
+    top: 100%;
+    transform: unset;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+.add-to-cart-success i {
+  color: white;
+  margin: unset !important;
+}
+@media (max-width: 600px) {
+  .add-to-cart-success {
+    position: fixed;
+    transform: translateY(0);
+    top: unset;
+    left: unset;
+    right: 80px;
+    bottom: 60px;
+  }
 }
 
 @-webkit-keyframes rotation {
@@ -562,7 +616,8 @@ i {
   height: 100%;
   padding: 4px;
 }
-.header-menu ul li a:hover, .header-menu ul li a.active {
+.header-menu ul li a:hover,
+.header-menu ul li a.active {
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 4px;
 }

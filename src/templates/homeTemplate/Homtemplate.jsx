@@ -11,14 +11,12 @@ import {
   getProductFavoriteApi,
 } from "../../redux/reducers/productReducer";
 import { getProfileApi } from "../../redux/reducers/userReducer";
-import useToken from "../../hooks/useToken";
 
 const Homtemplate = () => {
   const { cartData } = useSelector((store) => store.cart);
   const [pageYOffset, setPageYOffset] = useState(0);
   const { saveCartData } = useCartData();
   const dispatch = useDispatch();
-  const { token } = useToken();
 
   const getAllProduct = () => dispatch(getAllProductApi);
 
