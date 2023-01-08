@@ -12,8 +12,6 @@ export const Input = ({
   validate = true,
   disabled = false,
 }) => {
-  const location = useLocation();
-
   const {
     register,
     watch,
@@ -35,19 +33,18 @@ export const Input = ({
           className={errors[item]?.message && "isInvalid"}
           placeholder={placeHolder ? dataConfig.placeHolder[index] : ""}
           {...register(item, {
-            ...(validate &&
-              location.pathname !== "/login" && {
-                pattern: {
-                  value: dataConfig.reg[index],
-                  message: dataConfig.errorMessage[index],
+            ...(validate && {
+              pattern: {
+                value: dataConfig.reg[index],
+                message: dataConfig.errorMessage[index],
+              },
+              ...(item === "passwordConfirm" && {
+                validate: (value) => {
+                  if (watch("password") !== value)
+                    return dataConfig.errorMessage[index];
                 },
-                ...(item === "passwordConfirm" && {
-                  validate: (value) => {
-                    if (watch("password") !== value)
-                      return dataConfig.errorMessage[index];
-                  },
-                }),
               }),
+            }),
             ...(required && { required: "Không được để trống!" }),
           })}
           disabled={disabled ? true : false}

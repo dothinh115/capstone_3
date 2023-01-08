@@ -96,8 +96,13 @@ const Login = () => {
         <MainBlock
           value={
             <MyForm defaultValues={defaultValues} onSubmit={submitHandle}>
-              <Input type="text" item="email" />
-              <Input type="password" item="password" placeHolder={false} />
+              <Input type="text" item="email" validate={false} />
+              <Input
+                type="password"
+                item="password"
+                placeHolder={false}
+                validate={false}
+              />
               <MyFormButton
                 btn={[
                   {
