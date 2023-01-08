@@ -558,7 +558,7 @@ i {
     color: white;
     margin: unset !important;
   }
-  opacity: 0;
+  display: none;
   transition: all 0.5s ease;
   @media (max-width: 600px) {
     position: fixed;

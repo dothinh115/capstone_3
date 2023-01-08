@@ -517,7 +517,7 @@ i {
   padding: 5px 10px;
   border-radius: 5px;
   text-align: center;
-  opacity: 0;
+  display: none;
   transition: all 0.5s ease;
 }
 .add-to-cart-success::after {

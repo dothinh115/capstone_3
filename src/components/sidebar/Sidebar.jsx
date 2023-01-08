@@ -46,7 +46,9 @@ const Sidebar = () => {
         </NavLink>
         <div
           className="add-to-cart-success"
-          style={{ opacity: !showAlert ? 0 : 1 }}
+          style={{
+            display: showAlert && "unset",
+          }}
         >
           <i className="fa-solid fa-check"></i>
         </div>
