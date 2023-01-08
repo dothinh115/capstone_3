@@ -4,18 +4,14 @@
   justify-content: space-between;
   align-items: center;
 }
-@media (max-width: 600px) {
-  .header {
-    display: block;
-  }
-}
 .header-logo img {
   height: 40px;
   margin-left: 25px;
 }
 @media (max-width: 600px) {
-  .header-logo {
-    display: none;
+  .header-logo img {
+    margin: unset;
+    height: 30px;
   }
 }
 .header-menu ul li {

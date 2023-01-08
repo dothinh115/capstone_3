@@ -3,16 +3,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    @media (max-width: 600px) {
-        display: block;
-    }
     &-logo {
         img {
             height: 40px;
             margin-left: 25px;
-        }
-        @media (max-width: 600px) {
-            display: none;
+            @media (max-width: 600px) {
+                margin: unset;
+                height: 30px;
+            }
         }
     }
     &-menu {
