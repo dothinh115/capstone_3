@@ -171,12 +171,17 @@ a:hover {
   height: 100%;
   line-height: 16px;
 }
+.contain-body .body-left .index-menu li a span.cart-add-success b {
+  color: green;
+  -webkit-animation: cartAddSuccess 0.5s;
+          animation: cartAddSuccess 0.5s;
+}
 @media (max-width: 963px) {
   .contain-body .body-left .index-menu li a {
     font-size: 0px;
     padding: 12px 25px;
   }
-  .contain-body .body-left .index-menu li a b {
+  .contain-body .body-left .index-menu li a span {
     font-size: 16px;
   }
 }
@@ -507,53 +512,6 @@ i {
   font-weight: bold;
 }
 
-.add-to-cart-success {
-  position: absolute;
-  left: 100%;
-  top: 50%;
-  transform: translateY(-50%);
-  background: green;
-  z-index: 10;
-  padding: 5px 10px;
-  border-radius: 5px;
-  text-align: center;
-  display: none;
-  transition: all 0.5s ease;
-}
-.add-to-cart-success::after {
-  position: absolute;
-  display: block;
-  content: "";
-  top: 50%;
-  transform: translateY(-50%);
-  right: 100%;
-  border: 5px solid;
-  border-color: transparent green transparent transparent;
-}
-@media (max-width: 600px) {
-  .add-to-cart-success::after {
-    border-color: green transparent transparent transparent;
-    top: 100%;
-    transform: unset;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-}
-.add-to-cart-success i {
-  color: white;
-  margin: unset !important;
-}
-@media (max-width: 600px) {
-  .add-to-cart-success {
-    position: fixed;
-    transform: translateY(0);
-    top: unset;
-    left: unset;
-    right: 70px;
-    bottom: 60px;
-  }
-}
-
 @-webkit-keyframes rotation {
   0% {
     transform: rotate(0deg);
@@ -585,6 +543,28 @@ i {
   }
   100% {
     opacity: 1;
+  }
+}
+@-webkit-keyframes cartAddSuccess {
+  0% {
+    font-size: 16px;
+  }
+  50% {
+    font-size: 25px;
+  }
+  100% {
+    font-size: 16px;
+  }
+}
+@keyframes cartAddSuccess {
+  0% {
+    font-size: 16px;
+  }
+  50% {
+    font-size: 25px;
+  }
+  100% {
+    font-size: 16px;
   }
 }
 .header {

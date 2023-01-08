@@ -16,7 +16,7 @@ const Sidebar = () => {
       setTimeout(() => {
         setShowAlert(false);
         state.success = false;
-      }, 4000);
+      }, 500);
     }
   }, [showAlert]);
   return (
@@ -42,16 +42,11 @@ const Sidebar = () => {
       <li style={{ position: "relative" }}>
         <NavLink to="/cart">
           <i className="fa-solid fa-cart-shopping"></i>
-          Giỏ hàng <b>[ {totalCount(cartData, "quantity")} ]</b>
+          Giỏ hàng{" "}
+          <span className={showAlert ? "cart-add-success" : ""}>
+            [ <b>{totalCount(cartData, "quantity")}</b> ]
+          </span>
         </NavLink>
-        <div
-          className="add-to-cart-success"
-          style={{
-            display: showAlert && "unset",
-          }}
-        >
-          <i className="fa-solid fa-check"></i>
-        </div>
       </li>
     </ul>
   );
