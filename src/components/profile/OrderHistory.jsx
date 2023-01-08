@@ -50,7 +50,10 @@ const OrderHistory = () => {
                   >
                     <div>
                       <span style={{ marginRight: "5px" }}>#{item.id}</span>
-                      <span>{reverseString(item.date.substr(0, 10))}</span>
+                      <span>
+                        <i className="fa-solid fa-calendar-days"></i>
+                        {reverseString(item.date.substr(0, 10))}
+                      </span>
                     </div>
                     <div>
                       <button
