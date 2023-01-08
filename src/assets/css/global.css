@@ -155,12 +155,23 @@ a:hover {
 .contain-body .body-left .index-menu li i {
   margin-right: 5px;
 }
+@media (max-width: 600px) {
+  .contain-body .body-left .index-menu li i {
+    font-size: 20px;
+  }
+}
 .contain-body .body-left .index-menu li a {
   color: rgba(0, 0, 0, 0.65);
   padding: 12px;
   display: block;
   height: 100%;
   line-height: 16px;
+}
+@media (max-width: 600px) {
+  .contain-body .body-left .index-menu li a {
+    font-size: 0px;
+    padding: 12px 25px;
+  }
 }
 .contain-body .body-left .index-menu li:has(> .active) {
   background-color: #eee;
@@ -175,7 +186,7 @@ a:hover {
 }
 @media (max-width: 600px) {
   .contain-body .body-left .index-menu li {
-    margin-bottom: unset;
+    margin: unset;
     border-radius: unset;
     height: 50px;
   }
@@ -407,7 +418,7 @@ i {
   z-index: 0;
 }
 .footer-hr-span > span {
-  z-index: 999;
+  z-index: 10;
   position: relative;
   padding: 5px 30px;
   min-width: 120px;

@@ -161,6 +161,9 @@ a:hover {
                 border: 1px solid transparent;
                 i {
                     margin-right: 5px;
+                    @media (max-width: 600px) {
+                        font-size: 20px;
+                    }
                 }
 
                 a {
@@ -169,6 +172,10 @@ a:hover {
                     display: block;
                     height: 100%;
                     line-height: 16px;
+                    @media (max-width: 600px) {
+                        font-size: 0px;
+                        padding: 12px 25px;
+                    }
                 }
 
                 &:has(>.active) {
@@ -185,7 +192,7 @@ a:hover {
                     display: inline-block;
                 }
                 @media (max-width: 600px) {
-                    margin-bottom: unset;
+                    margin: unset;
                     border-radius: unset;
                     height: 50px;
                 }
@@ -211,8 +218,6 @@ a:hover {
 .contain-footer {
     padding: 15px;
 }
-
-
 
 
 input {
@@ -430,7 +435,7 @@ i {
     }
 
     &>span {
-        z-index: 999;
+        z-index: 10;
         position: relative;
         padding: 5px 30px;
         min-width: 120px;
