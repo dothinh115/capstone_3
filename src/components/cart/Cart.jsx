@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
@@ -14,10 +14,9 @@ import OrderHistory from "../profile/OrderHistory";
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const { cartData } = useSelector((store) => store.cart);
+  const { cartData, loading } = useSelector((store) => store.cart);
   const [checkoutRes, setCheckoutRes] = useState(false);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const quantityUpdateHandle = (id, quantity) => {
     const payload = {
@@ -60,13 +59,10 @@ const Cart = () => {
   };
 
   const sendCheckoutHandle = async (data) => {
-    setLoading(true);
     try {
       dispatch(sendOrderApi(data));
     } catch (error) {
       console.log(error);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -228,8 +224,7 @@ const Cart = () => {
         />
       )}
 
-      {loading && <div className="loader"></div>}
-      <OrderHistory />
+      {loading ? <div className="loader"></div> : <OrderHistory />}
     </>
   );
 };

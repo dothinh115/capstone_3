@@ -11,6 +11,7 @@ const getCartData = () => {
 
 const initialState = {
   cartData: getCartData(),
+  loading: false,
 };
 
 const cartReducer = createSlice({
@@ -69,20 +70,30 @@ const cartReducer = createSlice({
       }
       state.cartData = cartData;
     },
+    setLoadingReducer: (state, action) => {
+      state.loading = action.payload;
+    },
   },
 });
 
-export const { addToCart, deleteCartItem, checkItem, checkAll } =
-  cartReducer.actions;
+export const {
+  addToCart,
+  deleteCartItem,
+  checkItem,
+  checkAll,
+  setLoadingReducer,
+} = cartReducer.actions;
 
 export default cartReducer.reducer;
 
 /************ async action **********/
 export const sendOrderApi = (data) => {
   return async (dispatch) => {
+    dispatch(setLoadingReducer(true));
     try {
       await http.post("https://shop.cyberlearn.vn/api/Users/order", data);
       await dispatch(getProfileApi);
+      await dispatch(setLoadingReducer(false));
     } catch (error) {
       console.log(error);
     }
